@@ -18,6 +18,7 @@ namespace SocialPetApp.Console
         static async Task MainAsync()
         {
             string respeusta = await ConectorMascota.ObtenerDummy();
+            List<Mascota> a = await ConectorMascota.ObtenerTodos();
             System.Console.WriteLine(respeusta);
         }
     }

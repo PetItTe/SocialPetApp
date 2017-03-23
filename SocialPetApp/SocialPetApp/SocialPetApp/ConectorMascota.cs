@@ -12,29 +12,46 @@ namespace SocialPetApp
     public class ConectorMascota
     {
         private const string baseURL = "http://petitte.16mb.com";
-        
+        private const string seccion = "mascotas";
+
 
         public ConectorMascota()
         {
             
 
         }
-        /*
-        public static async Task<List<Mascota>> ObtenerTodo()
+
+        public static async Task<List<Mascota>> ObtenerTodos()
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).GetJsonListAsync();
+            List<Mascota>  listFinal = new List<Mascota>();
+            foreach(dynamic item in listMas)
+            {
+                listFinal.Add(new Mascota(item));
+            }
+            return listFinal;
+        }
+        
+        public static async Task<Mascota> ObtenerID(int id)
         {
 
-            var getResp = await baseURL.AppendPathSegment("mascotas").GetStringAsync();
-
-        
-            return null;
+            dynamic d = await baseURL.AppendPathSegment(seccion).AppendPathSegment(id).GetJsonAsync();
+            Mascota m = new Mascota(d);       
+            return m;
         }
-        */
+
+        public static async void publicarMascota(Mascota m)
+        {
+            var result = await baseURL
+                .AppendPathSegment(seccion)
+                .PostJsonAsync(m.ToJSonPost())
+                .ReceiveJson<Mascota>();
+        }
+        
 
         public static async Task<string> ObtenerDummy()
         {
-
-            return await baseURL.AppendPathSegment("mascotas").GetStringAsync();
-
+            return await baseURL.AppendPathSegment(seccion).GetStringAsync();
         }
     }
 }
