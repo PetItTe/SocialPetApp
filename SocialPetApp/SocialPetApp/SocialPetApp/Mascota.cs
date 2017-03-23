@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace SocialPetApp
 {
-    class Mascota
+    public class Mascota
     {
+        string nombre;
+        string tipo;
+        string descripcion;
+        string foto;
+        int edad;
+        string dueño;
     }
 }
