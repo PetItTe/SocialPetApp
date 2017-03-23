@@ -35,7 +35,6 @@
   <ItemGroup>
     <Compile Include="ConectorMascota.cs" />
     <Compile Include="Mascota.cs" />
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
