@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace SocialPetApp
 {
-    class ConectorMascota
+    public class ConectorMascota
     {
         private const string baseURL = "http://petitte.16mb.com";
         
@@ -19,8 +19,8 @@ namespace SocialPetApp
             
 
         }
-
-        public async Task<List<Mascota>> ObtenerTodo()
+        /*
+        public static async Task<List<Mascota>> ObtenerTodo()
         {
 
             var getResp = await baseURL.AppendPathSegment("mascotas").GetStringAsync();
@@ -28,9 +28,9 @@ namespace SocialPetApp
         
             return null;
         }
+        */
 
-
-        public async Task<string> ObtenerDummy()
+        public static async Task<string> ObtenerDummy()
         {
 
             return await baseURL.AppendPathSegment("mascotas").GetStringAsync();
