@@ -42,10 +42,16 @@ namespace SocialPetApp
 
         public static async void publicarMascota(Mascota m)
         {
-            var result = await baseURL
-                .AppendPathSegment(seccion)
-                .PostJsonAsync(m.ToJSonPost())
-                .ReceiveJson<Mascota>();
+            try { 
+                var result = await baseURL
+                    .AppendPathSegment(seccion)
+                    .PostJsonAsync(m.ToJSonPost());
+                 }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            }
         }
         
 

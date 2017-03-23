@@ -19,8 +19,8 @@ namespace SocialPetApp.Console
         {
             
 
-            Mascota m = new Mascota(new {nombre = "juancito",  });
-
+            Mascota m = new Mascota("juancito","Perro gigante, diez metros mide vite", 4, 1,"dummy.jpg", 1);
+            ConectorMascota.publicarMascota(m);
             string respeusta = await ConectorMascota.ObtenerDummy();
             List<Mascota> a = await ConectorMascota.ObtenerTodos();
             System.Console.WriteLine(respeusta);
