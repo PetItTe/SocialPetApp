@@ -15,15 +15,28 @@ namespace SocialPetApp
         public const int TIPO_PERRO = 1;
         public const int TIPO_GATO = 2;
 
-        int id_mas;
-        string nombre;
-        string descripcion;
-        int edad;
-        int tipo;
-        string foto;
-        int user_alta;
-        int user_adopt;
-        int estado;
+        public int id_mas;
+        public string nombre;
+        public string descripcion;
+        public int edad;
+        public int tipo;
+        public string foto;
+        public int user_alta;
+        public int user_adopt;
+        public int estado;
+
+        public Mascota()
+        {
+            id_mas = 0;
+            nombre = "";
+            descripcion = "";
+            edad = 0;
+            tipo = 0;
+            foto = "";
+            user_alta = 0;
+            user_adopt = 0;
+            estado = 0;
+        }
 
         public Mascota(dynamic d)
         {
@@ -36,6 +49,17 @@ namespace SocialPetApp
             user_alta = Convert.ToInt32(d.user_alta);
             user_adopt = Convert.ToInt32(d.user_adopt);
             estado = Convert.ToInt32(d.estado);
+        }
+
+        public Mascota(string nombre, string descripcion, int edad, int tipo, string foto, int user_alta)
+        {
+
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.edad = edad;
+            this.tipo = tipo;
+            this.foto = foto;
+            this.user_alta =user_alta;
         }
 
         public object ToJSonPost()

@@ -5,7 +5,7 @@ using System.Text;
 using Flurl;
 using Flurl.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+
 
 namespace SocialPetApp
 {
