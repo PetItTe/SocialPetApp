@@ -14,7 +14,7 @@ namespace SocialPetApp.Droid
 	public class MainActivity : Activity
 	{
         ListView mascotasList;
-        Button nuevoBtn;
+        ImageView nuevoImg;
         MascotaAdapter mascotaAdapter;
 
         protected override void OnCreate(Bundle bundle)
@@ -24,14 +24,21 @@ namespace SocialPetApp.Droid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            nuevoBtn = FindViewById<Button>(Resource.Id.nuevoButton);
-            nuevoBtn.Click += nuevoClick;
+            nuevoImg = FindViewById<ImageView>(Resource.Id.nuevoImg);
+            nuevoImg.Clickable = true;
+            nuevoImg.Click += clickImage;
             mascotasList = FindViewById<ListView>(Resource.Id.MascotasList);
             mascotasList.ItemClick +=
-                participanteClick;
+                mascotaClick;
 
 
         }
+
+        private void clickImage(object sender, EventArgs e)
+        {
+            StartActivity(typeof(PerritoNuevo));
+        }
+
         protected override async void OnResume()
         {
             base.OnResume();
@@ -42,11 +49,8 @@ namespace SocialPetApp.Droid
             //Hook up our adapter to our ListView
             mascotasList.Adapter = mascotaAdapter;
         }
-        protected void nuevoClick(object sender, EventArgs e)
-        {
-            StartActivity(typeof(PerritoNuevo));
-        }
-        protected void participanteClick(object sender, AdapterView.ItemClickEventArgs e)
+
+        protected void mascotaClick(object sender, AdapterView.ItemClickEventArgs e)
         {
           //  Intent i = new Intent(this, typeof(ParticipanteEdit));
           //  i.PutExtra("position", e.Position);

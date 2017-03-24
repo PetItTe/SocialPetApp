@@ -65,9 +65,9 @@ namespace SocialPetApp.Droid
 
         private void ClickAdd(object sender, EventArgs e)
         {
-            if(nombreText.Text.Equals(""))
+            if(nombreText.Text.Equals("")||nombreText.Text.Equals("Name of the pet"))
             {
-                //do Nothing
+                edadText.Text = "";
             }
             else
             {

@@ -1,13 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <Button
-        android:id="@+id/nuevoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nuevo" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="49.5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="8.0dp">
+        <ImageView
+            android:src="@drawable/plusicon"
+            android:layout_width="25.5dp"
+            android:layout_height="29.0dp"
+            android:id="@+id/nuevoImg"
+            android:maxHeight="10.0dp"
+            android:maxWidth="10.0dp"
+            android:translationX="10.0dp"
+            android:translationY="10.0dp" />
+    </LinearLayout>
     <ListView
         android:id="@+id/MascotasList"
         android:layout_width="fill_parent"
