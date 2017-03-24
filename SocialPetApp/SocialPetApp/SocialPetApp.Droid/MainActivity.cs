@@ -39,10 +39,17 @@ namespace SocialPetApp.Droid
 
             userSpin.ItemClick += userClickItem;
 
-            mascotasList.ItemClick +=
-                mascotaClick;
+            mascotasList.LongClick += mascotaLongClick;
 
 
+        }
+
+        private void mascotaLongClick(object sender, View.LongClickEventArgs e)
+        {
+            
+            //  Intent i = new Intent(this, typeof(ParticipanteEdit));
+            //  i.PutExtra("position", e.Position);
+            //  StartActivity(i);
         }
 
         private void userClickItem(object sender, AdapterView.ItemClickEventArgs e)
@@ -74,13 +81,7 @@ namespace SocialPetApp.Droid
             mascotasList.Adapter = mascotaAdapter;
         }
 
-        protected void mascotaClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-          //  Intent i = new Intent(this, typeof(ParticipanteEdit));
-          //  i.PutExtra("position", e.Position);
-          //  StartActivity(i);
 
-        }
     }
 }
 
