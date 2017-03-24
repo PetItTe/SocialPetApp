@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <EditText
+        android:text="Insertar URL de imagen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgText" />
+    <TextView
+        android:text="@string/tipo_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:id="@+id/textView1" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tipoSpinner"
+        android:prompt="@string/tipo_prompt" />
+    <EditText
+        android:text="Name of the pet"
+        android:inputType="textPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nombreText" />
+    <EditText
+        android:text="Pet age"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edadText" />
+    <EditText
+        android:text="Describe your pet"
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/descText" />
+    <Button
+        android:text="ADD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addButton" />
+</LinearLayout>

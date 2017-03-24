@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
-	<string name="app_name">SocialPetApp.Droid</string>
+  <string name="tipo_prompt"> Elige el tipo </string>
+  <string-array name="tipo_array">
+    <item>P</item>
+    <item>G</item>
+  </string-array>
+  <string name="Hello">Hello World, Click Me!</string>
+  <string name="ApplicationName">SocialPetApp.Droid</string>
 </resources>

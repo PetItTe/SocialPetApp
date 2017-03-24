@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("SocialPetApp.Console")]
+[assembly: AssemblyTitle("PetItE")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("SocialPetApp.Console")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2017")]
+[assembly: AssemblyCopyright("Copyright © IglesiasyFritz Assosiation")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

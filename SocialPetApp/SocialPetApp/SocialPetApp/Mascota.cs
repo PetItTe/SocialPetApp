@@ -15,15 +15,15 @@ namespace SocialPetApp
         public const int TIPO_PERRO = 1;
         public const int TIPO_GATO = 2;
 
-        public int id_mas;
-        public string nombre;
-        public string descripcion;
-        public int edad;
-        public int tipo;
-        public string foto;
-        public int user_alta;
-        public int user_adopt;
-        public int estado;
+        public int id_mas { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public int edad { get; set; }
+        public int tipo { get; set; }
+        public string foto { get; set; }
+        public int user_alta { get; set; }
+        public int user_adopt { get; set; }
+        public int estado { get; set; }
 
         public Mascota()
         {
