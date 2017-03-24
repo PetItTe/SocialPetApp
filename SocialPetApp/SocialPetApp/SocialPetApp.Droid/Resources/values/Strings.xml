@@ -2,8 +2,13 @@
 <resources>
   <string name="tipo_prompt"> Elige el tipo </string>
   <string-array name="tipo_array">
-    <item>P</item>
-    <item>G</item>
+    <item>PERRO</item>
+    <item>GATO</item>
+  </string-array>
+  <string name="userOpt_prompt"> Usuario </string>
+  <string-array name="userOpt_array">
+    <item>ADOPTED</item>
+    <item>UPLOADED</item>
   </string-array>
   <string name="Hello">Hello World, Click Me!</string>
   <string name="ApplicationName">SocialPetApp.Droid</string>

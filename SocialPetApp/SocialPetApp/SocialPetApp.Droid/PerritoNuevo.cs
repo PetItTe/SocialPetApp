@@ -33,11 +33,14 @@ namespace SocialPetApp.Droid
             descripcionText = FindViewById<EditText>(Resource.Id.descText);
             fotoText = FindViewById<EditText>(Resource.Id.imgText);
             tipoSpin = FindViewById<Spinner>(Resource.Id.tipoSpinner);
+
             var adapter = ArrayAdapter.CreateFromResource(
                     this, Resource.Array.tipo_array, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             tipoSpin.Adapter = adapter;
+
             addButton.Click += ClickAdd;
+
             nombreText.FocusChange += focusTextField;
             descripcionText.FocusChange += focusTextField;
             edadText.FocusChange += focusTextField;

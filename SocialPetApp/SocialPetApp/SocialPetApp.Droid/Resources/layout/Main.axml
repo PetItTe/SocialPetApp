@@ -9,6 +9,17 @@
         android:layout_height="49.5dp"
         android:background="@android:color/darker_gray"
         android:layout_marginBottom="8.0dp">
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userSpinner"
+            android:prompt="@string/userOpt_prompt"
+            android:layout_marginLeft="10.0dp"
+            android:layout_marginTop="15.0dp"
+            android:layout_marginBottom="15.0dp" />
+      <FrameLayout
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/plusicon"
             android:layout_width="25.5dp"
@@ -16,8 +27,11 @@
             android:id="@+id/nuevoImg"
             android:maxHeight="10.0dp"
             android:maxWidth="10.0dp"
-            android:translationX="10.0dp"
-            android:translationY="10.0dp" />
+            android:layout_marginTop="10.0dp"
+            android:layout_marginBottom="10.0dp"
+            android:layout_marginRight="10.0dp"
+            android:layout_gravity="center_vertical|right" />
+      </FrameLayout>
     </LinearLayout>
     <ListView
         android:id="@+id/MascotasList"

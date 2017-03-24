@@ -34,6 +34,9 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f050000
 			public const int tipo_array = 2131034112;
 			
+			// aapt resource value: 0x7f050001
+			public const int userOpt_array = 2131034113;
+			
 			static Array()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -79,53 +82,56 @@ namespace SocialPetApp.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060001
-			public const int MascotasList = 2131099649;
-			
-			// aapt resource value: 0x7f060008
-			public const int addButton = 2131099656;
-			
-			// aapt resource value: 0x7f06000e
-			public const int ageText = 2131099662;
-			
-			// aapt resource value: 0x7f060007
-			public const int descText = 2131099655;
-			
-			// aapt resource value: 0x7f060006
-			public const int edadText = 2131099654;
-			
 			// aapt resource value: 0x7f060002
-			public const int imgText = 2131099650;
+			public const int MascotasList = 2131099650;
 			
 			// aapt resource value: 0x7f060009
-			public const int lstItemTask = 2131099657;
-			
-			// aapt resource value: 0x7f06000a
-			public const int lstItemTask2 = 2131099658;
-			
-			// aapt resource value: 0x7f06000c
-			public const int lstItemTask3 = 2131099660;
-			
-			// aapt resource value: 0x7f06000b
-			public const int mascImg = 2131099659;
-			
-			// aapt resource value: 0x7f060005
-			public const int nombreText = 2131099653;
-			
-			// aapt resource value: 0x7f060000
-			public const int nuevoImg = 2131099648;
+			public const int addButton = 2131099657;
 			
 			// aapt resource value: 0x7f06000f
-			public const int ownerText = 2131099663;
+			public const int ageText = 2131099663;
+			
+			// aapt resource value: 0x7f060008
+			public const int descText = 2131099656;
+			
+			// aapt resource value: 0x7f060007
+			public const int edadText = 2131099655;
 			
 			// aapt resource value: 0x7f060003
-			public const int textView1 = 2131099651;
+			public const int imgText = 2131099651;
 			
-			// aapt resource value: 0x7f060004
-			public const int tipoSpinner = 2131099652;
+			// aapt resource value: 0x7f06000a
+			public const int lstItemTask = 2131099658;
+			
+			// aapt resource value: 0x7f06000b
+			public const int lstItemTask2 = 2131099659;
 			
 			// aapt resource value: 0x7f06000d
-			public const int typeText = 2131099661;
+			public const int lstItemTask3 = 2131099661;
+			
+			// aapt resource value: 0x7f06000c
+			public const int mascImg = 2131099660;
+			
+			// aapt resource value: 0x7f060006
+			public const int nombreText = 2131099654;
+			
+			// aapt resource value: 0x7f060001
+			public const int nuevoImg = 2131099649;
+			
+			// aapt resource value: 0x7f060010
+			public const int ownerText = 2131099664;
+			
+			// aapt resource value: 0x7f060004
+			public const int textView1 = 2131099652;
+			
+			// aapt resource value: 0x7f060005
+			public const int tipoSpinner = 2131099653;
+			
+			// aapt resource value: 0x7f06000e
+			public const int typeText = 2131099662;
+			
+			// aapt resource value: 0x7f060000
+			public const int userSpinner = 2131099648;
 			
 			static Id()
 			{
@@ -162,14 +168,17 @@ namespace SocialPetApp.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040002
-			public const int ApplicationName = 2130968578;
+			// aapt resource value: 0x7f040003
+			public const int ApplicationName = 2130968579;
 			
-			// aapt resource value: 0x7f040001
-			public const int Hello = 2130968577;
+			// aapt resource value: 0x7f040002
+			public const int Hello = 2130968578;
 			
 			// aapt resource value: 0x7f040000
 			public const int tipo_prompt = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int userOpt_prompt = 2130968577;
 			
 			static String()
 			{

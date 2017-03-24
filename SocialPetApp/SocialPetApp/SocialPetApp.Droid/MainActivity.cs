@@ -15,6 +15,7 @@ namespace SocialPetApp.Droid
 	{
         ListView mascotasList;
         ImageView nuevoImg;
+        Spinner userSpin;
         MascotaAdapter mascotaAdapter;
 
         protected override void OnCreate(Bundle bundle)
@@ -25,13 +26,36 @@ namespace SocialPetApp.Droid
             SetContentView(Resource.Layout.Main);
 
             nuevoImg = FindViewById<ImageView>(Resource.Id.nuevoImg);
+            userSpin = FindViewById<Spinner>(Resource.Id.userSpinner);
+            mascotasList = FindViewById<ListView>(Resource.Id.MascotasList);
+
             nuevoImg.Clickable = true;
             nuevoImg.Click += clickImage;
-            mascotasList = FindViewById<ListView>(Resource.Id.MascotasList);
+
+            var adapter = ArrayAdapter.CreateFromResource(
+                    this, Resource.Array.userOpt_array, Android.Resource.Layout.SimpleSpinnerItem);
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            userSpin.Adapter = adapter;
+
+            userSpin.ItemClick += userClickItem;
+
             mascotasList.ItemClick +=
                 mascotaClick;
 
 
+        }
+
+        private void userClickItem(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Spinner userSpin = (Spinner)sender;
+            if(userSpin.SelectedItemPosition == 0)
+            {
+                //StartActivity(typeof(PerritosAdoptados));
+            }
+            else
+            {
+                //StartActivity(typeof(PerritosSubidos));
+            }
         }
 
         private void clickImage(object sender, EventArgs e)
