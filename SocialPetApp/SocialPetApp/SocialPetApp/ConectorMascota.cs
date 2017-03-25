@@ -5,14 +5,14 @@ using System.Text;
 using Flurl;
 using Flurl.Http;
 using System.Threading.Tasks;
-
+using System.Linq;
 
 namespace SocialPetApp
 {
     public class ConectorMascota
     {
-        private const string baseURL = "http://petitte.16mb.com";
-        private const string seccion = "mascotas";
+        public const string baseURL = "http://petitte.16mb.com";
+        public const string seccion = "mascotas";
 
 
         public ConectorMascota()
@@ -31,7 +31,25 @@ namespace SocialPetApp
             }
             return listFinal;
         }
-        
+
+        public static async Task<Paginador> ObtenerTodosHeader(int pagina = 1)
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).HeadAsync();
+            var v = listMas.Headers;
+
+            
+            return new Paginador(
+                Int32.Parse(v.GetValues("X-Pagination-Current-Page").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Per-Page").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Page-Count").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Total-Count").Single<string>())
+                );
+
+
+
+        }
+
+
         public static async Task<Mascota> ObtenerID(int id)
         {
 

@@ -37,7 +37,7 @@ namespace SocialPetApp.Droid
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             userSpin.Adapter = adapter;
 
-            userSpin.ItemClick += userClickItem;
+         //   userSpin.ItemClick += userClickItem;
 
             mascotasList.LongClick += mascotaLongClick;
 

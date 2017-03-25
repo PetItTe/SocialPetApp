@@ -1,8 +1,10 @@
 ﻿using System;
+using Flurl.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Flurl;
 
 namespace SocialPetApp
 {
@@ -85,6 +87,11 @@ namespace SocialPetApp
                 tipo = this.tipo,
                 foto = this.foto,
             };
+        }
+
+        public string getFotoURL()
+        {
+            return ConectorMascota.baseURL.AppendPathSegment(foto);
         }
 
         public object ToJSonPutAdoptar()

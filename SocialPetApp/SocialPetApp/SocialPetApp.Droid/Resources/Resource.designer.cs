@@ -103,23 +103,20 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f06000a
 			public const int lstItemTask = 2131099658;
 			
-			// aapt resource value: 0x7f06000b
-			public const int lstItemTask2 = 2131099659;
+			// aapt resource value: 0x7f06000c
+			public const int lstItemTask2 = 2131099660;
 			
 			// aapt resource value: 0x7f06000d
 			public const int lstItemTask3 = 2131099661;
 			
-			// aapt resource value: 0x7f06000c
-			public const int mascImg = 2131099660;
+			// aapt resource value: 0x7f06000b
+			public const int mascImg = 2131099659;
 			
 			// aapt resource value: 0x7f060006
 			public const int nombreText = 2131099654;
 			
 			// aapt resource value: 0x7f060001
 			public const int nuevoImg = 2131099649;
-			
-			// aapt resource value: 0x7f060010
-			public const int ownerText = 2131099664;
 			
 			// aapt resource value: 0x7f060004
 			public const int textView1 = 2131099652;

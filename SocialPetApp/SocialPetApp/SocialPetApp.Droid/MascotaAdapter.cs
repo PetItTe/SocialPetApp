@@ -58,7 +58,7 @@ namespace SocialPetApp.Droid {
             var txtEdad = view.FindViewById<TextView>(Resource.Id.ageText);
             var txtTipo = view.FindViewById<TextView>(Resource.Id.typeText);
             var mascImg = view.FindViewById<ImageView>(Resource.Id.mascImg);
-            var txtDueño = view.FindViewById<TextView>(Resource.Id.ownerText);
+            //var txtDueño = view.FindViewById<TextView>(Resource.Id.ownerText);
             var txtDescripcion = view.FindViewById<TextView>(Resource.Id.descText);
 
 
@@ -67,7 +67,7 @@ namespace SocialPetApp.Droid {
             txtDescripcion.Text = item.descripcion;
             try
             {
-                var imageBitmap = GetImageBitmapFromUrl("http://imagenpng.com/wp-content/uploads/2015/04/4.png");
+                var imageBitmap = GetImageBitmapFromUrl(item.getFotoURL());
                 mascImg.SetImageBitmap(imageBitmap);
             }
             catch (Exception e)
@@ -82,8 +82,8 @@ namespace SocialPetApp.Droid {
             {
                 txtTipo.Text = "GATO";
             }
-            txtDueño.Text = item.user_adopt.ToString();
-            txtEdad.Text = item.edad.ToString();
+            //txtDueño.Text = item.user_adopt.ToString();
+            txtEdad.Text = "Edad: " + item.edad.ToString() + (item.edad==1?" año":" años");
 
             //Finally return the view
             return view;
