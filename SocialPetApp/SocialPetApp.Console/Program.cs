@@ -17,13 +17,15 @@ namespace SocialPetApp.Console
 
         static async Task MainAsync()
         {
-            
 
-            Mascota m = new Mascota("juancito","Perro gigante, diez metros mide vite", 4, 1,"dummy.jpg", 1);
-            ConectorMascota.publicarMascota(m);
-            string respeusta = await ConectorMascota.ObtenerDummy();
+
+            //Mascota m = new Mascota("juancito","Perro gigante, diez metros mide vite", 4, 1,"dummy.jpg", 1);
+            //ConectorMascota.publicarMascota(m);
+            //string respeusta = await ConectorMascota.ObtenerDummy();
+            
             List<Mascota> a = await ConectorMascota.ObtenerTodos();
-            System.Console.WriteLine(respeusta);
+            string respuesta = a.ToString();
+            System.Console.WriteLine(respuesta);
         }
     }
 }

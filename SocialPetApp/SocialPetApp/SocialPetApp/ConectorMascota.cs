@@ -21,9 +21,9 @@ namespace SocialPetApp
 
         }
 
-        public static async Task<List<Mascota>> ObtenerTodos()
+        public static async Task<List<Mascota>> ObtenerTodos(int pagina = 1)
         {
-            var listMas = await baseURL.AppendPathSegment(seccion).GetJsonListAsync();
+            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina}).GetJsonListAsync();
             List<Mascota>  listFinal = new List<Mascota>();
             foreach(dynamic item in listMas)
             {
@@ -53,7 +53,55 @@ namespace SocialPetApp
                 System.Diagnostics.Debug.WriteLine(e.ToString());
             }
         }
-        
+
+        public static async void editarMascota(Mascota m)
+        {
+            try
+            {
+                var result = await baseURL
+                    .AppendPathSegment(seccion)
+                    .AppendPathSegment(m.id_mas)
+                    .PutJsonAsync(m.ToJSonPut());              
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            }
+        }
+
+        public static async void adoptarMascota(Mascota m)
+        {
+            try
+            {
+                var result = await baseURL
+                    .AppendPathSegment(seccion)
+                    .AppendPathSegment(m.id_mas)
+                    .PutJsonAsync(m.ToJSonPutAdoptar());
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            }
+        }
+
+        public static async void eliminarMascota(Mascota m)
+        {
+            try
+            {
+                var result = await baseURL
+                    .AppendPathSegment(seccion)
+                    .AppendPathSegment(m.id_mas)
+                    .DeleteAsync();
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            }
+        }
+
 
         public static async Task<string> ObtenerDummy()
         {

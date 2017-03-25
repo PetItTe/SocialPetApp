@@ -74,5 +74,26 @@ namespace SocialPetApp
                 estado = this.estado,
             };
         }
+
+        public object ToJSonPut()
+        {
+            return new
+            {
+                nombre = this.nombre,
+                descripcion = this.descripcion,
+                edad = this.edad,
+                tipo = this.tipo,
+                foto = this.foto,
+            };
+        }
+
+        public object ToJSonPutAdoptar()
+        {
+            return new
+            {
+                user_adopt = this.user_adopt,
+                estado = this.estado,
+            };
+        }
     }
 }
