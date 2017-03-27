@@ -8,10 +8,10 @@ namespace SocialPetApp
 {
     public class Paginador
     {
-        int paginaActual { get; set; }
-        int itemPagina { get; set; }
-        int ultimaPagina { get; set; }
-        int totalRegistros { get; set; }
+        public int paginaActual { get; set; }
+        public int itemPagina { get; set; }
+        public int ultimaPagina { get; set; }
+        public int totalRegistros { get; set; }
 
         public Paginador(int paginaActual, int itemPagina, int ultimaPagina, int totalRegistros)
         {
@@ -20,5 +20,6 @@ namespace SocialPetApp
             this.ultimaPagina = ultimaPagina;
             this.totalRegistros = totalRegistros;
         }
+
     }
 }

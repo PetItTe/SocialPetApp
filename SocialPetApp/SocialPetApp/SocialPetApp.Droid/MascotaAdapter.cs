@@ -102,7 +102,6 @@ namespace SocialPetApp.Droid {
             }
                 return bmp;
         }
-
     }
 
 }

@@ -32,6 +32,7 @@ namespace SocialPetApp
             return listFinal;
         }
 
+
         public static async Task<Paginador> ObtenerTodosHeader(int pagina = 1)
         {
             var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).HeadAsync();

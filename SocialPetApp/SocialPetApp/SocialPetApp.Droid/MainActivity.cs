@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -17,6 +16,10 @@ namespace SocialPetApp.Droid
         ImageView nuevoImg;
         Spinner userSpin;
         MascotaAdapter mascotaAdapter;
+        int paginaActual = 1;
+        Paginador paginador;
+        
+        
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -32,6 +35,8 @@ namespace SocialPetApp.Droid
             nuevoImg.Clickable = true;
             nuevoImg.Click += clickImage;
 
+            mascotasList.ScrollChange += scrollChanged;
+
             var adapter = ArrayAdapter.CreateFromResource(
                     this, Resource.Array.userOpt_array, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
@@ -42,6 +47,27 @@ namespace SocialPetApp.Droid
             mascotasList.LongClick += mascotaLongClick;
 
 
+        }
+
+        private async void scrollChanged(object sender, View.ScrollChangeEventArgs e)
+        {
+
+            ListView mascotaList = (ListView)sender;
+            if (mascotasList.ScrollY == 100)
+            {
+                paginaActual++;
+                if (paginaActual <= paginador.ultimaPagina)
+                {
+                    mascotaAdapter = new MascotaAdapter(
+                 this, await ConectorMascota.ObtenerTodos(paginaActual));
+
+                    mascotasList.Adapter = mascotaAdapter;
+                }
+            }
+            //System.Console.WriteLine(mascotaList.ScrollIndicators);
+           // System.Console.WriteLine(mascotaList.ScrollX);
+            System.Console.WriteLine("valor ="+mascotasList.ScrollY);
+            System.Console.WriteLine("valor =" + mascotaList.ScrollY);
         }
 
         private void mascotaLongClick(object sender, View.LongClickEventArgs e)
@@ -55,11 +81,11 @@ namespace SocialPetApp.Droid
         private void userClickItem(object sender, AdapterView.ItemClickEventArgs e)
         {
             Spinner userSpin = (Spinner)sender;
-            if(userSpin.SelectedItemPosition == 0)
+            if(userSpin.SelectedItemPosition == 1)
             {
                 //StartActivity(typeof(PerritosAdoptados));
             }
-            else
+            else if(userSpin.SelectedItemPosition == 2)
             {
                 //StartActivity(typeof(PerritosSubidos));
             }
@@ -75,7 +101,8 @@ namespace SocialPetApp.Droid
             base.OnResume();
             // create our adapter
             mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorMascota.ObtenerTodos());
+                 this, await ConectorMascota.ObtenerTodos(paginaActual));
+            paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
 
             //Hook up our adapter to our ListView
             mascotasList.Adapter = mascotaAdapter;
