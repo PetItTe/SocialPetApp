@@ -85,8 +85,23 @@ namespace SocialPetApp.Droid {
             //txtDueño.Text = item.user_adopt.ToString();
             txtEdad.Text = "Edad: " + item.edad.ToString() + (item.edad==1?" año":" años");
 
+            //Codigo loco
+            if (reachedEndOfList(position)) loadMoreData();
+
             //Finally return the view
             return view;
+        }
+
+        private bool reachedEndOfList(int position)
+        {
+            // can check if close or exactly at the end
+            return position == Count - 1;
+        }
+
+        private void loadMoreData()
+        {
+            // Perhaps set flag to indicate you're loading and check flag before proceeding with AsyncTask or whatever
+            //Llegaste al final
         }
 
         private Bitmap GetImageBitmapFromUrl(string url)
