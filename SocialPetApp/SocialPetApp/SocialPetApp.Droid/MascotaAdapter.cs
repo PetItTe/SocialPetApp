@@ -86,6 +86,7 @@ namespace SocialPetApp.Droid {
 
             //Codigo loco
             //ESTO NO HACE UNA GOD DAMN SHIT
+            // SI QUE ANDA FORRO, YO LO PROBE Y ME ANDA
             if (reachedEndOfList(position))
             {
                 endOfList = true;
