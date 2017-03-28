@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace SocialPetApp.Droid
 {
 	[Activity (Label = "SocialPetApp.Droid", MainLauncher = true, Icon = "@drawable/icon")]
-	public class MainActivity : Activity
+	public class MainActivity : Activity, ListView.IOnScrollListener
 	{
         ListView mascotasList;
         ImageView nuevoImg;
@@ -35,7 +35,8 @@ namespace SocialPetApp.Droid
             nuevoImg.Clickable = true;
             nuevoImg.Click += clickImage;
 
-            mascotasList.ScrollChange += scrollChanged;
+   
+            mascotasList.SetOnScrollListener(this);
 
             var adapter = ArrayAdapter.CreateFromResource(
                     this, Resource.Array.userOpt_array, Android.Resource.Layout.SimpleSpinnerItem);
@@ -47,27 +48,6 @@ namespace SocialPetApp.Droid
             mascotasList.LongClick += mascotaLongClick;
 
 
-        }
-
-        private async void scrollChanged(object sender, View.ScrollChangeEventArgs e)
-        {
-
-            ListView mascotaList = (ListView)sender;
-            if (mascotasList.ScrollY == 100)
-            {
-                paginaActual++;
-                if (paginaActual <= paginador.ultimaPagina)
-                {
-                    mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorMascota.ObtenerTodos(paginaActual));
-
-                    mascotasList.Adapter = mascotaAdapter;
-                }
-            }
-            //System.Console.WriteLine(mascotaList.ScrollIndicators);
-           // System.Console.WriteLine(mascotaList.ScrollX);
-            System.Console.WriteLine("valor ="+mascotasList.ScrollY);
-            System.Console.WriteLine("valor =" + mascotaList.ScrollY);
         }
 
         private void mascotaLongClick(object sender, View.LongClickEventArgs e)
@@ -109,6 +89,27 @@ namespace SocialPetApp.Droid
         }
 
 
+
+        public async void OnScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+        {
+            //throw new NotImplementedException();
+            if (MascotaAdapter.endOfList == true && view.ScrollY == 100)
+            {
+                MascotaAdapter.endOfList = false;
+                paginaActual++;
+                if (paginaActual < paginador.ultimaPagina)
+                {
+                    mascotaAdapter.mascotas = await ConectorMascota.ObtenerTodos();
+                    mascotasList.Adapter = mascotaAdapter;
+                }
+            }
+        }
+
+        public async void OnScrollStateChanged(AbsListView view, [GeneratedEnum] ScrollState scrollState)
+        {
+            // ListView lista = (ListView)view;
+            
+        }
     }
 }
 

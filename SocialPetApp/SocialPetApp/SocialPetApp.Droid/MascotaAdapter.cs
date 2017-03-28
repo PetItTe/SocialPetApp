@@ -7,6 +7,7 @@ using Java.IO;
 using Android.Graphics;
 using Java.Net;
 using System.Net;
+using Com.Bumptech.Glide;
 
 namespace SocialPetApp.Droid {
 	/// <summary>
@@ -14,11 +15,14 @@ namespace SocialPetApp.Droid {
 	/// </summary>
 	public class MascotaAdapter : BaseAdapter<Mascota>{
 		Activity context = null;
-		IList<Mascota> mascotas = new List<Mascota>();
+		public IList<Mascota> mascotas = new List<Mascota>();
+        public static bool endOfList { get; set; }
+        
 
         public MascotaAdapter(Activity context, 
             IList<Mascota> mascotas) : base ()
 		{
+            endOfList = false;
 			this.context = context;
 			this.mascotas = mascotas;
 		}
@@ -65,15 +69,10 @@ namespace SocialPetApp.Droid {
             //Assign item's values to the various subviews
             txtNombre.Text = item.nombre;
             txtDescripcion.Text = item.descripcion;
-            try
-            {
-                var imageBitmap = GetImageBitmapFromUrl(item.getFotoURL());
-                mascImg.SetImageBitmap(imageBitmap);
-            }
-            catch (Exception e)
-            {
-                System.Console.WriteLine("WTF LOCO" + e.Message);
-            }
+            //TE INSTALAS EL GLIDE DESDE NUGET
+            //TODAVIA NO ANDA LOCO, AHORA ANDA A VER->OTRAS VENTANAS->CONSOLA DE ADMINISTRAR PAQUETES O ALGO ASI Y
+            //PONES ESTE CODIGO Install-Package Xamarin.Android.Support.v4 -Version 23.0.1.3 sos imputable
+            Glide.With(context).Load(item.getFotoURL()).Into(mascImg);
             if (item.tipo == 1)
             {
                 txtTipo.Text = "PERRO";
@@ -86,8 +85,13 @@ namespace SocialPetApp.Droid {
             txtEdad.Text = "Edad: " + item.edad.ToString() + (item.edad==1?" año":" años");
 
             //Codigo loco
-            if (reachedEndOfList(position)) loadMoreData();
-
+            //ESTO NO HACE UNA GOD DAMN SHIT
+            if (reachedEndOfList(position))
+            {
+                endOfList = true;
+                loadMoreData();
+                System.Console.WriteLine("es el final de la lista loco \n \naca andamo todo");
+            }
             //Finally return the view
             return view;
         }
@@ -104,19 +108,7 @@ namespace SocialPetApp.Droid {
             //Llegaste al final
         }
 
-        private Bitmap GetImageBitmapFromUrl(string url)
-        {
-            Bitmap bmp = null;
-            using (var webClient = new WebClient())
-            {
-                var imageBytes = webClient.DownloadData(url);
-                if(imageBytes != null && imageBytes.Length > 0)
-                {
-                    bmp = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                }
-            }
-                return bmp;
-        }
+      
     }
 
 }
