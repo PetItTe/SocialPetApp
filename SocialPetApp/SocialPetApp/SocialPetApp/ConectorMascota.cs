@@ -32,6 +32,15 @@ namespace SocialPetApp
             return listFinal;
         }
 
+        public static async void CombinarMascotas(IList<Mascota> lista, int pagina)
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).GetJsonListAsync();
+            foreach (dynamic item in listMas)
+            {
+                lista.Add(new Mascota(item));
+            }
+        }
+
 
         public static async Task<Paginador> ObtenerTodosHeader(int pagina = 1)
         {

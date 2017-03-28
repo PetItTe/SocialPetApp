@@ -26,8 +26,8 @@ namespace SocialPetApp.Droid {
 			this.context = context;
 			this.mascotas = mascotas;
 		}
-		
-		public override Mascota this[int position]
+
+        public override Mascota this[int position]
 		{
 			get { return mascotas[position]; }
 		}

@@ -90,25 +90,24 @@ namespace SocialPetApp.Droid
 
 
 
-        public async void OnScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+        public void OnScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
         {
             //throw new NotImplementedException();
-            if (MascotaAdapter.endOfList == true && view.ScrollY == 100)
+        }
+
+        public void OnScrollStateChanged(AbsListView view, [GeneratedEnum] ScrollState scrollState)
+        {
+            // ListView lista = (ListView)view;
+            if (MascotaAdapter.endOfList == true )
             {
                 MascotaAdapter.endOfList = false;
-                paginaActual++;
                 if (paginaActual < paginador.ultimaPagina)
-                {
-                    mascotaAdapter.mascotas = await ConectorMascota.ObtenerTodos();
+                { 
+                    paginaActual++;
+                    ConectorMascota.CombinarMascotas(mascotaAdapter.mascotas, paginaActual);
                     mascotasList.Adapter = mascotaAdapter;
                 }
             }
-        }
-
-        public async void OnScrollStateChanged(AbsListView view, [GeneratedEnum] ScrollState scrollState)
-        {
-            // ListView lista = (ListView)view;
-            
         }
     }
 }
