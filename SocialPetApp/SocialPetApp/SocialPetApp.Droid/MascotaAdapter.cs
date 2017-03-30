@@ -27,6 +27,16 @@ namespace SocialPetApp.Droid {
 			this.mascotas = mascotas;
 		}
 
+        public async void combinarMascotas(int pagina)
+        {
+            List<Mascota> mascota = new List<Mascota>();
+            mascota = await ConectorMascota.ObtenerTodos(pagina);
+            foreach (Mascota m in mascotas)
+            {
+                this.mascotas.Add(m);
+            }
+        }
+
         public override Mascota this[int position]
 		{
 			get { return mascotas[position]; }

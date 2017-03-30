@@ -12,18 +12,20 @@ namespace SocialPetApp.Droid
 	[Activity (Label = "SocialPetApp.Droid", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity, ListView.IOnScrollListener
 	{
+        Activity context;
         ListView mascotasList;
         ImageView nuevoImg;
         Spinner userSpin;
         MascotaAdapter mascotaAdapter;
         int paginaActual = 1;
         Paginador paginador;
-        
-        
 
-        protected override void OnCreate(Bundle bundle)
+
+
+        protected async override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
@@ -46,6 +48,11 @@ namespace SocialPetApp.Droid
          //   userSpin.ItemClick += userClickItem;
 
             mascotasList.LongClick += mascotaLongClick;
+
+            mascotaAdapter = new MascotaAdapter(
+                 this, await ConectorMascota.ObtenerTodos(paginaActual));
+            paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
+            mascotasList.Adapter = mascotaAdapter;
 
 
         }
@@ -80,12 +87,10 @@ namespace SocialPetApp.Droid
         {
             base.OnResume();
             // create our adapter
-            mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorMascota.ObtenerTodos(paginaActual));
-            paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
+            
 
             //Hook up our adapter to our ListView
-            mascotasList.Adapter = mascotaAdapter;
+            
         }
 
 
@@ -97,15 +102,21 @@ namespace SocialPetApp.Droid
 
         public void OnScrollStateChanged(AbsListView view, [GeneratedEnum] ScrollState scrollState)
         {
-            // ListView lista = (ListView)view;
-            if (MascotaAdapter.endOfList == true )
+            if (MascotaAdapter.endOfList == true)
             {
                 MascotaAdapter.endOfList = false;
                 if (paginaActual < paginador.ultimaPagina)
-                { 
+                {
                     paginaActual++;
-                    ConectorMascota.CombinarMascotas(mascotaAdapter.mascotas, paginaActual);
-                    mascotasList.Adapter = mascotaAdapter;
+                    try
+                    {
+                        ConectorMascota.CombinarMascotas(mascotaAdapter.mascotas, paginaActual);
+                        mascotasList.Adapter = mascotaAdapter;
+                    }
+                    catch
+                    {
+                        paginaActual--;                        
+                    }
                 }
             }
         }
