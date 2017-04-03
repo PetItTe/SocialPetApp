@@ -60,7 +60,7 @@ namespace SocialPetApp.Droid
 
         private void mascotaLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
         {
-            Mascota m;
+            Mascota m = new Mascota();
             //m = (Mascota)e.Handled;
             if (userSpin.SelectedItemPosition == 2)
             {

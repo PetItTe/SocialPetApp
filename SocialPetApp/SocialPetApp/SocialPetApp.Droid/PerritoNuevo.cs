@@ -28,7 +28,7 @@ namespace SocialPetApp.Droid
         ImageButton cameraButton;
         ImageView fotoView;
         int id;
-        Mascota mascota;
+        Mascota mascota = new Mascota();
         Usuario user = new Usuario();
 
         public static class App
