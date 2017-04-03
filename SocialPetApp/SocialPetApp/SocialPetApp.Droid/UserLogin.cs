@@ -61,6 +61,10 @@ namespace SocialPetApp.Droid
 
         private async void clickLogIn(object sender, EventArgs e)
         {
+            Intent intent = new Intent(this, typeof(MainActivity));
+            //intent.PutExtra("usuario", user.id);
+            StartActivity(intent);
+            /*
             await ConectorUsuario.LogIn(user);
             if(user.id == 0)
             {
@@ -74,7 +78,7 @@ namespace SocialPetApp.Droid
                 Intent intent = new Intent(this, typeof(MainActivity));
                 intent.PutExtra("usuario", user.id);
                 StartActivity(intent);
-            }
+            }*/
         }
     }
 }

@@ -12,7 +12,6 @@ namespace SocialPetApp.Droid
 	[Activity (Label = "SocialPetApp.Droid")]
 	public class MainActivity : Activity, ListView.IOnScrollListener
 	{
-        Activity context;
         ListView mascotasList;
         ImageView nuevoImg;
         Spinner userSpin;
@@ -48,13 +47,16 @@ namespace SocialPetApp.Droid
             userSpin.Adapter = adapter;
             //
 
-            userSpin.ItemClick += userClickItem;
+        //    userSpin.ItemClick += userClickItem;
 
             mascotasList.ItemLongClick += mascotaLongClick;
 
             user.id = Intent.GetIntExtra("usuario", 0);
-            user = await ConectorUsuario.ObtenerByID(user.id);
-
+            // user = await ConectorUsuario.ObtenerByID(user.id);
+            mascotaAdapter = new MascotaAdapter(
+                 this, await ConectorMascota.ObtenerTodos(paginaActual));
+            paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
+            mascotasList.Adapter = mascotaAdapter;
 
         }
 
@@ -115,7 +117,6 @@ namespace SocialPetApp.Droid
 
         private async void userClickItem(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Spinner userSpin = (Spinner)sender;
             if(userSpin.SelectedItemPosition == 1)
             {
                 //que hacer si el usuario selecciona la opcion ADOPTED del spinner
@@ -187,10 +188,7 @@ namespace SocialPetApp.Droid
             //que hacer cada vez que se mira esta pantalla
             base.OnResume();
             // create our adapter
-            mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorMascota.ObtenerTodos(paginaActual));
-            paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
-            mascotasList.Adapter = mascotaAdapter;
+           
 
             //Hook up our adapter to our ListView
 
