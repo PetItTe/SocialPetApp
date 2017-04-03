@@ -47,7 +47,7 @@ namespace SocialPetApp.Droid
             userSpin.Adapter = adapter;
             //
 
-        //    userSpin.ItemClick += userClickItem;
+            userSpin.ItemSelected += userClickItem;
 
             mascotasList.ItemLongClick += mascotaLongClick;
 
@@ -58,6 +58,33 @@ namespace SocialPetApp.Droid
             paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
             mascotasList.Adapter = mascotaAdapter;
 
+        }
+
+        private async void userClickItem(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            if (userSpin.SelectedItemPosition == 1)
+            {
+                //que hacer si el usuario selecciona la opcion ADOPTED del spinner
+                mascotaAdapter = new MascotaAdapter(
+                 this, await ConectorUsuario.ObtenerAdoptados(user));
+                mascotasList.Adapter = mascotaAdapter;
+            }
+            else if (userSpin.SelectedItemPosition == 2)
+            {
+                //que hacer si el usuario selecciona la opcion UPLOADED del spinner
+                mascotaAdapter = new MascotaAdapter(
+                 this, await ConectorUsuario.ObtenerSubidos(user));
+                mascotasList.Adapter = mascotaAdapter;
+            }
+            else
+            {
+                //que hacer si el usuario selecciona la opcion HOME del spinner
+                paginaActual = 1;
+                mascotaAdapter = new MascotaAdapter(
+                 this, await ConectorMascota.ObtenerTodos(paginaActual));
+                paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
+                mascotasList.Adapter = mascotaAdapter;
+            }
         }
 
         private void mascotaLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
@@ -115,32 +142,7 @@ namespace SocialPetApp.Droid
             }
         }
 
-        private async void userClickItem(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            if(userSpin.SelectedItemPosition == 1)
-            {
-                //que hacer si el usuario selecciona la opcion ADOPTED del spinner
-                mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorUsuario.ObtenerAdoptados(user));
-                mascotasList.Adapter = mascotaAdapter;
-            }
-            else if(userSpin.SelectedItemPosition == 2)
-            {
-                //que hacer si el usuario selecciona la opcion UPLOADED del spinner
-                mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorUsuario.ObtenerSubidos(user));
-                mascotasList.Adapter = mascotaAdapter;
-            }
-            else
-            {
-                //que hacer si el usuario selecciona la opcion HOME del spinner
-                paginaActual = 1;
-                mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorMascota.ObtenerTodos(paginaActual));
-                paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
-                mascotasList.Adapter = mascotaAdapter;
-            }
-        }
+
 
         private void clickImage(object sender, EventArgs e)
         {
