@@ -137,7 +137,7 @@ namespace SocialPetApp.Droid
 			public const int passTextView = 2131099668;
 			
 			// aapt resource value: 0x7f060017
-			public const int registerBtn = 2131099671;
+			public const int regBtn = 2131099671;
 			
 			// aapt resource value: 0x7f060006
 			public const int textView1 = 2131099654;

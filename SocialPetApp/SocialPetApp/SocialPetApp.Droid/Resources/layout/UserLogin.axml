@@ -42,7 +42,7 @@
             android:id="@+id/passText" />
     </LinearLayout>
     <Button
-        android:text="LogIn"
+        android:text="Log In"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/logBtn" />
@@ -50,5 +50,5 @@
         android:text="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/registerBtn" />
+        android:id="@+id/regBtn" />
 </LinearLayout>

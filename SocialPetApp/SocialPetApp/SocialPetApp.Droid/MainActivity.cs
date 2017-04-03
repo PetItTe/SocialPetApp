@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace SocialPetApp.Droid
 {
-	[Activity (Label = "SocialPetApp.Droid", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity (Label = "SocialPetApp.Droid")]
 	public class MainActivity : Activity, ListView.IOnScrollListener
 	{
         Activity context;
@@ -19,11 +19,11 @@ namespace SocialPetApp.Droid
         MascotaAdapter mascotaAdapter;
         int paginaActual = 1;
         Paginador paginador;
-        Usuario user;
+        Usuario user = new Usuario();
 
 
 
-        protected override void OnCreate(Bundle bundle)
+        protected async override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             
@@ -41,16 +41,19 @@ namespace SocialPetApp.Droid
    
             mascotasList.SetOnScrollListener(this);
 
+            //seteamos el spin y su adapter
             var adapter = ArrayAdapter.CreateFromResource(
                     this, Resource.Array.userOpt_array, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             userSpin.Adapter = adapter;
+            //
 
             userSpin.ItemClick += userClickItem;
 
             mascotasList.ItemLongClick += mascotaLongClick;
 
-            
+            user.id = Intent.GetIntExtra("usuario", 0);
+            user = await ConectorUsuario.ObtenerByID(user.id);
 
 
         }
@@ -59,7 +62,7 @@ namespace SocialPetApp.Droid
         {
             Mascota m;
             //m = (Mascota)e.Handled;
-            if (userSpin.SelectedItemPosition == 1)
+            if (userSpin.SelectedItemPosition == 2)
             {
                 //que hacer si el usuario mantiene presionado un perro mientras mira la lista de perros que adopto
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -79,12 +82,13 @@ namespace SocialPetApp.Droid
                 Dialog dialog = alert.Create();
                 dialog.Show();
             }
-            else if(userSpin.SelectedItemPosition == 2)
+            else if(userSpin.SelectedItemPosition == 3)
             {
                 //que hacer si el usuario mantiene presionado un item mientras mira la lista de perros que subio
                 Intent i = new Intent(this, typeof(PerritoNuevo));
                 m = mascotaAdapter.mascotas[e.Position];
                 i.PutExtra("position", m.id_mas);
+                i.PutExtra("usuario", user.id);
                 StartActivity(i);
             }
             else
@@ -140,7 +144,9 @@ namespace SocialPetApp.Droid
         private void clickImage(object sender, EventArgs e)
         {
             //Lo que hace al tocar el simbolito del + verde
-            StartActivity(typeof(PerritoNuevo));
+            Intent i = new Intent(this, typeof(PerritoNuevo));
+            i.PutExtra("usuario", user.id);
+            StartActivity(i);
         }
 
         
@@ -163,11 +169,13 @@ namespace SocialPetApp.Droid
                     paginaActual++;
                     try
                     {
+                        //si tenes internet decente va a cargar mas perros
                         ConectorMascota.CombinarMascotas(mascotaAdapter.mascotas, paginaActual);
                         mascotasList.Adapter = mascotaAdapter;
                     }
                     catch
                     {
+                        //si no hay suficiente internet entonces solo podes ver los primeros perros pero la app no rompe
                         paginaActual--;                        
                     }
                 }

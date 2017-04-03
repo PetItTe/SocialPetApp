@@ -29,6 +29,7 @@ namespace SocialPetApp.Droid
         ImageView fotoView;
         int id;
         Mascota mascota;
+        Usuario user = new Usuario();
 
         public static class App
         {
@@ -70,7 +71,11 @@ namespace SocialPetApp.Droid
             edadText.FocusChange += focusTextField;
             fotoText.FocusChange += focusTextField;
 
+            user.id = Intent.GetIntExtra("usuario", 0);
+            user = await ConectorUsuario.ObtenerByID(user.id);
+
             id = Intent.GetIntExtra("Position", -1);
+            
 
             if (id > -1)
             {
@@ -126,6 +131,7 @@ namespace SocialPetApp.Droid
                 mascota.descripcion = descripcionText.Text;
                 mascota.edad = int.Parse(edadText.Text);
                 mascota.tipo = tipoSpin.SelectedItemPosition+1;
+                mascota.user_alta = user.id;
                 if (id > -1)
                 {
                     ConectorMascota.editarMascota(mascota);

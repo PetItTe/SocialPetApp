@@ -34,7 +34,7 @@ namespace SocialPetApp
             return user;
         }
 
-        public static async void Register(Usuario user)
+        public static async Task<string> Register(Usuario user)
         {
             if (!(await Exist(user)))
             {
@@ -43,13 +43,16 @@ namespace SocialPetApp
                     var result = await baseURL
                         .AppendPathSegment(seccion)
                         .PostJsonAsync(user.ToJSonPost());
+                    return "Usuario registrado, por favor loggearse";
                 }
                 catch (Exception e)
                 {
                     System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.Diagnostics.Debug.WriteLine(e.ToString());
                 }
+
             }
+            return "El usuario ya existe";
         }
 
         public static async Task<bool> Exist(Usuario user, int pagina = 1)
@@ -65,6 +68,14 @@ namespace SocialPetApp
                 }
             }
             return false;
+        }
+
+        public static async Task<Usuario> ObtenerByID(int id)
+        {
+
+            dynamic d = await baseURL.AppendPathSegment(seccion).AppendPathSegment(id).GetJsonAsync();
+            Usuario m = new Usuario(d);
+            return m;
         }
 
         public static async Task<List<Mascota>> ObtenerAdoptados(Usuario user, int pagina = 1)

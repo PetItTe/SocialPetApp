@@ -29,7 +29,7 @@ namespace SocialPetApp
             foreach(dynamic item in listMas)
             {
                 m = new Mascota(item);
-                if(m.estado != Mascota.ESTADO_BORRADO && m.estado != Mascota.ESTADO_ADOPTADO)
+                if(m.estado == Mascota.ESTADO_PUBLICADO)
                 {
                     listFinal.Add(new Mascota(item));
                 }
