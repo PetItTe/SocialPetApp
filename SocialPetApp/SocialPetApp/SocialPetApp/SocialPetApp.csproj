@@ -34,9 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ConectorMascota.cs" />
+    <Compile Include="ConectorUsuario.cs" />
     <Compile Include="Mascota.cs" />
     <Compile Include="Paginador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -25,9 +25,14 @@ namespace SocialPetApp
         {
             var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina}).GetJsonListAsync();
             List<Mascota>  listFinal = new List<Mascota>();
+            Mascota m;
             foreach(dynamic item in listMas)
             {
-                listFinal.Add(new Mascota(item));
+                m = new Mascota(item);
+                if(m.estado != Mascota.ESTADO_BORRADO && m.estado != Mascota.ESTADO_ADOPTADO)
+                {
+                    listFinal.Add(new Mascota(item));
+                }
             }
             return listFinal;
         }
@@ -135,5 +140,7 @@ namespace SocialPetApp
         {
             return await baseURL.AppendPathSegment(seccion).GetStringAsync();
         }
+
+        
     }
 }

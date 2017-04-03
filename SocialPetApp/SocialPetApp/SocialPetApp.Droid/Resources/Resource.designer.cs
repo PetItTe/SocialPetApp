@@ -109,6 +109,9 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f060004
 			public const int imgText = 2131099652;
 			
+			// aapt resource value: 0x7f060016
+			public const int logBtn = 2131099670;
+			
 			// aapt resource value: 0x7f06000c
 			public const int lstItemTask = 2131099660;
 			
@@ -127,6 +130,15 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f060001
 			public const int nuevoImg = 2131099649;
 			
+			// aapt resource value: 0x7f060015
+			public const int passText = 2131099669;
+			
+			// aapt resource value: 0x7f060014
+			public const int passTextView = 2131099668;
+			
+			// aapt resource value: 0x7f060017
+			public const int registerBtn = 2131099671;
+			
 			// aapt resource value: 0x7f060006
 			public const int textView1 = 2131099654;
 			
@@ -138,6 +150,12 @@ namespace SocialPetApp.Droid
 			
 			// aapt resource value: 0x7f060000
 			public const int userSpinner = 2131099648;
+			
+			// aapt resource value: 0x7f060013
+			public const int userText = 2131099667;
+			
+			// aapt resource value: 0x7f060012
+			public const int userTextView = 2131099666;
 			
 			static Id()
 			{
@@ -160,6 +178,9 @@ namespace SocialPetApp.Droid
 			
 			// aapt resource value: 0x7f030002
 			public const int TaskListItem = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int UserLogin = 2130903043;
 			
 			static Layout()
 			{
