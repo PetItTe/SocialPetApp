@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialPetApp.Droid", "Socia
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialPetApp", "SocialPetApp\SocialPetApp\SocialPetApp.csproj", "{8730353D-519B-4019-AAB8-470ABE424EEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialPetApp.Console", "SocialPetApp.Console\SocialPetApp.Console.csproj", "{CABAB799-785D-4C6F-AA06-EB709C2C303D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,18 +47,6 @@ Global
 		{8730353D-519B-4019-AAB8-470ABE424EEF}.Release|iPhone.Build.0 = Release|Any CPU
 		{8730353D-519B-4019-AAB8-470ABE424EEF}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{8730353D-519B-4019-AAB8-470ABE424EEF}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Release|iPhone.Build.0 = Release|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{CABAB799-785D-4C6F-AA06-EB709C2C303D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

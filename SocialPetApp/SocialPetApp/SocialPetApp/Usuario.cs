@@ -8,38 +8,60 @@ namespace SocialPetApp
 {
     public class Usuario
     {
-        public int id;
+        public int id_user;
         public string nombre { get; set; }
-        public string password { get; set; }
+        public string access_token { get; set; }
+        public string username { get; set; }
 
+        public string apellido { get; set; }
+        public int roles;
+        private int v1;
+        private string v2;
 
         public Usuario()
         {
-            
+
+            id_user = 0;
             nombre = "";
-            password = "";
+            access_token = "";
+            username = "";
+            apellido = "";
+            roles = 0;
+        }
+
+        public Usuario(int id_user, string nombre, string access_token, string username, string apellido, int roles)
+        {
+
+            this.id_user = id_user;
+            this.nombre = nombre;
+            this.access_token = access_token;
+            this.username = username;
+            this.apellido = apellido;
+            this.roles = roles;
         }
 
         public Usuario(dynamic d)
         {
-            id = d.id;
+            id_user = Convert.ToInt32(d.id_user); 
             nombre = d.nombre;
-            password = d.password;
+            access_token = d.access_token;
+            username = d.username;
+            apellido = d.apellido;
+            roles = Convert.ToInt32(d.roles);
         }
 
-        public Usuario(string nombre, string password)
+        public Usuario(int v1, string v2)
         {
-            this.nombre = nombre;
-            this.password = password;
+            this.v1 = v1;
+            this.v2 = v2;
         }
 
         public object ToJSonPost()
         {
             return new
             {
-                id = this.id,
+                id_user = this.id_user,
                 nombre = this.nombre,
-                password = this.password
             };
         }
 
@@ -47,9 +69,8 @@ namespace SocialPetApp
         {
             return new
             {
-                id = this.id,
+                id_user = this.id_user,
                 nombre = this.nombre,
-                password = this.password
             };
         }
     }

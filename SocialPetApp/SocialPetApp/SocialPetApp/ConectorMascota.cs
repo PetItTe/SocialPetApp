@@ -13,17 +13,18 @@ namespace SocialPetApp
     {
         public const string baseURL = "http://petitte.16mb.com";
         public const string seccion = "mascotas";
+        public Usuario user;
 
 
-        public ConectorMascota()
+        public ConectorMascota(Usuario user)
         {
-            
+            this.user = user;
 
         }
 
-        public static async Task<List<Mascota>> ObtenerTodos(int pagina = 1)
+        public async Task<List<Mascota>> ObtenerTodos(int pagina = 1)
         {
-            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina}).GetJsonListAsync();
+            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina}).WithBasicAuth(user.access_token,"").GetJsonListAsync();
             List<Mascota>  listFinal = new List<Mascota>();
             Mascota m;
             foreach(dynamic item in listMas)
@@ -37,9 +38,9 @@ namespace SocialPetApp
             return listFinal;
         }
 
-        public static async void CombinarMascotas(IList<Mascota> lista, int pagina)
+        public async void CombinarMascotas(IList<Mascota> lista, int pagina)
         {
-            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).GetJsonListAsync();
+            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
             foreach (dynamic item in listMas)
             {
                 lista.Add(new Mascota(item));
@@ -47,9 +48,9 @@ namespace SocialPetApp
         }
 
 
-        public static async Task<Paginador> ObtenerTodosHeader(int pagina = 1)
+        public async Task<Paginador> ObtenerTodosHeader(int pagina = 1)
         {
-            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).HeadAsync();
+            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").HeadAsync();
             var v = listMas.Headers;
 
             
@@ -65,19 +66,25 @@ namespace SocialPetApp
         }
 
 
-        public static async Task<Mascota> ObtenerID(int id)
+        public async Task<Mascota> ObtenerID(int id)
         {
 
-            dynamic d = await baseURL.AppendPathSegment(seccion).AppendPathSegment(id).GetJsonAsync();
+            dynamic d = await baseURL.AppendPathSegment(seccion).AppendPathSegment(id).WithBasicAuth(user.access_token, "").GetJsonAsync();
             Mascota m = new Mascota(d);       
             return m;
         }
 
-        public static async void publicarMascota(Mascota m)
+        public Task<IList<Mascota>> ObtenerAdoptados(Usuario user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async void publicarMascota(Mascota m)
         {
             try { 
                 var result = await baseURL
                     .AppendPathSegment(seccion)
+                    .WithBasicAuth(user.access_token, "")
                     .PostJsonAsync(m.ToJSonPost());
                  }
             catch(Exception e)
@@ -87,13 +94,19 @@ namespace SocialPetApp
             }
         }
 
-        public static async void editarMascota(Mascota m)
+        public Task<IList<Mascota>> ObtenerSubidos(Usuario user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async void editarMascota(Mascota m)
         {
             try
             {
                 var result = await baseURL
                     .AppendPathSegment(seccion)
                     .AppendPathSegment(m.id_mas)
+                    .WithBasicAuth(user.access_token, "")
                     .PutJsonAsync(m.ToJSonPut());              
             }
             catch (Exception e)
@@ -103,13 +116,14 @@ namespace SocialPetApp
             }
         }
 
-        public static async void adoptarMascota(Mascota m)
+        public async void adoptarMascota(Mascota m)
         {
             try
             {
                 var result = await baseURL
                     .AppendPathSegment(seccion)
                     .AppendPathSegment(m.id_mas)
+                    .WithBasicAuth(user.access_token, "")
                     .PutJsonAsync(m.ToJSonPutAdoptar());
             }
             catch (Exception e)
@@ -119,13 +133,14 @@ namespace SocialPetApp
             }
         }
 
-        public static async void eliminarMascota(Mascota m)
+        public async void eliminarMascota(Mascota m)
         {
             try
             {
                 var result = await baseURL
                     .AppendPathSegment(seccion)
                     .AppendPathSegment(m.id_mas)
+                    .WithBasicAuth(user.access_token, "")
                     .DeleteAsync();
             }
             catch (Exception e)
@@ -136,9 +151,9 @@ namespace SocialPetApp
         }
 
 
-        public static async Task<string> ObtenerDummy()
+        public async Task<string> ObtenerDummy()
         {
-            return await baseURL.AppendPathSegment(seccion).GetStringAsync();
+            return await baseURL.AppendPathSegment(seccion).WithBasicAuth(user.access_token, "").GetStringAsync();
         }
 
         

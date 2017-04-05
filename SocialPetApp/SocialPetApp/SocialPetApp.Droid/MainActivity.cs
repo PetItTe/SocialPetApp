@@ -18,7 +18,8 @@ namespace SocialPetApp.Droid
         MascotaAdapter mascotaAdapter;
         int paginaActual = 1;
         Paginador paginador;
-        Usuario user = new Usuario();
+        Usuario user;
+        ConectorMascota conMas;
 
 
 
@@ -51,12 +52,27 @@ namespace SocialPetApp.Droid
 
             mascotasList.ItemLongClick += mascotaLongClick;
 
-            user.id = Intent.GetIntExtra("usuario", 0);
+
+            try
+            {
+                user = new Usuario(Intent.GetIntExtra("id_user",0), Intent.GetStringExtra("nombre"), Intent.GetStringExtra("access_token"), Intent.GetStringExtra("username"), Intent.GetStringExtra("apellido"), Intent.GetIntExtra("roles",0));
+                conMas = new ConectorMascota(user);
+                mascotaAdapter = new MascotaAdapter(
+                 this, await conMas.ObtenerTodos(paginaActual), conMas);
+                paginador = await conMas.ObtenerTodosHeader(paginaActual);
+                mascotasList.Adapter = mascotaAdapter;
+            }
+            catch(Exception e1)
+            {
+                System.Diagnostics.Debug.WriteLine(e1.Message);
+                this.Finish();
+            }
+            
+
+
+            //user.id_user = Intent.GetIntExtra("usuario", 0);
             // user = await ConectorUsuario.ObtenerByID(user.id);
-            mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorMascota.ObtenerTodos(paginaActual));
-            paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
-            mascotasList.Adapter = mascotaAdapter;
+            
 
         }
 
@@ -66,14 +82,14 @@ namespace SocialPetApp.Droid
             {
                 //que hacer si el usuario selecciona la opcion ADOPTED del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorUsuario.ObtenerAdoptados(user));
+                 this, await conMas.ObtenerAdoptados(user), conMas);
                 mascotasList.Adapter = mascotaAdapter;
             }
             else if (userSpin.SelectedItemPosition == 2)
             {
                 //que hacer si el usuario selecciona la opcion UPLOADED del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorUsuario.ObtenerSubidos(user));
+                 this, await conMas.ObtenerSubidos(user), conMas);
                 mascotasList.Adapter = mascotaAdapter;
             }
             else
@@ -81,8 +97,8 @@ namespace SocialPetApp.Droid
                 //que hacer si el usuario selecciona la opcion HOME del spinner
                 paginaActual = 1;
                 mascotaAdapter = new MascotaAdapter(
-                 this, await ConectorMascota.ObtenerTodos(paginaActual));
-                paginador = await ConectorMascota.ObtenerTodosHeader(paginaActual);
+                 this, await conMas.ObtenerTodos(paginaActual), conMas);
+                paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
             }
         }
@@ -101,7 +117,7 @@ namespace SocialPetApp.Droid
                     m = mascotaAdapter.mascotas[e.Position];
                     m.estado = Mascota.ESTADO_PUBLICADO;
                     m.user_adopt = 0;
-                    ConectorMascota.editarMascota(m);
+                    conMas.editarMascota(m);
                 });
 
                 alert.SetNegativeButton("NO", (senderAlert, args) => {
@@ -117,7 +133,7 @@ namespace SocialPetApp.Droid
                 Intent i = new Intent(this, typeof(PerritoNuevo));
                 m = mascotaAdapter.mascotas[e.Position];
                 i.PutExtra("position", m.id_mas);
-                i.PutExtra("usuario", user.id);
+                i.PutExtra("usuario", user.id_user);
                 StartActivity(i);
             }
             else
@@ -129,8 +145,8 @@ namespace SocialPetApp.Droid
                 alert.SetPositiveButton("YES", (senderAlert, args) => {
                     m = mascotaAdapter.mascotas[e.Position];
                     m.estado = Mascota.ESTADO_ADOPTADO;
-                    m.user_adopt = user.id;
-                    ConectorMascota.editarMascota(m);
+                    m.user_adopt = user.id_user;
+                    conMas.editarMascota(m);
                 });
 
                 alert.SetNegativeButton("NO", (senderAlert, args) => {
@@ -148,7 +164,7 @@ namespace SocialPetApp.Droid
         {
             //Lo que hace al tocar el simbolito del + verde
             Intent i = new Intent(this, typeof(PerritoNuevo));
-            i.PutExtra("usuario", user.id);
+            i.PutExtra("usuario", user.id_user);
             StartActivity(i);
         }
 
@@ -173,7 +189,7 @@ namespace SocialPetApp.Droid
                     try
                     {
                         //si tenes internet decente va a cargar mas perros
-                        ConectorMascota.CombinarMascotas(mascotaAdapter.mascotas, paginaActual);
+                        conMas.CombinarMascotas(mascotaAdapter.mascotas, paginaActual);
                         mascotasList.Adapter = mascotaAdapter;
                     }
                     catch

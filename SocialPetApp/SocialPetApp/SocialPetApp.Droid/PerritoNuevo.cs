@@ -30,6 +30,7 @@ namespace SocialPetApp.Droid
         int id;
         Mascota mascota = new Mascota();
         Usuario user = new Usuario();
+        ConectorMascota conMas;
 
         public static class App
         {
@@ -71,15 +72,17 @@ namespace SocialPetApp.Droid
             edadText.FocusChange += focusTextField;
             fotoText.FocusChange += focusTextField;
 
-            user.id = Intent.GetIntExtra("usuario", 0);
-            user = await ConectorUsuario.ObtenerByID(user.id);
+            user.id_user = Intent.GetIntExtra("usuario", 0);
+            user = await ConectorUsuario.ObtenerByID(user.id_user);
 
             id = Intent.GetIntExtra("Position", -1);
+
+            conMas = new ConectorMascota(user);
             
 
             if (id > -1)
             {
-                mascota = await ConectorMascota.ObtenerID(id);
+                mascota = await conMas.ObtenerID(id);
                 nombreText.Text = mascota.nombre;
                 edadText.Text = mascota.edad.ToString();
                 descripcionText.Text = mascota.descripcion;
@@ -131,14 +134,14 @@ namespace SocialPetApp.Droid
                 mascota.descripcion = descripcionText.Text;
                 mascota.edad = int.Parse(edadText.Text);
                 mascota.tipo = tipoSpin.SelectedItemPosition+1;
-                mascota.user_alta = user.id;
+                mascota.user_alta = user.id_user;
                 if (id > -1)
                 {
-                    ConectorMascota.editarMascota(mascota);
+                    conMas.editarMascota(mascota);
                 }
                 else
                 {
-                    ConectorMascota.publicarMascota(mascota);
+                    conMas.publicarMascota(mascota);
                 }
             }
             StartActivity(typeof(MainActivity));

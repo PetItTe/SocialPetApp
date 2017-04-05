@@ -51,7 +51,7 @@ namespace SocialPetApp.Droid
             {
                 //que hacer si el usuario ingreso todo correctamente
                 user.nombre = mailTxt.Text;
-                user.password = passwordTxt.Text;
+                //user.password = passwordTxt.Text;
                 string res = await ConectorUsuario.Register(user);
                 //informar al usuario si se pudo registrar
                 Toast toast = Toast.MakeText(this, res, ToastLength.Short);
@@ -61,24 +61,31 @@ namespace SocialPetApp.Droid
 
         private async void clickLogIn(object sender, EventArgs e)
         {
+            /*
             Intent intent = new Intent(this, typeof(MainActivity));
             //intent.PutExtra("usuario", user.id);
             StartActivity(intent);
-            /*
-            await ConectorUsuario.LogIn(user);
-            if(user.id == 0)
+            */
+            try
             {
-                //que mensaje mostrar si el usuario no ingreso bien el usuario y contraseña
-                Toast errorLogIn = Toast.MakeText(this, "Compruebe que el mail y el password sean correctos", ToastLength.Short);
-                errorLogIn.Show();
-            }
-            else
-            {
-                //que hacer si el usuario existe
+                Usuario user = await ConectorUsuario.LogIn(mailTxt.Text, passwordTxt.Text);
                 Intent intent = new Intent(this, typeof(MainActivity));
-                intent.PutExtra("usuario", user.id);
+
+                intent.PutExtra("username", user.username);
+                intent.PutExtra("access_token", user.access_token);
+                intent.PutExtra("nombre", user.nombre);
+                intent.PutExtra("apellido", user.apellido);
+                intent.PutExtra("roles", user.roles);
+                intent.PutExtra("id_user", user.id_user);
+
                 StartActivity(intent);
-            }*/
+            }
+            catch(Exception e1)
+            {
+                Toast errorLogIn = Toast.MakeText(this, "Compruebe que el mail y el password sean correctos", ToastLength.Short);
+                System.Diagnostics.Debug.WriteLine(e1.Message);
+                errorLogIn.Show();
+            }                                   
         }
     }
 }

@@ -17,11 +17,13 @@ namespace SocialPetApp.Droid {
 		Activity context = null;
 		public IList<Mascota> mascotas = new List<Mascota>();
         public static bool endOfList { get; set; }
+        private ConectorMascota conMas;
         
 
         public MascotaAdapter(Activity context, 
-            IList<Mascota> mascotas) : base ()
+            IList<Mascota> mascotas, ConectorMascota conMas) : base ()
 		{
+            this.conMas = conMas;
             endOfList = false;
 			this.context = context;
 			this.mascotas = mascotas;
@@ -30,7 +32,7 @@ namespace SocialPetApp.Droid {
         public async void combinarMascotas(int pagina)
         {
             List<Mascota> mascota = new List<Mascota>();
-            mascota = await ConectorMascota.ObtenerTodos(pagina);
+            mascota = await conMas.ObtenerTodos(pagina);
             foreach (Mascota m in mascotas)
             {
                 this.mascotas.Add(m);
