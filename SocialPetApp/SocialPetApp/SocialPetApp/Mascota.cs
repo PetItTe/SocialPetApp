@@ -86,6 +86,8 @@ namespace SocialPetApp
                 edad = this.edad,
                 tipo = this.tipo,
                 foto = this.foto,
+                user_adopt = this.user_adopt,
+                estado = this.estado,
             };
         }
 

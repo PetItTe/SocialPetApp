@@ -30,10 +30,7 @@ namespace SocialPetApp
             foreach(dynamic item in listMas)
             {
                 m = new Mascota(item);
-                if(m.estado == Mascota.ESTADO_PUBLICADO)
-                {
-                    listFinal.Add(new Mascota(item));
-                }
+                listFinal.Add(new Mascota(item));              
             }
             return listFinal;
         }
@@ -122,11 +119,6 @@ namespace SocialPetApp
             return m;
         }
 
-        public Task<IList<Mascota>> ObtenerAdoptados(Usuario user)
-        {
-            throw new NotImplementedException();
-        }
-
         public async void publicarMascota(Mascota m)
         {
             try { 
@@ -140,11 +132,6 @@ namespace SocialPetApp
                 System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.Diagnostics.Debug.WriteLine(e.ToString());
             }
-        }
-
-        public Task<IList<Mascota>> ObtenerSubidos(Usuario user)
-        {
-            throw new NotImplementedException();
         }
 
         public async void editarMascota(Mascota m)
