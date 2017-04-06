@@ -12,8 +12,10 @@ namespace SocialPetApp
         public string nombre { get; set; }
         public string access_token { get; set; }
         public string username { get; set; }
-
-        public string apellido { get; set; }
+        public string password { get; set; }
+        public string localidad { get; set; }
+        public string celular { get; set; }
+        public string email { get; set; }
         public int roles;
         private int v1;
         private string v2;
@@ -23,21 +25,22 @@ namespace SocialPetApp
 
             id_user = 0;
             nombre = "";
+            password = "";
             access_token = "";
             username = "";
-            apellido = "";
             roles = 0;
         }
 
-        public Usuario(int id_user, string nombre, string access_token, string username, string apellido, int roles)
+        public Usuario(int id_user, string nombre, string access_token, string username, int roles)
         {
 
             this.id_user = id_user;
             this.nombre = nombre;
             this.access_token = access_token;
             this.username = username;
-            this.apellido = apellido;
+
             this.roles = roles;
+            password = "";
         }
 
         public Usuario(dynamic d)
@@ -46,8 +49,8 @@ namespace SocialPetApp
             nombre = d.nombre;
             access_token = d.access_token;
             username = d.username;
-            apellido = d.apellido;
             roles = Convert.ToInt32(d.roles);
+            password = "";
         }
 
         public Usuario(int v1, string v2)
@@ -60,8 +63,12 @@ namespace SocialPetApp
         {
             return new
             {
-                id_user = this.id_user,
                 nombre = this.nombre,
+                username = this.username,
+                password = this.password,
+                email = this.email,
+                cel = this.celular,
+                localidad = this.localidad
             };
         }
 

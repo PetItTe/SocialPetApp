@@ -94,8 +94,17 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f060011
 			public const int ageText = 2131099665;
 			
+			// aapt resource value: 0x7f06001c
+			public const int buttonsLyt = 2131099676;
+			
 			// aapt resource value: 0x7f060003
 			public const int cameraButton = 2131099651;
+			
+			// aapt resource value: 0x7f06001b
+			public const int cancelBtn = 2131099675;
+			
+			// aapt resource value: 0x7f060018
+			public const int celText = 2131099672;
 			
 			// aapt resource value: 0x7f06000a
 			public const int descText = 2131099658;
@@ -103,14 +112,20 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f060009
 			public const int edadText = 2131099657;
 			
+			// aapt resource value: 0x7f060016
+			public const int emailText = 2131099670;
+			
 			// aapt resource value: 0x7f060005
 			public const int fotoImg = 2131099653;
 			
 			// aapt resource value: 0x7f060004
 			public const int imgText = 2131099652;
 			
-			// aapt resource value: 0x7f060016
-			public const int logBtn = 2131099670;
+			// aapt resource value: 0x7f060019
+			public const int locText = 2131099673;
+			
+			// aapt resource value: 0x7f06001d
+			public const int logBtn = 2131099677;
 			
 			// aapt resource value: 0x7f06000c
 			public const int lstItemTask = 2131099660;
@@ -124,6 +139,9 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f06000d
 			public const int mascImg = 2131099661;
 			
+			// aapt resource value: 0x7f060017
+			public const int nameText = 2131099671;
+			
 			// aapt resource value: 0x7f060008
 			public const int nombreText = 2131099656;
 			
@@ -131,13 +149,19 @@ namespace SocialPetApp.Droid
 			public const int nuevoImg = 2131099649;
 			
 			// aapt resource value: 0x7f060015
-			public const int passText = 2131099669;
+			public const int pass2Text = 2131099669;
+			
+			// aapt resource value: 0x7f060013
+			public const int passText = 2131099667;
+			
+			// aapt resource value: 0x7f06001a
+			public const int reg2Btn = 2131099674;
+			
+			// aapt resource value: 0x7f06001e
+			public const int regBtn = 2131099678;
 			
 			// aapt resource value: 0x7f060014
-			public const int passTextView = 2131099668;
-			
-			// aapt resource value: 0x7f060017
-			public const int regBtn = 2131099671;
+			public const int singUpLyt = 2131099668;
 			
 			// aapt resource value: 0x7f060006
 			public const int textView1 = 2131099654;
@@ -151,11 +175,8 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f060000
 			public const int userSpinner = 2131099648;
 			
-			// aapt resource value: 0x7f060013
-			public const int userText = 2131099667;
-			
 			// aapt resource value: 0x7f060012
-			public const int userTextView = 2131099666;
+			public const int userText = 2131099666;
 			
 			static Id()
 			{

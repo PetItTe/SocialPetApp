@@ -17,8 +17,17 @@ namespace SocialPetApp.Droid
     {
         Button logInBtn;
         Button registerBtn;
+        Button reg2Btn;
+        Button cancelBtn;
         EditText mailTxt;
+        EditText userTxt;
+        EditText celTxt;
+        EditText nameTxt;
+        EditText locTxt;
         EditText passwordTxt;
+        EditText password2Txt;
+        LinearLayout singUpLyt;
+        LinearLayout buttonsLyt;
         Usuario user = new Usuario();
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -27,15 +36,38 @@ namespace SocialPetApp.Droid
 
             SetContentView(Resource.Layout.UserLogin);
 
+            //encuentro los botones
             logInBtn = FindViewById<Button>(Resource.Id.logBtn);
             registerBtn = FindViewById<Button>(Resource.Id.regBtn);
-            mailTxt = FindViewById<EditText>(Resource.Id.userText);
+            reg2Btn = FindViewById<Button>(Resource.Id.reg2Btn);
+            cancelBtn = FindViewById<Button>(Resource.Id.cancelBtn);
+
+            //encuentro los texfilds
+            userTxt = FindViewById<EditText>(Resource.Id.userText);
             passwordTxt = FindViewById<EditText>(Resource.Id.passText);
+            password2Txt = FindViewById<EditText>(Resource.Id.pass2Text);
+            mailTxt = FindViewById<EditText>(Resource.Id.emailText);
+            nameTxt = FindViewById<EditText>(Resource.Id.nameText);
+            celTxt = FindViewById<EditText>(Resource.Id.celText);
+            locTxt = FindViewById<EditText>(Resource.Id.locText);
 
+            //encuentro los Layouts
+            singUpLyt = FindViewById<LinearLayout>(Resource.Id.singUpLyt);
+            buttonsLyt = FindViewById<LinearLayout>(Resource.Id.buttonsLyt);
+
+            //asgino las funciones a los eventos
             logInBtn.Click += clickLogIn;
-            registerBtn.Click += clickRegister;
+            registerBtn.Click += clickShowRegister;
+            reg2Btn.Click += clickRegister;
+            cancelBtn.Click += clickHideRegister;
 
-            // Create your application here
+
+            // Resto de la Aplicacion
+
+            singUpLyt.Visibility = ViewStates.Gone;
+
+
+
         }
 
         private async void clickRegister(object sender, EventArgs e)
@@ -50,13 +82,42 @@ namespace SocialPetApp.Droid
             else
             {
                 //que hacer si el usuario ingreso todo correctamente
-                user.nombre = mailTxt.Text;
-                //user.password = passwordTxt.Text;
-                string res = await ConectorUsuario.Register(user);
+                user.nombre = nameTxt.Text;
+                user.password = passwordTxt.Text;
+                user.username = userTxt.Text;
+                user.email = mailTxt.Text;
+                user.celular = celTxt.Text;
+                user.localidad = locTxt.Text;
+                try
+                {
+                    dynamic res = await ConectorUsuario.Register(user);
+                    Toast toast = Toast.MakeText(this, "Registrado con Exito!", ToastLength.Short);
+                    toast.Show();
+                    buttonsLyt.Visibility = ViewStates.Visible;
+                    singUpLyt.Visibility = ViewStates.Gone;
+                    this.limpiarCampos();
+                }
+                catch(Exception e1)
+                {
+                    Toast toast = Toast.MakeText(this, e1.Message, ToastLength.Short);
+                    toast.Show();
+                }
+                
                 //informar al usuario si se pudo registrar
-                Toast toast = Toast.MakeText(this, res, ToastLength.Short);
-                toast.Show();
+                
             }
+        }
+
+        private void clickShowRegister(object sender, EventArgs e)
+        {
+            singUpLyt.Visibility = ViewStates.Visible;
+            buttonsLyt.Visibility = ViewStates.Gone;
+        }
+
+        private void clickHideRegister(object sender, EventArgs e)
+        {
+            buttonsLyt.Visibility = ViewStates.Visible;
+            singUpLyt.Visibility = ViewStates.Gone;
         }
 
         private async void clickLogIn(object sender, EventArgs e)
@@ -68,13 +129,12 @@ namespace SocialPetApp.Droid
             */
             try
             {
-                Usuario user = await ConectorUsuario.LogIn(mailTxt.Text, passwordTxt.Text);
+                Usuario user = await ConectorUsuario.LogIn(userTxt.Text, passwordTxt.Text);
                 Intent intent = new Intent(this, typeof(MainActivity));
 
                 intent.PutExtra("username", user.username);
                 intent.PutExtra("access_token", user.access_token);
                 intent.PutExtra("nombre", user.nombre);
-                intent.PutExtra("apellido", user.apellido);
                 intent.PutExtra("roles", user.roles);
                 intent.PutExtra("id_user", user.id_user);
 
@@ -86,6 +146,17 @@ namespace SocialPetApp.Droid
                 System.Diagnostics.Debug.WriteLine(e1.Message);
                 errorLogIn.Show();
             }                                   
+        }
+
+        private void limpiarCampos()
+        {
+            nameTxt.Text = "";
+            passwordTxt.Text = "";
+            password2Txt.Text = "";
+            userTxt.Text = "";
+            mailTxt.Text = "";
+            celTxt.Text = "";
+            locTxt.Text = "";
         }
     }
 }

@@ -38,6 +38,36 @@ namespace SocialPetApp
             return listFinal;
         }
 
+
+        public async Task<List<Mascota>> ObtenerAdoptados(int pagina = 1)
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("adoptados").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
+            List<Mascota> listFinal = new List<Mascota>();
+            Mascota m;
+            foreach (dynamic item in listMas)
+            {
+                m = new Mascota(item);
+                listFinal.Add(new Mascota(item));
+                
+            }
+            return listFinal;
+        }
+
+
+        public async Task<List<Mascota>> ObtenerSubidos(int pagina = 1)
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("subidos").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
+            List<Mascota> listFinal = new List<Mascota>();
+            Mascota m;
+            foreach (dynamic item in listMas)
+            {
+                m = new Mascota(item);
+                listFinal.Add(new Mascota(item));
+                
+            }
+            return listFinal;
+        }
+
         public async void CombinarMascotas(IList<Mascota> lista, int pagina)
         {
             var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
@@ -51,20 +81,38 @@ namespace SocialPetApp
         public async Task<Paginador> ObtenerTodosHeader(int pagina = 1)
         {
             var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").HeadAsync();
-            var v = listMas.Headers;
-
-            
+            var v = listMas.Headers;       
             return new Paginador(
                 Int32.Parse(v.GetValues("X-Pagination-Current-Page").Single<string>()),
                 Int32.Parse(v.GetValues("X-Pagination-Per-Page").Single<string>()),
                 Int32.Parse(v.GetValues("X-Pagination-Page-Count").Single<string>()),
                 Int32.Parse(v.GetValues("X-Pagination-Total-Count").Single<string>())
                 );
-
-
-
         }
 
+        public async Task<Paginador> ObtenerAdoptadosHeader(int pagina = 1)
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("adoptados").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").HeadAsync();
+            var v = listMas.Headers;
+            return new Paginador(
+                Int32.Parse(v.GetValues("X-Pagination-Current-Page").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Per-Page").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Page-Count").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Total-Count").Single<string>())
+                );
+        }
+
+        public async Task<Paginador> ObtenerSubidosHeader(int pagina = 1)
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("subidos").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").HeadAsync();
+            var v = listMas.Headers;
+            return new Paginador(
+                Int32.Parse(v.GetValues("X-Pagination-Current-Page").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Per-Page").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Page-Count").Single<string>()),
+                Int32.Parse(v.GetValues("X-Pagination-Total-Count").Single<string>())
+                );
+        }
 
         public async Task<Mascota> ObtenerID(int id)
         {

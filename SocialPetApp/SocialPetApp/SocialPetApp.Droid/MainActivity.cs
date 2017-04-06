@@ -55,7 +55,7 @@ namespace SocialPetApp.Droid
 
             try
             {
-                user = new Usuario(Intent.GetIntExtra("id_user",0), Intent.GetStringExtra("nombre"), Intent.GetStringExtra("access_token"), Intent.GetStringExtra("username"), Intent.GetStringExtra("apellido"), Intent.GetIntExtra("roles",0));
+                user = new Usuario(Intent.GetIntExtra("id_user",0), Intent.GetStringExtra("nombre"), Intent.GetStringExtra("access_token"), Intent.GetStringExtra("username"), Intent.GetIntExtra("roles",0));
                 conMas = new ConectorMascota(user);
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerTodos(paginaActual), conMas);

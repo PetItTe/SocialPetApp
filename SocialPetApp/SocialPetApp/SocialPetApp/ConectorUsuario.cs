@@ -26,25 +26,17 @@ namespace SocialPetApp
             return new Usuario(d);
         }
 
-        public static async Task<string> Register(Usuario user)
+        public static async Task<dynamic> Register(Usuario user)
         {
-            if (!(await Exist(user)))
-            {
-                try
-                {
-                    var result = await baseURL
-                        .AppendPathSegment(seccion)
-                        .PostJsonAsync(user.ToJSonPost());
-                    return "Usuario registrado, por favor loggearse";
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.Diagnostics.Debug.WriteLine(e.ToString());
-                }
+            
+            var result = await baseURL
+                .AppendPathSegment(seccion)
+                .AppendPathSegment("signup")
+                .PostJsonAsync(user.ToJSonPost());
 
-            }
-            return "El usuario ya existe";
+            return result;
+            
+
         }
 
         public static async Task<bool> Exist(Usuario user, int pagina = 1)
@@ -70,36 +62,6 @@ namespace SocialPetApp
             return m;
         }
 
-        public static async Task<List<Mascota>> ObtenerAdoptados(Usuario user, int pagina = 1)
-        {
-            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).GetJsonListAsync();
-            List<Mascota> listFinal = new List<Mascota>();
-            Mascota m;
-            foreach (dynamic item in listMas)
-            {
-                m = new Mascota(item);
-                if (m.user_adopt == user.id_user)
-                {
-                    listFinal.Add(m);
-                }
-            }
-            return listFinal;
-        }
 
-        public static async Task<List<Mascota>> ObtenerSubidos(Usuario user, int pagina = 1)
-        {
-            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).GetJsonListAsync();
-            List<Mascota> listFinal = new List<Mascota>();
-            Mascota m;
-            foreach (dynamic item in listMas)
-            {
-                m = new Mascota(item);
-                if (m.user_alta == user.id_user)
-                {
-                    listFinal.Add(m);
-                }
-            }
-            return listFinal;
-        }
     }
 }
