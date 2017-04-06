@@ -82,14 +82,14 @@ namespace SocialPetApp.Droid
             {
                 //que hacer si el usuario selecciona la opcion ADOPTED del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerAdoptados(user), conMas);
+                 this, await conMas.ObtenerAdoptados(), conMas);
                 mascotasList.Adapter = mascotaAdapter;
             }
             else if (userSpin.SelectedItemPosition == 2)
             {
                 //que hacer si el usuario selecciona la opcion UPLOADED del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerSubidos(user), conMas);
+                 this, await conMas.ObtenerSubidos(), conMas);
                 mascotasList.Adapter = mascotaAdapter;
             }
             else
