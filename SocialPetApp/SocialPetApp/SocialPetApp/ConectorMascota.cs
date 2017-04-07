@@ -119,16 +119,16 @@ namespace SocialPetApp
             return m;
         }
 
-        public async void publicarMascota(Mascota m)
+        public async void publicarMascota(Mascota m, File file)
         {
             try {
                 var result = await baseURL
                     .AppendPathSegment(seccion)
                     .WithBasicAuth(user.access_token, "")
-                     //.PostMultipartAsync(mp => mp
-        //.AddFile(m.foto, m.getFotoURL())                    // local file path       // file stream
-      //  .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
-                .PostJsonAsync(m.ToJSonPost());
+                     .PostMultipartAsync(mp => mp
+        .AddFile(m.foto, file.Path)                    // local file path       // file stream
+        .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
+             //   .PostJsonAsync(m.ToJSonPost());
             }
             catch(Exception e)
             {

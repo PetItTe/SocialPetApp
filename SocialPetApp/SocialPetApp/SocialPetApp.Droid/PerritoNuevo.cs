@@ -87,7 +87,7 @@ namespace SocialPetApp.Droid
                 nombreText.Text = mascota.nombre;
                 edadText.Text = mascota.edad.ToString();
                 descripcionText.Text = mascota.descripcion;
-                fotoText.Text = mascota.getFotoURL();
+                fotoText.Text = mascota.foto;
                 if(mascota.tipo == 1)
                 {
                     tipoSpin.SetSelection(0);
@@ -143,7 +143,7 @@ namespace SocialPetApp.Droid
                 }
                 else
                 {
-                    conMas.publicarMascota(mascota);
+                    conMas.publicarMascota(mascota,App._file);
 
                 }
                 StartActivity(typeof(MainActivity));
