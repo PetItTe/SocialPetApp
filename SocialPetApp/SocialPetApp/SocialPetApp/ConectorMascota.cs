@@ -57,10 +57,8 @@ namespace SocialPetApp
         {
             var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("subidos").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
             List<Mascota> listFinal = new List<Mascota>();
-            Mascota m;
             foreach (dynamic item in listMas)
             {
-                m = new Mascota(item);
                 listFinal.Add(new Mascota(item));
                 
             }
@@ -127,10 +125,10 @@ namespace SocialPetApp
                 var result = await baseURL
                     .AppendPathSegment(seccion)
                     .WithBasicAuth(user.access_token, "")
-                     .PostMultipartAsync(mp => mp
-        .AddFile(m.foto, m.getFotoURL())                    // local file path       // file stream
-        .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
-                //.PostJsonAsync(m.ToJSonPost());
+                     //.PostMultipartAsync(mp => mp
+        //.AddFile(m.foto, m.getFotoURL())                    // local file path       // file stream
+      //  .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
+                .PostJsonAsync(m.ToJSonPost());
             }
             catch(Exception e)
             {

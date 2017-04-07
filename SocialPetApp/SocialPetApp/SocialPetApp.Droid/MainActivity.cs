@@ -17,6 +17,7 @@ namespace SocialPetApp.Droid
         Spinner userSpin;
         MascotaAdapter mascotaAdapter;
         int paginaActual = 1;
+        int id_ultima;
         Paginador paginador;
         Usuario user;
         ConectorMascota conMas;
@@ -59,6 +60,8 @@ namespace SocialPetApp.Droid
                 conMas = new ConectorMascota(user);
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerTodos(paginaActual), conMas);
+                Mascota m = mascotaAdapter.mascotas[mascotaAdapter.Count-1];
+                id_ultima = m.id_mas;
                 paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
             }
@@ -136,6 +139,8 @@ namespace SocialPetApp.Droid
                 m = mascotaAdapter.mascotas[e.Position];
                 i.PutExtra("position", m.id_mas);
                 i.PutExtra("usuario", user.id_user);
+                i.PutExtra("cantidad", id_ultima);
+                
                 StartActivity(i);
             }
             else
@@ -210,7 +215,7 @@ namespace SocialPetApp.Droid
             }
         }
 
-        protected override async void OnResume()
+        protected override void OnResume()
         {
             //que hacer cada vez que se mira esta pantalla
             base.OnResume();

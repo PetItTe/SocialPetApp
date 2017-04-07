@@ -56,6 +56,7 @@ namespace SocialPetApp.Droid
             edadText = FindViewById<EditText>(Resource.Id.edadText);
             descripcionText = FindViewById<EditText>(Resource.Id.descText);
             fotoText = FindViewById<EditText>(Resource.Id.imgText);
+            fotoText.Enabled = false;
             tipoSpin = FindViewById<Spinner>(Resource.Id.tipoSpinner);
             fotoView = FindViewById<ImageView>(Resource.Id.fotoImg);
             fotoView.Visibility = ViewStates.Invisible;
@@ -72,16 +73,15 @@ namespace SocialPetApp.Droid
             nombreText.FocusChange += focusTextField;
             descripcionText.FocusChange += focusTextField;
             edadText.FocusChange += focusTextField;
-            fotoText.FocusChange += focusTextField;
 
             user = new Usuario(Intent.GetIntExtra("id_user", 0), Intent.GetStringExtra("nombre"), Intent.GetStringExtra("access_token"), Intent.GetStringExtra("username"), Intent.GetIntExtra("roles", 0));
 
-            id = Intent.GetIntExtra("Position", -1);
+            id = Intent.GetIntExtra("position", -1);
 
             conMas = new ConectorMascota(user);
             
 
-            if (id > -1)
+            if (id > 0)
             {
                 mascota = await conMas.ObtenerID(id);
                 nombreText.Text = mascota.nombre;
@@ -123,7 +123,7 @@ namespace SocialPetApp.Droid
         private void ClickAdd(object sender, EventArgs e)
         {
             //que hacer cuando se da click al boton add
-            if(nombreText.Text.Equals("")||nombreText.Text.Equals("Name of the pet"))
+            if(nombreText.Text.Equals("")||nombreText.Text.Equals("Name of the pet")||edadText.Text.Equals("pet age"))
             {
                 edadText.Text = "";
             }
@@ -144,9 +144,11 @@ namespace SocialPetApp.Droid
                 else
                 {
                     conMas.publicarMascota(mascota);
+
                 }
+                StartActivity(typeof(MainActivity));
             }
-            StartActivity(typeof(MainActivity));
+            
         }
 
         private void CreateDirectoryForPictures()
@@ -174,7 +176,7 @@ namespace SocialPetApp.Droid
         {
             //que hacer cuando se le da click a la imagen de la camara
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-            App._file = new File(App._dir, String.Format("myPhoto_{0}.jpg", Guid.NewGuid()));
+            App._file = new File(App._dir, String.Format(user.nombre+"{0}.jpg", Guid.NewGuid()));
             intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(App._file));
             StartActivityForResult(intent, 0);
         }
@@ -198,7 +200,8 @@ namespace SocialPetApp.Droid
           //  int height = Resources.DisplayMetrics.HeightPixels;
            // int width = cameraButton.Height;
             App.bitmap = App._file.Path.LoadAndResizeBitmap(380, 240);
-            fotoText.Text = App._file.Path;
+            int i = Intent.GetIntExtra("cantidad", 0)+1;
+            fotoText.Text = "img/"+user.username+i.ToString()+".jpg";
             if (App.bitmap != null)
             {
                 fotoView.SetImageBitmap(App.bitmap);
