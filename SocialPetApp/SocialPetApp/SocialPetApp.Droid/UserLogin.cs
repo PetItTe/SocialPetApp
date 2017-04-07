@@ -81,6 +81,8 @@ namespace SocialPetApp.Droid
             }
             else
             {
+                Toast toast = Toast.MakeText(this, "Aguarde mientras procesamos el registro", ToastLength.Long);
+                toast.Show();
                 //que hacer si el usuario ingreso todo correctamente
                 user.nombre = nameTxt.Text;
                 user.password = passwordTxt.Text;
@@ -88,23 +90,47 @@ namespace SocialPetApp.Droid
                 user.email = mailTxt.Text;
                 user.celular = celTxt.Text;
                 user.localidad = locTxt.Text;
+                nameTxt.Enabled = false;
+                passwordTxt.Enabled = false;
+                password2Txt.Enabled = false;
+                userTxt.Enabled = false;
+                mailTxt.Enabled = false;
+                celTxt.Enabled = false;
+                locTxt.Enabled = false;
+                registerBtn.Enabled = false;
+                logInBtn.Enabled = false;
+                reg2Btn.Enabled = false;
+                cancelBtn.Enabled = false;
                 try
                 {
+                    
                     dynamic res = await ConectorUsuario.Register(user);
-                    Toast toast = Toast.MakeText(this, "Registrado con Exito!", ToastLength.Short);
-                    toast.Show();
+                    Toast register = Toast.MakeText(this, "Registrado con Exito!", ToastLength.Short);
+                    register.Show();
                     buttonsLyt.Visibility = ViewStates.Visible;
                     singUpLyt.Visibility = ViewStates.Gone;
                     this.limpiarCampos();
                 }
                 catch(Exception e1)
                 {
-                    Toast toast = Toast.MakeText(this, e1.Message, ToastLength.Short);
-                    toast.Show();
+                    Toast errorReg = Toast.MakeText(this, e1.Message, ToastLength.Short);
+                    errorReg.Show();
+                    
                 }
-                
+                nameTxt.Enabled = true;
+                passwordTxt.Enabled = true;
+                userTxt.Enabled = true;
+                mailTxt.Enabled = true;
+                password2Txt.Enabled = true;
+                celTxt.Enabled = true;
+                locTxt.Enabled = true;
+                registerBtn.Enabled = true;
+                logInBtn.Enabled = true;
+                reg2Btn.Enabled = true;
+                cancelBtn.Enabled = true;
+
                 //informar al usuario si se pudo registrar
-                
+
             }
         }
 
@@ -127,8 +153,16 @@ namespace SocialPetApp.Droid
             //intent.PutExtra("usuario", user.id);
             StartActivity(intent);
             */
+            userTxt.Enabled = false;
+            passwordTxt.Enabled = false;
+            registerBtn.Enabled = false;
+            logInBtn.Enabled = false;
+            reg2Btn.Enabled = false;
+            cancelBtn.Enabled = false;
             try
             {
+                Toast errorLogIn = Toast.MakeText(this, "Aguarde un momento por favor", ToastLength.Long);
+                errorLogIn.Show();
                 Usuario user = await ConectorUsuario.LogIn(userTxt.Text, passwordTxt.Text);
                 Intent intent = new Intent(this, typeof(MainActivity));
 
@@ -145,7 +179,13 @@ namespace SocialPetApp.Droid
                 Toast errorLogIn = Toast.MakeText(this, "Compruebe que el mail y el password sean correctos", ToastLength.Short);
                 System.Diagnostics.Debug.WriteLine(e1.Message);
                 errorLogIn.Show();
-            }                                   
+            }
+            userTxt.Enabled = true;
+            passwordTxt.Enabled = true;
+            registerBtn.Enabled = true;
+            logInBtn.Enabled = true;
+            reg2Btn.Enabled = true;
+            cancelBtn.Enabled = true;
         }
 
         private void limpiarCampos()
