@@ -125,16 +125,18 @@ namespace SocialPetApp
             try {
                 var result = await baseURL
                     .AppendPathSegment(seccion)
+                    .AppendPathSegment("upload")
                     .WithBasicAuth(user.access_token, "")
                      .PostMultipartAsync(mp => mp
                      .AddFile("UploadForm[imageFile]", file, "foto.jpg")                    // local file path       // file stream
-                     .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
+                     .AddJson("json", m.ToJSonPost()));       // json; // URL-encoded                      
              //   .PostJsonAsync(m.ToJSonPost());
+
             }
             catch(Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                System.Diagnostics.Debug.WriteLine(e.ToString());
+                System.Diagnostics.Debug.WriteLine(e.Message);
             }
         }
 

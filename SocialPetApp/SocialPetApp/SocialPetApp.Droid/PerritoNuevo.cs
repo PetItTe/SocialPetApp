@@ -147,7 +147,7 @@ namespace SocialPetApp.Droid
                     byte[] bitmapData;
                     using (var stream = new MemoryStream())
                     {
-                        App.bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
+                        App.bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                         bitmapData = stream.ToArray();
                     }
                     MemoryStream ms = new MemoryStream(bitmapData);
@@ -184,7 +184,7 @@ namespace SocialPetApp.Droid
         {
             //que hacer cuando se le da click a la imagen de la camara
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-            App._file = new Java.IO.File(App._dir, String.Format(user.nombre+"{0}.jpg", Guid.NewGuid()));
+            App._file = new Java.IO.File(App._dir, String.Format(user.nombre+"{0}.Jpeg", Guid.NewGuid()));
             intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(App._file));
             StartActivityForResult(intent, 0);
         }
@@ -207,7 +207,7 @@ namespace SocialPetApp.Droid
 
           //  int height = Resources.DisplayMetrics.HeightPixels;
            // int width = cameraButton.Height;
-            App.bitmap = App._file.Path.LoadAndResizeBitmap(380, 240);
+            App.bitmap = App._file.Path.LoadAndResizeBitmap(1280, 720);
             if (App.bitmap != null)
             {
                 fotoView.SetImageBitmap(App.bitmap);
