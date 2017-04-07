@@ -6,6 +6,7 @@ using Flurl;
 using Flurl.Http;
 using System.Threading.Tasks;
 using System.Linq;
+using Java.IO;
 
 namespace SocialPetApp
 {
@@ -35,6 +36,7 @@ namespace SocialPetApp
             return listFinal;
         }
 
+        
 
         public async Task<List<Mascota>> ObtenerAdoptados(int pagina = 1)
         {
@@ -121,12 +123,15 @@ namespace SocialPetApp
 
         public async void publicarMascota(Mascota m)
         {
-            try { 
+            try {
                 var result = await baseURL
                     .AppendPathSegment(seccion)
                     .WithBasicAuth(user.access_token, "")
-                    .PostJsonAsync(m.ToJSonPost());
-                 }
+                     .PostMultipartAsync(mp => mp
+        .AddFile(m.foto, m.getFotoURL())                    // local file path       // file stream
+        .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
+                //.PostJsonAsync(m.ToJSonPost());
+            }
             catch(Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");

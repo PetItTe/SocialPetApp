@@ -13,12 +13,14 @@ using Android.Graphics;
 using Java.IO;
 using Android.Provider;
 using Android.Content.PM;
+using Com.Bumptech.Glide;
 
 namespace SocialPetApp.Droid
 {
     [Activity(Label = "PerritoNuevo")]
     public class PerritoNuevo : Activity
     {
+        Activity context = null;
         EditText nombreText;
         EditText fotoText;
         EditText edadText;
@@ -134,6 +136,7 @@ namespace SocialPetApp.Droid
                 mascota.edad = int.Parse(edadText.Text);
                 mascota.tipo = tipoSpin.SelectedItemPosition+1;
                 mascota.user_alta = user.id_user;
+                mascota.foto = fotoText.Text;
                 if (id > -1)
                 {
                     conMas.editarMascota(mascota);
@@ -195,6 +198,7 @@ namespace SocialPetApp.Droid
           //  int height = Resources.DisplayMetrics.HeightPixels;
            // int width = cameraButton.Height;
             App.bitmap = App._file.Path.LoadAndResizeBitmap(380, 240);
+            fotoText.Text = App._file.Path;
             if (App.bitmap != null)
             {
                 fotoView.SetImageBitmap(App.bitmap);
