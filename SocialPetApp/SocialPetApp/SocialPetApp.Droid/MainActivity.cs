@@ -163,9 +163,13 @@ namespace SocialPetApp.Droid
         private void clickImage(object sender, EventArgs e)
         {
             //Lo que hace al tocar el simbolito del + verde
-            Intent i = new Intent(this, typeof(PerritoNuevo));
-            i.PutExtra("usuario", user.id_user);
-            StartActivity(i);
+            Intent intent = new Intent(this, typeof(PerritoNuevo));
+            intent.PutExtra("username", user.username);
+            intent.PutExtra("access_token", user.access_token);
+            intent.PutExtra("nombre", user.nombre);
+            intent.PutExtra("roles", user.roles);
+            intent.PutExtra("id_user", user.id_user);
+            StartActivity(intent);
         }
 
         

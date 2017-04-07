@@ -72,8 +72,7 @@ namespace SocialPetApp.Droid
             edadText.FocusChange += focusTextField;
             fotoText.FocusChange += focusTextField;
 
-            user.id_user = Intent.GetIntExtra("usuario", 0);
-            user = await ConectorUsuario.ObtenerByID(user.id_user);
+            user = new Usuario(Intent.GetIntExtra("id_user", 0), Intent.GetStringExtra("nombre"), Intent.GetStringExtra("access_token"), Intent.GetStringExtra("username"), Intent.GetIntExtra("roles", 0));
 
             id = Intent.GetIntExtra("Position", -1);
 
