@@ -7,6 +7,7 @@ using Flurl.Http;
 using System.Threading.Tasks;
 using System.Linq;
 using Java.IO;
+using System.IO;
 
 namespace SocialPetApp
 {
@@ -119,14 +120,14 @@ namespace SocialPetApp
             return m;
         }
 
-        public async void publicarMascota(Mascota m, File file)
+        public async void publicarMascota(Mascota m, Stream file)
         {
             try {
                 var result = await baseURL
                     .AppendPathSegment(seccion)
                     .WithBasicAuth(user.access_token, "")
                      .PostMultipartAsync(mp => mp
-                     .AddFile("UploadForm[imageFile]", file.Path)                    // local file path       // file stream
+                     .AddFile("UploadForm[imageFile]", file, "foto.jpg")                    // local file path       // file stream
                      .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
              //   .PostJsonAsync(m.ToJSonPost());
             }

@@ -14,6 +14,7 @@ using Java.IO;
 using Android.Provider;
 using Android.Content.PM;
 using Com.Bumptech.Glide;
+using System.IO;
 
 namespace SocialPetApp.Droid
 {
@@ -36,8 +37,8 @@ namespace SocialPetApp.Droid
 
         public static class App
         {
-            public static File _file;
-            public static File _dir;
+            public static Java.IO.File _file;
+            public static Java.IO.File _dir;
             public static Bitmap bitmap;
         }
 
@@ -143,7 +144,14 @@ namespace SocialPetApp.Droid
                 }
                 else
                 {
-                    conMas.publicarMascota(mascota,App._file);
+                    byte[] bitmapData;
+                    using (var stream = new MemoryStream())
+                    {
+                        App.bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
+                        bitmapData = stream.ToArray();
+                    }
+                    MemoryStream ms = new MemoryStream(bitmapData);
+                    conMas.publicarMascota(mascota, ms);
 
                 }
                 StartActivity(typeof(MainActivity));
@@ -154,7 +162,7 @@ namespace SocialPetApp.Droid
         private void CreateDirectoryForPictures()
         {
             //determina el directorio donde se van a guardar las imagenes
-            App._dir = new File(
+            App._dir = new Java.IO.File(
                 Android.OS.Environment.GetExternalStoragePublicDirectory(
                     Android.OS.Environment.DirectoryPictures), "CameraAppDemo");
             if (!App._dir.Exists())
@@ -176,7 +184,7 @@ namespace SocialPetApp.Droid
         {
             //que hacer cuando se le da click a la imagen de la camara
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-            App._file = new File(App._dir, String.Format(user.nombre+"{0}.jpg", Guid.NewGuid()));
+            App._file = new Java.IO.File(App._dir, String.Format(user.nombre+"{0}.jpg", Guid.NewGuid()));
             intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(App._file));
             StartActivityForResult(intent, 0);
         }
