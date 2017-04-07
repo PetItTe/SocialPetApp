@@ -18,7 +18,7 @@ using System.IO;
 
 namespace SocialPetApp.Droid
 {
-    [Activity(Label = "PerritoNuevo")]
+    [Activity(Label = "Publicar Mascota")]
     public class PerritoNuevo : Activity
     {
         Activity context = null;
