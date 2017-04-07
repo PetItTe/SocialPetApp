@@ -107,7 +107,7 @@ namespace SocialPetApp.Droid
         {
             Mascota m = new Mascota();
             //m = (Mascota)e.Handled;
-            if (userSpin.SelectedItemPosition == 2)
+            if (userSpin.SelectedItemPosition == 1)
             {
                 //que hacer si el usuario mantiene presionado un perro mientras mira la lista de perros que adopto
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -118,6 +118,8 @@ namespace SocialPetApp.Droid
                     m.estado = Mascota.ESTADO_PUBLICADO;
                     m.user_adopt = 0;
                     conMas.editarMascota(m);
+                    mascotaAdapter.mascotas.Remove(m);
+                    mascotasList.Adapter = mascotaAdapter;
                 });
 
                 alert.SetNegativeButton("NO", (senderAlert, args) => {
@@ -127,7 +129,7 @@ namespace SocialPetApp.Droid
                 Dialog dialog = alert.Create();
                 dialog.Show();
             }
-            else if(userSpin.SelectedItemPosition == 3)
+            else if(userSpin.SelectedItemPosition == 2)
             {
                 //que hacer si el usuario mantiene presionado un item mientras mira la lista de perros que subio
                 Intent i = new Intent(this, typeof(PerritoNuevo));
@@ -142,11 +144,14 @@ namespace SocialPetApp.Droid
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Adoption process confirmation");
                 alert.SetMessage("do you want to adopt this pet?");
-                alert.SetPositiveButton("YES", (senderAlert, args) => {
+                alert.SetPositiveButton("YES", (senderAlert, args) =>
+                {
                     m = mascotaAdapter.mascotas[e.Position];
                     m.estado = Mascota.ESTADO_ADOPTADO;
                     m.user_adopt = user.id_user;
                     conMas.editarMascota(m);
+                    mascotaAdapter.mascotas.Remove(m);
+                    mascotasList.Adapter = mascotaAdapter;
                 });
 
                 alert.SetNegativeButton("NO", (senderAlert, args) => {
