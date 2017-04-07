@@ -126,8 +126,8 @@ namespace SocialPetApp
                     .AppendPathSegment(seccion)
                     .WithBasicAuth(user.access_token, "")
                      .PostMultipartAsync(mp => mp
-        .AddFile(m.foto, file.Path)                    // local file path       // file stream
-        .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
+                     .AddFile("UploadForm[imageFile]", file.Path)                    // local file path       // file stream
+                     .AddJson("json", m.ToJSonPost()));         // json; // URL-encoded                      
              //   .PostJsonAsync(m.ToJSonPost());
             }
             catch(Exception e)

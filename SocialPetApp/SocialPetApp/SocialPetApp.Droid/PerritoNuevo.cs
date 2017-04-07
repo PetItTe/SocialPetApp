@@ -200,8 +200,6 @@ namespace SocialPetApp.Droid
           //  int height = Resources.DisplayMetrics.HeightPixels;
            // int width = cameraButton.Height;
             App.bitmap = App._file.Path.LoadAndResizeBitmap(380, 240);
-            int i = Intent.GetIntExtra("cantidad", 0)+1;
-            fotoText.Text = "img/"+user.username+i.ToString()+".jpg";
             if (App.bitmap != null)
             {
                 fotoView.SetImageBitmap(App.bitmap);
