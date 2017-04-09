@@ -72,7 +72,7 @@ namespace SocialPetApp.Droid {
 
             var txtNombre = view.FindViewById<TextView>(Resource.Id.nombreText);
             var txtEdad = view.FindViewById<TextView>(Resource.Id.ageText);
-            var txtTipo = view.FindViewById<TextView>(Resource.Id.typeText);
+           // var txtTipo = view.FindViewById<TextView>(Resource.Id.typeText);
             var mascImg = view.FindViewById<ImageView>(Resource.Id.mascImg);
             //var txtDueño = view.FindViewById<TextView>(Resource.Id.ownerText);
             var txtDescripcion = view.FindViewById<TextView>(Resource.Id.descText);
@@ -85,14 +85,14 @@ namespace SocialPetApp.Droid {
             //TODAVIA NO ANDA LOCO, AHORA ANDA A VER->OTRAS VENTANAS->CONSOLA DE ADMINISTRAR PAQUETES O ALGO ASI Y
             //PONES ESTE CODIGO Install-Package Xamarin.Android.Support.v4 -Version 23.0.1.3 sos imputable
             Glide.With(context).Load(item.getFotoURL()).Into(mascImg);
-            if (item.tipo == 1)
+            /*if (item.tipo == 1)
             {
                 txtTipo.Text = "PERRO";
             }
             else
             {
                 txtTipo.Text = "GATO";
-            }
+            }*/
             //txtDueño.Text = item.user_adopt.ToString();
             txtEdad.Text = "Edad: " + item.edad.ToString() + (item.edad==1?" año":" años");
 

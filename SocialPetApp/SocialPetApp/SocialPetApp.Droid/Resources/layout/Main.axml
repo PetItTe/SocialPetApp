@@ -7,19 +7,23 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="49.5dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginBottom="8.0dp">
+        android:background="@android:color/darker_gray">
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userSpinner"
             android:prompt="@string/userOpt_prompt"
-            android:layout_marginLeft="10.0dp"
-            android:layout_marginTop="15.0dp"
-            android:layout_marginBottom="15.0dp" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp" />
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tipoSpinner"
+                android:prompt="@string/tipoOpt_prompt"
+                android:layout_gravity="center_vertical|center_horizontal" />
             <ImageView
                 android:src="@drawable/plusicon"
                 android:layout_width="25.5dp"

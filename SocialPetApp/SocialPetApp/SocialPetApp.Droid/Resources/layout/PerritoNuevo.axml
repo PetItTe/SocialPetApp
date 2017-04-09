@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:minWidth="25px"
         android:minHeight="25px">
-        <ImageButton
+      <ImageButton
             android:src="@drawable/CameraIcon"
             android:layout_width="67.5dp"
             android:layout_height="45.5dp"
@@ -21,16 +21,23 @@
         <EditText
             android:text="Insertar URL de imagen"
             android:layout_width="match_parent"
-            android:layout_height="48.5dp"
+            android:layout_height="match_parent"
             android:id="@+id/imgText"
             android:layout_marginRight="0.0dp"
             android:layout_marginTop="10dp" />
     </LinearLayout>
-    <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fotoImg" />
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_width="wrap_content">
+        <ImageView
+             android:src="@android:drawable/ic_menu_gallery"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/fotoImg"
+             android:layout_gravity="center_horizontal"
+             />
+    </LinearLayout>
     <TextView
         android:text="@string/tipo_prompt"
         android:layout_width="match_parent"

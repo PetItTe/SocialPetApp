@@ -19,6 +19,7 @@ namespace SocialPetApp.Droid
         int paginaActual = 1;
         Paginador paginador;
         Usuario user;
+        Spinner tipoSpin;
         ConectorMascota conMas;
 
 
@@ -34,21 +35,31 @@ namespace SocialPetApp.Droid
             nuevoImg = FindViewById<ImageView>(Resource.Id.nuevoImg);
             userSpin = FindViewById<Spinner>(Resource.Id.userSpinner);
             mascotasList = FindViewById<ListView>(Resource.Id.MascotasList);
+            tipoSpin = FindViewById<Spinner>(Resource.Id.tipoSpinner);
+
 
             nuevoImg.Clickable = true;
             nuevoImg.Click += clickImage;
 
-   
+
             mascotasList.SetOnScrollListener(this);
 
-            //seteamos el spin y su adapter
-            var adapter = ArrayAdapter.CreateFromResource(
+            //seteamos los spin de filtros y sus adapters
+            var userAdapter = ArrayAdapter.CreateFromResource(
                     this, Resource.Array.userOpt_array, Android.Resource.Layout.SimpleSpinnerItem);
-            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            userSpin.Adapter = adapter;
+            userAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            userSpin.Adapter = userAdapter;
+
+            var tipoAdapter = ArrayAdapter.CreateFromResource(
+                    this, Resource.Array.tipoOpt_array, Android.Resource.Layout.SimpleSpinnerItem);
+            tipoAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            tipoSpin.Adapter = tipoAdapter;
             //
 
+            tipoSpin.Visibility = ViewStates.Visible;
+
             userSpin.ItemSelected += userClickItem;
+            tipoSpin.ItemSelected += tipoClickItem;
 
             mascotasList.ItemLongClick += mascotaLongClick;
 
@@ -76,21 +87,52 @@ namespace SocialPetApp.Droid
 
         }
 
+        private async void tipoClickItem(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            if (tipoSpin.SelectedItemPosition == 1)
+            {
+                //que hacer si el usuario selecciona la opcion PERRO del spinner
+                mascotaAdapter = new MascotaAdapter(
+                 this, await conMas.ObtenerPerros(), conMas);
+                mascotasList.Adapter = mascotaAdapter;
+            }
+            else if (tipoSpin.SelectedItemPosition == 2)
+            {
+                //que hacer si el usuario selecciona la opcion GATO del spinner
+                mascotaAdapter = new MascotaAdapter(
+                 this, await conMas.ObtenerGatos(), conMas);
+                mascotasList.Adapter = mascotaAdapter;
+            }
+            else
+            {
+                //que hacer si el usuario selecciona la opcion TIPO del spinner
+                paginaActual = 1;
+                mascotaAdapter = new MascotaAdapter(
+                 this, await conMas.ObtenerTodos(paginaActual), conMas);
+                paginador = await conMas.ObtenerTodosHeader(paginaActual);
+                mascotasList.Adapter = mascotaAdapter;
+            }
+        }
+
         private async void userClickItem(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             if (userSpin.SelectedItemPosition == 1)
             {
-                //que hacer si el usuario selecciona la opcion ADOPTED del spinner
+                //que hacer si el usuario selecciona la opcion ADOPTADOS del spinner
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerAdoptados(), conMas);
                 mascotasList.Adapter = mascotaAdapter;
+                tipoSpin.SetSelection(0);
+                tipoSpin.Visibility = ViewStates.Invisible;
             }
             else if (userSpin.SelectedItemPosition == 2)
             {
-                //que hacer si el usuario selecciona la opcion UPLOADED del spinner
+                //que hacer si el usuario selecciona la opcion SUBIDOS del spinner
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerSubidos(), conMas);
                 mascotasList.Adapter = mascotaAdapter;
+                tipoSpin.SetSelection(0);
+                tipoSpin.Visibility = ViewStates.Invisible;
             }
             else
             {
@@ -100,6 +142,7 @@ namespace SocialPetApp.Droid
                  this, await conMas.ObtenerTodos(paginaActual), conMas);
                 paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
+                tipoSpin.Visibility = ViewStates.Visible;
             }
         }
 
@@ -111,9 +154,9 @@ namespace SocialPetApp.Droid
             {
                 //que hacer si el usuario mantiene presionado un perro mientras mira la lista de perros que adopto
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.SetTitle("Adoption process confirmation");
-                alert.SetMessage("is this pet in adoption process?");
-                alert.SetPositiveButton("YES", (senderAlert, args) => {
+                alert.SetTitle("Cancelar adopcion");
+                alert.SetMessage("¿Poner nuevamente en adopcion la mascota?");
+                alert.SetPositiveButton("CONFIRMAR", (senderAlert, args) => {
                     m = mascotaAdapter.mascotas[e.Position];
                     m.estado = Mascota.ESTADO_PUBLICADO;
                     m.user_adopt = 0;
@@ -122,7 +165,7 @@ namespace SocialPetApp.Droid
                     mascotasList.Adapter = mascotaAdapter;
                 });
 
-                alert.SetNegativeButton("NO", (senderAlert, args) => {
+                alert.SetNegativeButton("CANCELAR", (senderAlert, args) => {
                     //do Nothing;
                 });
 
@@ -143,19 +186,17 @@ namespace SocialPetApp.Droid
             {
                 //que hacer si el usuario mantiene presionado un item mientras mira la lista de perros en adopcion
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.SetTitle("Adoption process confirmation");
-                alert.SetMessage("do you want to adopt this pet?");
-                alert.SetPositiveButton("YES", (senderAlert, args) =>
+                alert.SetTitle("Confirmar adopcion");
+                alert.SetMessage("¿Queres adoptar a esta mascota?");
+                alert.SetPositiveButton("ADOPTAR", (senderAlert, args) =>
                 {
                     m = mascotaAdapter.mascotas[e.Position];
-                    m.estado = Mascota.ESTADO_ADOPTADO;
-                    m.user_adopt = user.id_user;
-                    conMas.editarMascota(m);
+                    conMas.adoptarMascota(m);
                     mascotaAdapter.mascotas.Remove(m);
                     mascotasList.Adapter = mascotaAdapter;
                 });
 
-                alert.SetNegativeButton("NO", (senderAlert, args) => {
+                alert.SetNegativeButton("CANCELAR", (senderAlert, args) => {
                     //do Nothing;
                 });
 

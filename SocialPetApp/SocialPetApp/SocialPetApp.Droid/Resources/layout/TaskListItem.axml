@@ -27,10 +27,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:text="Tipo"
+                android:text="dueño"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/typeText" />
+                android:id="@+id/dueñoText" />
             <TextView
                 android:text="Edad"
                 android:layout_width="match_parent"

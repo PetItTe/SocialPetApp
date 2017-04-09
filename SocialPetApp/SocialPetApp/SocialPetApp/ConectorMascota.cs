@@ -66,6 +66,30 @@ namespace SocialPetApp
             return listFinal;
         }
 
+        public async Task<List<Mascota>> ObtenerPerros(int pagina = 1)
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("perros").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
+            List<Mascota> listFinal = new List<Mascota>();
+            foreach (dynamic item in listMas)
+            {
+                listFinal.Add(new Mascota(item));
+
+            }
+            return listFinal;
+        }
+
+        public async Task<List<Mascota>> ObtenerGatos(int pagina = 1)
+        {
+            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("gatos").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
+            List<Mascota> listFinal = new List<Mascota>();
+            foreach (dynamic item in listMas)
+            {
+                listFinal.Add(new Mascota(item));
+
+            }
+            return listFinal;
+        }
+
         public async void CombinarMascotas(IList<Mascota> lista, int pagina)
         {
             var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
@@ -111,6 +135,8 @@ namespace SocialPetApp
                 Int32.Parse(v.GetValues("X-Pagination-Total-Count").Single<string>())
                 );
         }
+
+
 
         public async Task<Mascota> ObtenerID(int id)
         {

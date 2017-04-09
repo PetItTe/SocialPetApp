@@ -1,16 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
+  
   <string name="tipo_prompt"> Elige el tipo </string>
   <string-array name="tipo_array">
     <item>PERRO</item>
     <item>GATO</item>
   </string-array>
+  
+  <string name="tipoOpt_prompt"> Tipo </string>
+  <string-array name="tipoOpt_array">
+    <item>"TODOS"</item>
+    <item>PERRO</item>
+    <item>GATO</item>
+  </string-array>
+
   <string name="userOpt_prompt"> Usuario </string>
   <string-array name="userOpt_array">
-    <item>"USER OPTIONS"</item>
-    <item>ADOPTED</item>
-    <item>UPLOADED</item>
+    <item>"HOME"</item>
+    <item>ADOPTADOS</item>
+    <item>SUBIDOS</item>
   </string-array>
+  
   <string name="Hello">Hello World, Click Me!</string>
   <string name="ApplicationName">SocialPetApp.Droid</string>
 </resources>

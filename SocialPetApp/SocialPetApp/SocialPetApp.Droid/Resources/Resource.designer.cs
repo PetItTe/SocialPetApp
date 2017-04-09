@@ -31,11 +31,14 @@ namespace SocialPetApp.Droid
 		public partial class Array
 		{
 			
+			// aapt resource value: 0x7f050001
+			public const int tipoOpt_array = 2131034113;
+			
 			// aapt resource value: 0x7f050000
 			public const int tipo_array = 2131034112;
 			
-			// aapt resource value: 0x7f050001
-			public const int userOpt_array = 2131034113;
+			// aapt resource value: 0x7f050002
+			public const int userOpt_array = 2131034114;
 			
 			static Array()
 			{
@@ -85,8 +88,8 @@ namespace SocialPetApp.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060002
-			public const int MascotasList = 2131099650;
+			// aapt resource value: 0x7f060003
+			public const int MascotasList = 2131099651;
 			
 			// aapt resource value: 0x7f06000b
 			public const int addButton = 2131099659;
@@ -97,8 +100,8 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f06001c
 			public const int buttonsLyt = 2131099676;
 			
-			// aapt resource value: 0x7f060003
-			public const int cameraButton = 2131099651;
+			// aapt resource value: 0x7f060004
+			public const int cameraButton = 2131099652;
 			
 			// aapt resource value: 0x7f06001b
 			public const int cancelBtn = 2131099675;
@@ -109,17 +112,20 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f06000a
 			public const int descText = 2131099658;
 			
+			// aapt resource value: 0x7f060010
+			public const int dueñoText = 2131099664;
+			
 			// aapt resource value: 0x7f060009
 			public const int edadText = 2131099657;
 			
 			// aapt resource value: 0x7f060016
 			public const int emailText = 2131099670;
 			
-			// aapt resource value: 0x7f060005
-			public const int fotoImg = 2131099653;
+			// aapt resource value: 0x7f060006
+			public const int fotoImg = 2131099654;
 			
-			// aapt resource value: 0x7f060004
-			public const int imgText = 2131099652;
+			// aapt resource value: 0x7f060005
+			public const int imgText = 2131099653;
 			
 			// aapt resource value: 0x7f060019
 			public const int locText = 2131099673;
@@ -145,8 +151,8 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f060008
 			public const int nombreText = 2131099656;
 			
-			// aapt resource value: 0x7f060001
-			public const int nuevoImg = 2131099649;
+			// aapt resource value: 0x7f060002
+			public const int nuevoImg = 2131099650;
 			
 			// aapt resource value: 0x7f060015
 			public const int pass2Text = 2131099669;
@@ -163,14 +169,11 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f060014
 			public const int singUpLyt = 2131099668;
 			
-			// aapt resource value: 0x7f060006
-			public const int textView1 = 2131099654;
-			
 			// aapt resource value: 0x7f060007
-			public const int tipoSpinner = 2131099655;
+			public const int textView1 = 2131099655;
 			
-			// aapt resource value: 0x7f060010
-			public const int typeText = 2131099664;
+			// aapt resource value: 0x7f060001
+			public const int tipoSpinner = 2131099649;
 			
 			// aapt resource value: 0x7f060000
 			public const int userSpinner = 2131099648;
@@ -216,17 +219,20 @@ namespace SocialPetApp.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040003
-			public const int ApplicationName = 2130968579;
+			// aapt resource value: 0x7f040004
+			public const int ApplicationName = 2130968580;
 			
-			// aapt resource value: 0x7f040002
-			public const int Hello = 2130968578;
+			// aapt resource value: 0x7f040003
+			public const int Hello = 2130968579;
+			
+			// aapt resource value: 0x7f040001
+			public const int tipoOpt_prompt = 2130968577;
 			
 			// aapt resource value: 0x7f040000
 			public const int tipo_prompt = 2130968576;
 			
-			// aapt resource value: 0x7f040001
-			public const int userOpt_prompt = 2130968577;
+			// aapt resource value: 0x7f040002
+			public const int userOpt_prompt = 2130968578;
 			
 			static String()
 			{

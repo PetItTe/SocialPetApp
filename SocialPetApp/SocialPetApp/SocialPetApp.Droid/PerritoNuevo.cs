@@ -211,6 +211,7 @@ namespace SocialPetApp.Droid
             if (App.bitmap != null)
             {
                 fotoView.SetImageBitmap(App.bitmap);
+                fotoView.LayoutParameters = new LinearLayout.LayoutParams(300, 300);
                 fotoView.Visibility = ViewStates.Visible;
               //  App.bitmap = null;
             }
