@@ -21,7 +21,8 @@ namespace SocialPetApp.Droid
         Usuario user;
         Spinner tipoSpin;
         ConectorMascota conMas;
-
+        TextView emailTxt;
+        TextView celularTxt;
 
 
         protected async override void OnCreate(Bundle bundle)
@@ -36,7 +37,8 @@ namespace SocialPetApp.Droid
             userSpin = FindViewById<Spinner>(Resource.Id.userSpinner);
             mascotasList = FindViewById<ListView>(Resource.Id.MascotasList);
             tipoSpin = FindViewById<Spinner>(Resource.Id.tipoSpinner);
-
+            emailTxt = FindViewById<TextView>(Resource.Id.emailText);
+            celularTxt = FindViewById<TextView>(Resource.Id.celText);
 
             nuevoImg.Clickable = true;
             nuevoImg.Click += clickImage;
@@ -124,6 +126,8 @@ namespace SocialPetApp.Droid
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.SetSelection(0);
                 tipoSpin.Visibility = ViewStates.Invisible;
+                emailTxt.Visibility = ViewStates.Visible;
+                celularTxt.Visibility = ViewStates.Visible;
             }
             else if (userSpin.SelectedItemPosition == 2)
             {
@@ -133,6 +137,8 @@ namespace SocialPetApp.Droid
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.SetSelection(0);
                 tipoSpin.Visibility = ViewStates.Invisible;
+                emailTxt.Visibility = ViewStates.Invisible;
+                celularTxt.Visibility = ViewStates.Invisible;
             }
             else
             {
@@ -143,6 +149,8 @@ namespace SocialPetApp.Droid
                 paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.Visibility = ViewStates.Visible;
+                emailTxt.Visibility = ViewStates.Invisible;
+                celularTxt.Visibility = ViewStates.Invisible;
             }
         }
 

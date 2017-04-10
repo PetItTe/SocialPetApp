@@ -21,7 +21,6 @@ namespace SocialPetApp.Droid
     [Activity(Label = "Publicar Mascota")]
     public class PerritoNuevo : Activity
     {
-        Activity context = null;
         EditText nombreText;
         EditText fotoText;
         EditText edadText;
@@ -34,6 +33,7 @@ namespace SocialPetApp.Droid
         Mascota mascota = new Mascota();
         Usuario user = new Usuario();
         ConectorMascota conMas;
+        
 
         public static class App
         {
@@ -60,6 +60,7 @@ namespace SocialPetApp.Droid
             fotoText.Enabled = false;
             tipoSpin = FindViewById<Spinner>(Resource.Id.tipoSpinner);
             fotoView = FindViewById<ImageView>(Resource.Id.fotoImg);
+            
             fotoView.Visibility = ViewStates.Invisible;
 
             var adapter = ArrayAdapter.CreateFromResource(
