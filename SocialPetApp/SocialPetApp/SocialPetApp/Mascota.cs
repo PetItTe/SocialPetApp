@@ -21,6 +21,12 @@ namespace SocialPetApp
         public int user_alta { get; set; }
         public int user_adopt { get; set; }
         public int estado { get; set; }
+        public string localidad { get; set; }
+        public string username { get; set; }
+        public string email { get; set; }
+        public string cel { get; set; }
+        public string persona { get; set; }
+        
 
         public Mascota()
         {
@@ -43,9 +49,25 @@ namespace SocialPetApp
             edad = Convert.ToInt32(d.edad);
             tipo = Convert.ToInt32(d.tipo);
             foto = d.foto;
+            localidad = d.localidad;
+            username = d.username;
             user_alta = Convert.ToInt32(d.user_alta);
             user_adopt = Convert.ToInt32(d.user_adopt);
             estado = Convert.ToInt32(d.estado);
+
+            try
+            {
+                persona = d.persona;
+                email = d.email;
+                cel = d.cel;
+            }
+            catch
+            {
+                persona = "";
+                email = "";
+                cel = "";
+            }
+            
         }
 
         public Mascota(string nombre, string descripcion, int edad, int tipo, string foto, int user_alta)

@@ -10,44 +10,40 @@
         android:layout_height="200dp"
         android:id="@+id/mascImg"
         android:scaleType="centerCrop" />
-  <LinearLayout
-    android:orientation="vertical"
-    android:id="@+id/lstItemTask2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="10dp">
-    <TextView
-        android:id="@+id/nombreText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/lstItemTask2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="Nombre" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/lstItemTask3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/nombreText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="Nombre" />
             <TextView
                 android:text="dueño"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/dueñoText" />
-          <TableLayout    
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1">
-            <TableRow>
             <TextView
                 android:text="Edad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/ageText" />
             <TextView
-                  android:text="Localidad"
-                  android:gravity="right"
-                  android:id="@+id/localidadText" />
-            </TableRow>
-          </TableLayout >
+                android:text="Localidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/localidadText" />
+            <TextView
+                android:text="Persona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/nombrePersonaText" />
             <TextView
                 android:text="Email"
                 android:layout_width="match_parent"
@@ -60,12 +56,10 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:id="@+id/telText" />
-        </LinearLayout>
-   
-    <TextView
-        android:id="@+id/descText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descripcion" />
-  </LinearLayout>
+        <TextView
+            android:id="@+id/descText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripcion" />
+    </LinearLayout>
 </LinearLayout>

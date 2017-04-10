@@ -62,41 +62,7 @@ namespace SocialPetApp
             }
             return listFinal;
         }
-
-        public async Task<List<Mascota>> ObtenerPerros(int pagina = 1)
-        {
-            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("perros").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
-            List<Mascota> listFinal = new List<Mascota>();
-            foreach (dynamic item in listMas)
-            {
-                listFinal.Add(new Mascota(item));
-
-            }
-            return listFinal;
-        }
-
-        public async Task<List<Mascota>> ObtenerGatos(int pagina = 1)
-        {
-            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("gatos").SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
-            List<Mascota> listFinal = new List<Mascota>();
-            foreach (dynamic item in listMas)
-            {
-                listFinal.Add(new Mascota(item));
-
-            }
-            return listFinal;
-        }
-
-        public async void CombinarMascotas(IList<Mascota> lista, int pagina)
-        {
-            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").GetJsonListAsync();
-            foreach (dynamic item in listMas)
-            {
-                lista.Add(new Mascota(item));
-            }
-        }
-
-
+      
         public async Task<Paginador> ObtenerTodosHeader(int pagina = 1, int tipo = 0)
         {
             var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("todos").SetQueryParams(new { page = pagina, filtro = tipo }).WithBasicAuth(user.access_token, "").HeadAsync();
@@ -169,56 +135,30 @@ namespace SocialPetApp
 
         public async void editarMascota(Mascota m)
         {
-            try
-            {
-                var result = await baseURL
-                    .AppendPathSegment(seccion)
-                    .AppendPathSegment(m.id_mas)
-                    .WithBasicAuth(user.access_token, "")
-                    .PutJsonAsync(m.ToJSonPut());              
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                System.Diagnostics.Debug.WriteLine(e.ToString());
-            }
-        }
+            var result = await baseURL
+                .AppendPathSegment(seccion)
+                .AppendPathSegment(m.id_mas)
+                .WithBasicAuth(user.access_token, "")
+                .PutJsonAsync(m.ToJSonPut());
+        }           
 
         public async void adoptarMascota(Mascota m)
         {
-
-                var result = await baseURL
-                    .AppendPathSegment(seccion)
-                    .AppendPathSegment("adoptar")
-                    .SetQueryParams(new { id = m.id_mas })
-                    .WithBasicAuth(user.access_token, "")
-                    .GetJsonAsync();
-
+            var result = await baseURL
+                .AppendPathSegment(seccion)
+                .AppendPathSegment("adoptar")
+                .SetQueryParams(new { id = m.id_mas })
+                .WithBasicAuth(user.access_token, "")
+                .GetJsonAsync();
         }
 
         public async void eliminarMascota(Mascota m)
         {
-            try
-            {
-                var result = await baseURL
-                    .AppendPathSegment(seccion)
-                    .AppendPathSegment(m.id_mas)
-                    .WithBasicAuth(user.access_token, "")
-                    .DeleteAsync();
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                System.Diagnostics.Debug.WriteLine(e.ToString());
-            }
+            var result = await baseURL
+                .AppendPathSegment(seccion)
+                .AppendPathSegment(m.id_mas)
+                .WithBasicAuth(user.access_token, "")
+                .DeleteAsync();
         }
-
-
-        public async Task<string> ObtenerDummy()
-        {
-            return await baseURL.AppendPathSegment(seccion).WithBasicAuth(user.access_token, "").GetStringAsync();
-        }
-
-        
     }
 }

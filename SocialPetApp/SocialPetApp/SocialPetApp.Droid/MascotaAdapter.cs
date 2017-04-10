@@ -18,17 +18,21 @@ namespace SocialPetApp.Droid {
 		public IList<Mascota> mascotas = new List<Mascota>();
         public static bool endOfList { get; set; }
         private ConectorMascota conMas;
+        private int estadoSpin;
+
 
         
 
         public MascotaAdapter(Activity context, 
-            IList<Mascota> mascotas, ConectorMascota conMas) : base ()
+            IList<Mascota> mascotas, ConectorMascota conMas, int estadoSpin) : base ()
 		{
             this.conMas = conMas;
             endOfList = false;
 			this.context = context;
 			this.mascotas = mascotas;
-		}
+            this.estadoSpin = estadoSpin;
+
+        }
 
         public async void combinarMascotas(int pagina)
         {
@@ -73,17 +77,42 @@ namespace SocialPetApp.Droid {
 
             var txtNombre = view.FindViewById<TextView>(Resource.Id.nombreText);
             var txtEdad = view.FindViewById<TextView>(Resource.Id.ageText);
+            var txtLocalidad = view.FindViewById<TextView>(Resource.Id.localidadText);
             // var txtTipo = view.FindViewById<TextView>(Resource.Id.typeText);
             var mascImg = view.FindViewById<ImageView>(Resource.Id.mascImg);
-            //var txtDueño = view.FindViewById<TextView>(Resource.Id.ownerText);
+            var txtDueño = view.FindViewById<TextView>(Resource.Id.dueñoText);
             var txtDescripcion = view.FindViewById<TextView>(Resource.Id.descText);
             var txtMail = view.FindViewById<TextView>(Resource.Id.emailText);
             var txtCel = view.FindViewById<TextView>(Resource.Id.telText);
+            var txtNombrePersona = view.FindViewById<TextView>(Resource.Id.nombrePersonaText);
 
 
             //Assign item's values to the various subviews
             txtNombre.Text = item.nombre;
             txtDescripcion.Text = item.descripcion;
+            txtLocalidad.Text = item.localidad;
+            txtDueño.Text = item.username;
+
+            if (estadoSpin == 1)
+            {
+                //que hacer si el usuario selecciona la opcion ADOPTADOS del spinner
+                txtNombrePersona.Text = item.persona;
+                txtNombrePersona.Visibility = Android.Views.ViewStates.Visible;
+                txtCel.Text = item.cel;
+                txtCel.Visibility = Android.Views.ViewStates.Visible;
+                txtMail.Text = item.email;
+                txtMail.Visibility = Android.Views.ViewStates.Visible;
+
+            }
+            else if (estadoSpin == 2)
+            {
+                //que hacer si el usuario selecciona la opcion SUBIDOS del spinner
+
+            }
+            else
+            {
+                //que hacer si el usuario selecciona la opcion HOME del spinner
+            }
 
 
 
@@ -100,7 +129,7 @@ namespace SocialPetApp.Droid {
                 txtTipo.Text = "GATO";
             }*/
             //txtDueño.Text = item.user_adopt.ToString();
-            txtEdad.Text = "Edad: " + item.edad.ToString() + (item.edad == 1 ? " año" : " años");
+            txtEdad.Text = item.edad.ToString() + (item.edad == 1 ? " año" : " años");
 
             //Codigo loco
             //ESTO NO HACE UNA GOD DAMN SHIT

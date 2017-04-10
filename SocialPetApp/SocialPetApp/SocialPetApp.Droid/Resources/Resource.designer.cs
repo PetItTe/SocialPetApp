@@ -94,8 +94,8 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f06000b
 			public const int addButton = 2131099659;
 			
-			// aapt resource value: 0x7f060011
-			public const int ageText = 2131099665;
+			// aapt resource value: 0x7f060010
+			public const int ageText = 2131099664;
 			
 			// aapt resource value: 0x7f06001e
 			public const int buttonsLyt = 2131099678;
@@ -112,8 +112,8 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f06000a
 			public const int descText = 2131099658;
 			
-			// aapt resource value: 0x7f060010
-			public const int dueñoText = 2131099664;
+			// aapt resource value: 0x7f06000f
+			public const int dueñoText = 2131099663;
 			
 			// aapt resource value: 0x7f060009
 			public const int edadText = 2131099657;
@@ -130,8 +130,8 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f06001b
 			public const int locText = 2131099675;
 			
-			// aapt resource value: 0x7f060012
-			public const int localidadText = 2131099666;
+			// aapt resource value: 0x7f060011
+			public const int localidadText = 2131099665;
 			
 			// aapt resource value: 0x7f06001f
 			public const int logBtn = 2131099679;
@@ -142,14 +142,14 @@ namespace SocialPetApp.Droid
 			// aapt resource value: 0x7f06000e
 			public const int lstItemTask2 = 2131099662;
 			
-			// aapt resource value: 0x7f06000f
-			public const int lstItemTask3 = 2131099663;
-			
 			// aapt resource value: 0x7f06000d
 			public const int mascImg = 2131099661;
 			
 			// aapt resource value: 0x7f060019
 			public const int nameText = 2131099673;
+			
+			// aapt resource value: 0x7f060012
+			public const int nombrePersonaText = 2131099666;
 			
 			// aapt resource value: 0x7f060008
 			public const int nombreText = 2131099656;

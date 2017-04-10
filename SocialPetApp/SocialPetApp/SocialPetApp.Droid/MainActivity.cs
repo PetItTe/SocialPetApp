@@ -72,7 +72,7 @@ namespace SocialPetApp.Droid
                 user = new Usuario(Intent.GetIntExtra("id_user",0), Intent.GetStringExtra("nombre"), Intent.GetStringExtra("access_token"), Intent.GetStringExtra("username"), Intent.GetIntExtra("roles",0));
                 conMas = new ConectorMascota(user);
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerTodos(paginaActual), conMas);
+                 this, await conMas.ObtenerTodos(paginaActual), conMas, userSpin.SelectedItemPosition);
                 //paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
             }
@@ -92,18 +92,18 @@ namespace SocialPetApp.Droid
 
         private async void tipoClickItem(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            if (tipoSpin.SelectedItemPosition == 1)
+            if (tipoSpin.SelectedItemPosition == Mascota.TIPO_PERRO)
             {
                 //que hacer si el usuario selecciona la opcion PERRO del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerTodos(paginaActual, Mascota.TIPO_PERRO), conMas);
+                 this, await conMas.ObtenerTodos(paginaActual, Mascota.TIPO_PERRO), conMas, userSpin.SelectedItemPosition);
                 mascotasList.Adapter = mascotaAdapter;
             }
-            else if (tipoSpin.SelectedItemPosition == 2)
+            else if (tipoSpin.SelectedItemPosition == Mascota.TIPO_GATO)
             {
                 //que hacer si el usuario selecciona la opcion GATO del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerTodos(paginaActual, Mascota.TIPO_GATO), conMas);
+                 this, await conMas.ObtenerTodos(paginaActual, Mascota.TIPO_GATO), conMas, userSpin.SelectedItemPosition);
                 mascotasList.Adapter = mascotaAdapter;
             }
             else
@@ -111,7 +111,7 @@ namespace SocialPetApp.Droid
                 //que hacer si el usuario selecciona la opcion TIPO del spinner
                 paginaActual = 1;
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerTodos(paginaActual), conMas);
+                 this, await conMas.ObtenerTodos(paginaActual), conMas, userSpin.SelectedItemPosition);
                // paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
             }
@@ -124,7 +124,7 @@ namespace SocialPetApp.Droid
             {
                 //que hacer si el usuario selecciona la opcion ADOPTADOS del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerAdoptados(), conMas);
+                 this, await conMas.ObtenerAdoptados(), conMas, userSpin.SelectedItemPosition);
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.SetSelection(0);
                 tipoSpin.Visibility = ViewStates.Invisible;
@@ -136,7 +136,7 @@ namespace SocialPetApp.Droid
             {
                 //que hacer si el usuario selecciona la opcion SUBIDOS del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerSubidos(), conMas);
+                 this, await conMas.ObtenerSubidos(), conMas, userSpin.SelectedItemPosition);
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.SetSelection(0);
                 tipoSpin.Visibility = ViewStates.Invisible;
@@ -149,7 +149,7 @@ namespace SocialPetApp.Droid
                 //que hacer si el usuario selecciona la opcion HOME del spinner
                 paginaActual = 1;
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerTodos(paginaActual), conMas);
+                 this, await conMas.ObtenerTodos(paginaActual), conMas, userSpin.SelectedItemPosition);
                 //paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.Visibility = ViewStates.Visible;

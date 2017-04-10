@@ -155,7 +155,7 @@ namespace SocialPetApp.Droid
                     conMas.publicarMascota(mascota, ms);
 
                 }
-                StartActivity(typeof(MainActivity));
+                Finish();
             }
             
         }
