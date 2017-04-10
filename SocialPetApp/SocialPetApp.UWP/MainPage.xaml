@@ -15,9 +15,10 @@
                 </ImageBrush.Transform>
             </ImageBrush>
         </Grid.Background>
+        <ScrollViewer>
         <StackPanel Orientation="Vertical" Margin="10,10,10,0" >
             <TextBlock Text="Lista" Margin="10,20,20,0"></TextBlock>
-            <ListView x:Name="lista" Margin="10,20,10,200000" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="5" Background="#FF363636" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
+            <ListView x:Name="lista" Margin="10,20,10,200000" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="5" Background="#FF363636">
 
                 <ListView.ItemTemplate>
 
@@ -40,6 +41,7 @@
             </ListView>
 
         </StackPanel>
+        </ScrollViewer>
         <Button x:Name="btnNuevo" Content="Nuevo" HorizontalAlignment="Left" Margin="10,598,0,0" VerticalAlignment="Top" Width="340"/>
     </Grid>
 </Page>
