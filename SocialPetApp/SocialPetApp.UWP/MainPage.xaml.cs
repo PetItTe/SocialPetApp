@@ -12,7 +12,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using System.IO;
 
 // La plantilla de elemento Página en blanco está documentada en http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -23,10 +22,11 @@ namespace SocialPetApp.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
         public MainPage()
         {
             this.InitializeComponent();
-            
+            lista.Margin = new Thickness(20, 20, 20, 2000);
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -34,9 +34,10 @@ namespace SocialPetApp.UWP
             SocialPetApp.Usuario user = new SocialPetApp.Usuario();
             user.access_token = "Su4A90QnlbDwjmIhZU9_AYCBrNe5aPDb";
             ConectorMascota conMas = new ConectorMascota(user);
-            List<MascotaAdapter> mascAdapter = new List<MascotaAdapter>();
-            mascAdapter = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos());
-            lista.ItemsSource = mascAdapter;
+            lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos());
+            lista.Margin = new Thickness(20,20,20,2000);
+            
+            
         }
     }
 }
