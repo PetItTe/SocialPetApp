@@ -203,6 +203,7 @@ namespace SocialPetApp.Droid
                 alert.SetNegativeButton("BORRAR", (senderAlert, args) => {
                     m = mascotaAdapter.mascotas[e.Position];
                     conMas.eliminarMascota(m);
+                    mascotaAdapter.mascotas.Remove(m);
                 });
                 Dialog dialog = alert.Create();
                 dialog.Show();
