@@ -186,19 +186,14 @@ namespace SocialPetApp
 
         public async void adoptarMascota(Mascota m)
         {
-            try
-            {
+
                 var result = await baseURL
                     .AppendPathSegment(seccion)
-                    .AppendPathSegment(m.id_mas)
+                    .AppendPathSegment("adoptar")
+                    .SetQueryParams(new { id = m.id_mas })
                     .WithBasicAuth(user.access_token, "")
-                    .PutJsonAsync(m.ToJSonPutAdoptar());
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                System.Diagnostics.Debug.WriteLine(e.ToString());
-            }
+                    .GetJsonAsync();
+
         }
 
         public async void eliminarMascota(Mascota m)
