@@ -18,7 +18,7 @@ namespace SocialPetApp.Droid {
 		public IList<Mascota> mascotas = new List<Mascota>();
         public static bool endOfList { get; set; }
         private ConectorMascota conMas;
-        Usuario user;
+
         
 
         public MascotaAdapter(Activity context, 
@@ -84,8 +84,7 @@ namespace SocialPetApp.Droid {
             //Assign item's values to the various subviews
             txtNombre.Text = item.nombre;
             txtDescripcion.Text = item.descripcion;
-            txtMail.Text = user.email;
-            txtCel.Text = user.celular;
+
 
 
             //TE INSTALAS EL GLIDE DESDE NUGET

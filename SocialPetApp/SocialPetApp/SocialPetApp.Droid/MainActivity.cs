@@ -10,19 +10,20 @@ using System.Collections.Generic;
 namespace SocialPetApp.Droid
 {
 	[Activity (Label = "SocialPetApp.Droid")]
-	public class MainActivity : Activity, ListView.IOnScrollListener
+	public class MainActivity : Activity
+        //,ListView.IOnScrollListener
 	{
         ListView mascotasList;
         ImageView nuevoImg;
         Spinner userSpin;
         MascotaAdapter mascotaAdapter;
         int paginaActual = 1;
-        Paginador paginador;
+        //Paginador paginador;
         Usuario user;
         Spinner tipoSpin;
         ConectorMascota conMas;
-        TextView emailTxt;
-        TextView celularTxt;
+        //TextView emailTxt;
+        //TextView celularTxt;
 
 
         protected async override void OnCreate(Bundle bundle)
@@ -37,14 +38,14 @@ namespace SocialPetApp.Droid
             userSpin = FindViewById<Spinner>(Resource.Id.userSpinner);
             mascotasList = FindViewById<ListView>(Resource.Id.MascotasList);
             tipoSpin = FindViewById<Spinner>(Resource.Id.tipoSpinner);
-            emailTxt = FindViewById<TextView>(Resource.Id.emailText);
-            celularTxt = FindViewById<TextView>(Resource.Id.celText);
+            //emailTxt = FindViewById<TextView>(Resource.Id.emailText);
+            //celularTxt = FindViewById<TextView>(Resource.Id.celText);
 
             nuevoImg.Clickable = true;
             nuevoImg.Click += clickImage;
 
 
-            mascotasList.SetOnScrollListener(this);
+            //mascotasList.SetOnScrollListener(this);
 
             //seteamos los spin de filtros y sus adapters
             var userAdapter = ArrayAdapter.CreateFromResource(
@@ -72,7 +73,7 @@ namespace SocialPetApp.Droid
                 conMas = new ConectorMascota(user);
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerTodos(paginaActual), conMas);
-                paginador = await conMas.ObtenerTodosHeader(paginaActual);
+                //paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
             }
             catch(Exception e1)
@@ -95,14 +96,14 @@ namespace SocialPetApp.Droid
             {
                 //que hacer si el usuario selecciona la opcion PERRO del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerPerros(), conMas);
+                 this, await conMas.ObtenerTodos(paginaActual, Mascota.TIPO_PERRO), conMas);
                 mascotasList.Adapter = mascotaAdapter;
             }
             else if (tipoSpin.SelectedItemPosition == 2)
             {
                 //que hacer si el usuario selecciona la opcion GATO del spinner
                 mascotaAdapter = new MascotaAdapter(
-                 this, await conMas.ObtenerGatos(), conMas);
+                 this, await conMas.ObtenerTodos(paginaActual, Mascota.TIPO_GATO), conMas);
                 mascotasList.Adapter = mascotaAdapter;
             }
             else
@@ -111,7 +112,7 @@ namespace SocialPetApp.Droid
                 paginaActual = 1;
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerTodos(paginaActual), conMas);
-                paginador = await conMas.ObtenerTodosHeader(paginaActual);
+               // paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
             }
         }
@@ -126,8 +127,8 @@ namespace SocialPetApp.Droid
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.SetSelection(0);
                 tipoSpin.Visibility = ViewStates.Invisible;
-                emailTxt.Visibility = ViewStates.Visible;
-                celularTxt.Visibility = ViewStates.Visible;
+                //emailTxt.Visibility = ViewStates.Visible;
+                //celularTxt.Visibility = ViewStates.Visible;
             }
             else if (userSpin.SelectedItemPosition == 2)
             {
@@ -137,8 +138,8 @@ namespace SocialPetApp.Droid
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.SetSelection(0);
                 tipoSpin.Visibility = ViewStates.Invisible;
-                emailTxt.Visibility = ViewStates.Invisible;
-                celularTxt.Visibility = ViewStates.Invisible;
+                //emailTxt.Visibility = ViewStates.Invisible;
+                //celularTxt.Visibility = ViewStates.Invisible;
             }
             else
             {
@@ -146,11 +147,11 @@ namespace SocialPetApp.Droid
                 paginaActual = 1;
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerTodos(paginaActual), conMas);
-                paginador = await conMas.ObtenerTodosHeader(paginaActual);
+                //paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
                 tipoSpin.Visibility = ViewStates.Visible;
-                emailTxt.Visibility = ViewStates.Invisible;
-                celularTxt.Visibility = ViewStates.Invisible;
+                //emailTxt.Visibility = ViewStates.Invisible;
+                //celularTxt.Visibility = ViewStates.Invisible;
             }
         }
 
@@ -236,7 +237,7 @@ namespace SocialPetApp.Droid
             //throw new NotImplementedException();
         }
 
-        public void OnScrollStateChanged(AbsListView view, [GeneratedEnum] ScrollState scrollState)
+        /*public void OnScrollStateChanged(AbsListView view, [GeneratedEnum] ScrollState scrollState)
         {
             //que hacer si el usuario scrollea hasta el final de la lista
             if (MascotaAdapter.endOfList == true)
@@ -258,7 +259,7 @@ namespace SocialPetApp.Droid
                     }
                 }
             }
-        }
+        }*/
 
         protected override void OnResume()
         {

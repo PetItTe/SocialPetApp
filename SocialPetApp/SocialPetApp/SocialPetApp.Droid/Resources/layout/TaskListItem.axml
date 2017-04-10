@@ -10,17 +10,20 @@
         android:layout_height="200dp"
         android:id="@+id/mascImg"
         android:scaleType="centerCrop" />
+  <LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/lstItemTask2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
     <TextView
         android:id="@+id/nombreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:text="Nombre" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/lstItemTask2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="0.0dp">
+
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/lstItemTask3"
@@ -31,28 +34,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/dueñoText" />
+          <TableLayout    
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1">
+            <TableRow>
             <TextView
                 android:text="Edad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/ageText" />
+            <TextView
+                  android:text="Localidad"
+                  android:gravity="right"
+                  android:id="@+id/localidadText" />
+            </TableRow>
+          </TableLayout >
             <TextView
                 android:text="Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:id="@+id/emailText"/>
+                android:visibility="gone"
+                android:id="@+id/emailText" />
             <TextView
                 android:text="Telefono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:id="@+id/telText"/>
+                android:visibility="gone"
+                android:id="@+id/telText" />
         </LinearLayout>
-    </LinearLayout>
+   
     <TextView
         android:id="@+id/descText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Descripcion" />
+  </LinearLayout>
 </LinearLayout>
