@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace SocialPetApp.Droid
 {
-    [Activity(Label = "UserLogin", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Iniciar Sesion", MainLauncher = true, Icon = "@drawable/icon")]
     public class UserLogin : Activity
     {
         Button logInBtn;
