@@ -9,11 +9,11 @@ namespace SocialPetApp.UWP
 {
     class MascotaAdapter
     {
-        BitmapImage foto = new BitmapImage();
+        BitmapImage bitmap;
         string nombre;
         int edad;
-        string celular = "";
-        string eMail = "";
+        string celular;
+        string mail;
         string descripcion;
 
         public static List<MascotaAdapter> obtenerTodos(List<Mascota> mascotas)
@@ -25,7 +25,7 @@ namespace SocialPetApp.UWP
                 mAdap.nombre = m.nombre;
                 mAdap.descripcion = m.descripcion;
                 mAdap.edad = m.edad;
-                mAdap.foto.UriSource = new Uri(m.getFotoURL());
+                mAdap.bitmap.UriSource = new Uri(m.getFotoURL());
                 mascotaAdapter.Add(mAdap);
                 
             }
