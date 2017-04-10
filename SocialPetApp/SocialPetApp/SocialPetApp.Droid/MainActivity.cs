@@ -119,6 +119,7 @@ namespace SocialPetApp.Droid
 
         private async void userClickItem(object sender, AdapterView.ItemSelectedEventArgs e)
         {
+            userSpin.Enabled = false;
             if (userSpin.SelectedItemPosition == 1)
             {
                 //que hacer si el usuario selecciona la opcion ADOPTADOS del spinner
@@ -129,6 +130,7 @@ namespace SocialPetApp.Droid
                 tipoSpin.Visibility = ViewStates.Invisible;
                 //emailTxt.Visibility = ViewStates.Visible;
                 //celularTxt.Visibility = ViewStates.Visible;
+                userSpin.Enabled = true;
             }
             else if (userSpin.SelectedItemPosition == 2)
             {
@@ -140,6 +142,7 @@ namespace SocialPetApp.Droid
                 tipoSpin.Visibility = ViewStates.Invisible;
                 //emailTxt.Visibility = ViewStates.Invisible;
                 //celularTxt.Visibility = ViewStates.Invisible;
+                userSpin.Enabled = true;
             }
             else
             {
@@ -152,6 +155,7 @@ namespace SocialPetApp.Droid
                 tipoSpin.Visibility = ViewStates.Visible;
                 //emailTxt.Visibility = ViewStates.Invisible;
                 //celularTxt.Visibility = ViewStates.Invisible;
+                userSpin.Enabled = true;
             }
         }
 
@@ -184,12 +188,24 @@ namespace SocialPetApp.Droid
             else if(userSpin.SelectedItemPosition == 2)
             {
                 //que hacer si el usuario mantiene presionado un item mientras mira la lista de perros que subio
-                Intent i = new Intent(this, typeof(PerritoNuevo));
-                m = mascotaAdapter.mascotas[e.Position];
-                i.PutExtra("position", m.id_mas);
-                i.PutExtra("usuario", user.id_user);
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.SetTitle("Confirmar accion");
+                alert.SetMessage("Elija que desea hacer con esta mascota");
+                alert.SetPositiveButton("EDITAR", (senderAlert, args) =>
+                { 
+                    Intent i = new Intent(this, typeof(PerritoNuevo));
+                    m = mascotaAdapter.mascotas[e.Position];
+                    i.PutExtra("position", m.id_mas);
+                    i.PutExtra("usuario", user.id_user);
                 
-                StartActivity(i);
+                    StartActivity(i);
+                });
+                alert.SetNegativeButton("BORRAR", (senderAlert, args) => {
+                    m = mascotaAdapter.mascotas[e.Position];
+                    conMas.eliminarMascota(m);
+                });
+                Dialog dialog = alert.Create();
+                dialog.Show();
             }
             else
             {
