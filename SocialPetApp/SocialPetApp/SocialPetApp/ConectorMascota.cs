@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using Flurl;
 using Flurl.Http;
 using System.Threading.Tasks;
 using System.Linq;
-using Java.IO;
 using System.IO;
 
 namespace SocialPetApp
@@ -24,9 +21,9 @@ namespace SocialPetApp
 
         }
 
-        public async Task<List<Mascota>> ObtenerTodos(int pagina = 1)
+        public async Task<List<Mascota>> ObtenerTodos(int pagina = 1, int tipo = 0)
         {
-            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina}).WithBasicAuth(user.access_token,"").GetJsonListAsync();
+            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("todos").SetQueryParams(new { page = pagina, filtro = tipo}).WithBasicAuth(user.access_token,"").GetJsonListAsync();
             List<Mascota>  listFinal = new List<Mascota>();
             Mascota m;
             foreach(dynamic item in listMas)
@@ -100,9 +97,9 @@ namespace SocialPetApp
         }
 
 
-        public async Task<Paginador> ObtenerTodosHeader(int pagina = 1)
+        public async Task<Paginador> ObtenerTodosHeader(int pagina = 1, int tipo = 0)
         {
-            var listMas = await baseURL.AppendPathSegment(seccion).SetQueryParams(new { page = pagina }).WithBasicAuth(user.access_token, "").HeadAsync();
+            var listMas = await baseURL.AppendPathSegment(seccion).AppendPathSegment("todos").SetQueryParams(new { page = pagina, filtro = tipo }).WithBasicAuth(user.access_token, "").HeadAsync();
             var v = listMas.Headers;       
             return new Paginador(
                 Int32.Parse(v.GetValues("X-Pagination-Current-Page").Single<string>()),
