@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using Flurl;
 using Flurl.Http;
 using System.Threading.Tasks;
 using System.Linq;
-using Java.IO;
 using System.IO;
 
 namespace SocialPetApp

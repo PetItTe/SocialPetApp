@@ -18,6 +18,7 @@ namespace SocialPetApp.Droid {
 		public IList<Mascota> mascotas = new List<Mascota>();
         public static bool endOfList { get; set; }
         private ConectorMascota conMas;
+        Usuario user;
         
 
         public MascotaAdapter(Activity context, 
@@ -54,7 +55,7 @@ namespace SocialPetApp.Droid {
 			get { return mascotas.Count; }
 		}
 
-        public override Android.Views.View GetView (int position,
+        public override Android.Views.View GetView(int position,
             Android.Views.View convertView,
             Android.Views.ViewGroup parent)
         {
@@ -72,15 +73,21 @@ namespace SocialPetApp.Droid {
 
             var txtNombre = view.FindViewById<TextView>(Resource.Id.nombreText);
             var txtEdad = view.FindViewById<TextView>(Resource.Id.ageText);
-           // var txtTipo = view.FindViewById<TextView>(Resource.Id.typeText);
+            // var txtTipo = view.FindViewById<TextView>(Resource.Id.typeText);
             var mascImg = view.FindViewById<ImageView>(Resource.Id.mascImg);
             //var txtDueño = view.FindViewById<TextView>(Resource.Id.ownerText);
             var txtDescripcion = view.FindViewById<TextView>(Resource.Id.descText);
+            var txtMail = view.FindViewById<TextView>(Resource.Id.emailText);
+            var txtCel = view.FindViewById<TextView>(Resource.Id.telText);
 
 
             //Assign item's values to the various subviews
             txtNombre.Text = item.nombre;
             txtDescripcion.Text = item.descripcion;
+            txtMail.Text = user.email;
+            txtCel.Text = user.celular;
+
+
             //TE INSTALAS EL GLIDE DESDE NUGET
             //TODAVIA NO ANDA LOCO, AHORA ANDA A VER->OTRAS VENTANAS->CONSOLA DE ADMINISTRAR PAQUETES O ALGO ASI Y
             //PONES ESTE CODIGO Install-Package Xamarin.Android.Support.v4 -Version 23.0.1.3 sos imputable
@@ -94,7 +101,7 @@ namespace SocialPetApp.Droid {
                 txtTipo.Text = "GATO";
             }*/
             //txtDueño.Text = item.user_adopt.ToString();
-            txtEdad.Text = "Edad: " + item.edad.ToString() + (item.edad==1?" año":" años");
+            txtEdad.Text = "Edad: " + item.edad.ToString() + (item.edad == 1 ? " año" : " años");
 
             //Codigo loco
             //ESTO NO HACE UNA GOD DAMN SHIT
