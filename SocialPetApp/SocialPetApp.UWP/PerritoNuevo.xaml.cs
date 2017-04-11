@@ -12,6 +12,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.Media.Capture;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.Graphics.Imaging;
+
 
 // La plantilla de elemento Página en blanco está documentada en http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -29,6 +34,7 @@ namespace SocialPetApp.UWP
         EditorDePerritos editor;
         Usuario user;
         CameraPicture camera = new CameraPicture();
+        StorageFile photo = null;
 
         public PerritoNuevo()
         {
@@ -39,7 +45,7 @@ namespace SocialPetApp.UWP
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
+            
             try
             {
                 editor = (EditorDePerritos)e.Parameter;
@@ -56,34 +62,45 @@ namespace SocialPetApp.UWP
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
+            user = (Usuario)e.Parameter;
+            conMas = new ConectorMascota(user);
 
         }
 
-        private void confirmBtn_Click(object sender, RoutedEventArgs e)
+        private async void confirmBtn_Click(object sender, RoutedEventArgs e)
         {
             m.nombre = nombreBox.Text;
             m.descripcion = descripcionBox.Text;
             m.edad = int.Parse(edadBox.Text);
-            m.tipo = tipoBox.SelectedIndex+1;
-            if(edita)
+            m.tipo = tipoBox.SelectedIndex + 1;
+            if (edita)
             {
                 conMas.editarMascota(m);
             }
             else
             {
-                byte[] bitmapData;
-                using (var stream = new MemoryStream())
-                {
-                    WriteableBitmap bitmap = new WriteableBitmap(camera.bmp);
-                }
-                MemoryStream ms = new MemoryStream(bitmapData);
-                conMas.publicarMascota(m, ms);
+                
+                IRandomAccessStream stream = await photo.OpenAsync(FileAccessMode.Read);
+                conMas.publicarMascota(m, stream.AsStream());
             }
         }
 
-        private void image_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void image_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            camera.takePicture();
+            CameraCaptureUI captureUI = new CameraCaptureUI();
+            captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+            captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
+
+            photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+        }
+
+        private async void confirmBtn2_Click(object sender, RoutedEventArgs e)
+        {
+            CameraCaptureUI captureUI = new CameraCaptureUI();
+            captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+            captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
+
+            photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
         }
     }
 }

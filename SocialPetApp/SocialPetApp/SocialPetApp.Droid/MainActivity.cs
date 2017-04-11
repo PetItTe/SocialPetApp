@@ -193,12 +193,16 @@ namespace SocialPetApp.Droid
                 alert.SetMessage("Elija que desea hacer con esta mascota");
                 alert.SetPositiveButton("EDITAR", (senderAlert, args) =>
                 { 
-                    Intent i = new Intent(this, typeof(PerritoNuevo));
+                    Intent intent = new Intent(this, typeof(PerritoNuevo));
                     m = mascotaAdapter.mascotas[e.Position];
-                    i.PutExtra("position", m.id_mas);
-                    i.PutExtra("usuario", user.id_user);
-                
-                    StartActivity(i);
+                    intent.PutExtra("position", m.id_mas);
+                    intent.PutExtra("username", user.username);
+                    intent.PutExtra("access_token", user.access_token);
+                    intent.PutExtra("nombre", user.nombre);
+                    intent.PutExtra("roles", user.roles);
+                    intent.PutExtra("id_user", user.id_user);
+
+                    StartActivity(intent);
                 });
                 alert.SetNegativeButton("BORRAR", (senderAlert, args) => {
                     m = mascotaAdapter.mascotas[e.Position];

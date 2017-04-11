@@ -52,7 +52,7 @@ namespace SocialPetApp.UWP
 
         private void btnNuevo_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PerritoNuevo));
+            Frame.Navigate(typeof(PerritoNuevo), usuario);
         }
 
         private async void userBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
