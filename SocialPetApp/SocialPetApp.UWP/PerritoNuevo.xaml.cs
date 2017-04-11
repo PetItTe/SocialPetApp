@@ -22,9 +22,56 @@ namespace SocialPetApp.UWP
     /// </summary>
     public sealed partial class PerritoNuevo : Page
     {
+
+        bool edita = false;
+        Mascota m = new Mascota();
+        ConectorMascota conMas;
+        EditorDePerritos editor;
+        Usuario user;
+
         public PerritoNuevo()
         {
             this.InitializeComponent();
+            tipoBox.Items.Add("PERRO");
+            tipoBox.Items.Add("GATO");
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+
+            try
+            {
+                editor = (EditorDePerritos)e.Parameter;
+                m = editor.mascota;
+                user = editor.user;
+                conMas = new ConectorMascota(user);
+                nombreBox.Text = m.nombre;
+                descripcionBox.Text = m.descripcion;
+                edadBox.Text = m.edad.ToString();
+                tipoBox.SelectedIndex = m.tipo-1;
+                edita = true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+
+        }
+
+        private void confirmBtn_Click(object sender, RoutedEventArgs e)
+        {
+            m.nombre = nombreBox.Text;
+            m.descripcion = descripcionBox.Text;
+            m.edad = int.Parse(edadBox.Text);
+            m.tipo = tipoBox.SelectedIndex+1;
+            if(edita)
+            {
+                conMas.editarMascota(m);
+            }
+            else
+            {
+               // conMas.publicarMascota(m);
+            }
         }
     }
 }

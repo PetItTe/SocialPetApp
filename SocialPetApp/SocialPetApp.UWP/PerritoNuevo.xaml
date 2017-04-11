@@ -8,17 +8,17 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Image x:Name="image" Source="Assets/CameraIcon.png" HorizontalAlignment="Left" Height="57" Margin="150,10,0,0" VerticalAlignment="Top" Width="63" Stretch="Fill"/>
         <Image x:Name="image1" HorizontalAlignment="Left" Height="104" Margin="116,80,0,0" VerticalAlignment="Top" Width="136" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <CompositeTransform ScaleY="-1"/>
             </Image.RenderTransform>
         </Image>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" Width="340"/>
+        <ComboBox x:Name="tipoBox" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" Width="340"/>
         <TextBox x:Name="nombreBox" HorizontalAlignment="Left" Margin="10,235,0,0" TextWrapping="Wrap" PlaceholderText="Nombre Mascota" VerticalAlignment="Top" Width="340"/>
         <TextBox x:Name="edadBox" HorizontalAlignment="Left" Margin="10,272,0,0" TextWrapping="Wrap" PlaceholderText="Edad" InputScope="Number" VerticalAlignment="Top" Width="340"/>
         <TextBox x:Name="descripcionBox" HorizontalAlignment="Left" Margin="10,309,0,0" TextWrapping="Wrap" PlaceholderText="Descripcion" VerticalAlignment="Top" Width="340"/>
-        <Button x:Name="confirmBtn" Content="CONFIRMAR" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Height="29" Width="340"/>
+        <Button x:Name="confirmBtn" Content="CONFIRMAR" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Height="29" Width="340" Click="confirmBtn_Click"/>
+        <Image x:Name="image" Source="Assets\CameraIcon.png" HorizontalAlignment="Left" Height="57" Margin="150,10,0,0" VerticalAlignment="Top" Width="63"/>
 
     </Grid>
 </Page>

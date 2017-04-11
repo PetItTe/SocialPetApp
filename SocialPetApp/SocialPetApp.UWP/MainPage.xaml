@@ -26,13 +26,14 @@
 
 
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical" Margin="10,0,10,0" BorderBrush="Black" BorderThickness="1" Background="White" HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Vertical" Margin="10,0,10,0" BorderBrush="Black" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" IsRightTapEnabled="True" RightTapped="listaRightTapped">
 
+                                <TextBlock Text="{Binding id}" Visibility="Collapsed"/>
                                 <Image Source="{Binding foto}" Height="300" Width="1000" />
                                 <TextBlock Text="{Binding nombre}" TextAlignment="Center" />
                                 <TextBlock Text="{Binding edad}" TextAlignment="Center"/>
-                                <TextBlock Text="{Binding celular}" TextAlignment="Center" Visibility="Collapsed"/>
-                                <TextBlock Text="{Binding eMail}" TextAlignment="Center" Visibility="Collapsed"/>
+                                <TextBlock Text="{Binding celular}" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding eMail}" TextAlignment="Center"/>
                                 <TextBlock Text="{Binding descripcion}" TextAlignment="Center" />
 
                             </StackPanel>

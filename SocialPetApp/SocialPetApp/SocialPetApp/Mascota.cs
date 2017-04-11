@@ -49,8 +49,17 @@ namespace SocialPetApp
             edad = Convert.ToInt32(d.edad);
             tipo = Convert.ToInt32(d.tipo);
             foto = d.foto;
-            localidad = d.localidad;
-            username = d.username;
+            try
+            {
+                localidad = d.localidad;
+                username = d.username;
+            }
+            catch
+            {
+                localidad = "";
+                username = "";
+            }
+            
             user_alta = Convert.ToInt32(d.user_alta);
             user_adopt = Convert.ToInt32(d.user_adopt);
             estado = Convert.ToInt32(d.estado);
