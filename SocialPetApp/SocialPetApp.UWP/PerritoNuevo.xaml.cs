@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // La plantilla de elemento Página en blanco está documentada en http://go.microsoft.com/fwlink/?LinkId=234238
@@ -28,6 +28,7 @@ namespace SocialPetApp.UWP
         ConectorMascota conMas;
         EditorDePerritos editor;
         Usuario user;
+        CameraPicture camera = new CameraPicture();
 
         public PerritoNuevo()
         {
@@ -70,8 +71,19 @@ namespace SocialPetApp.UWP
             }
             else
             {
-               // conMas.publicarMascota(m);
+                byte[] bitmapData;
+                using (var stream = new MemoryStream())
+                {
+                    
+                }
+                MemoryStream ms = new MemoryStream(bitmapData);
+                conMas.publicarMascota(m, ms);
             }
+        }
+
+        private void image_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            camera.takePicture();
         }
     }
 }

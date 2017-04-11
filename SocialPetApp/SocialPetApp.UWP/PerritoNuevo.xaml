@@ -18,7 +18,7 @@
         <TextBox x:Name="edadBox" HorizontalAlignment="Left" Margin="10,272,0,0" TextWrapping="Wrap" PlaceholderText="Edad" InputScope="Number" VerticalAlignment="Top" Width="340"/>
         <TextBox x:Name="descripcionBox" HorizontalAlignment="Left" Margin="10,309,0,0" TextWrapping="Wrap" PlaceholderText="Descripcion" VerticalAlignment="Top" Width="340"/>
         <Button x:Name="confirmBtn" Content="CONFIRMAR" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Height="29" Width="340" Click="confirmBtn_Click"/>
-        <Image x:Name="image" Source="Assets\CameraIcon.png" HorizontalAlignment="Left" Height="57" Margin="150,10,0,0" VerticalAlignment="Top" Width="63"/>
+        <Image x:Name="image" Source="Assets\CameraIcon.png" HorizontalAlignment="Left" Height="57" Margin="150,10,0,0" VerticalAlignment="Top" Width="63" IsTapEnabled="True" Tapped="image_Tapped"/>
 
     </Grid>
 </Page>

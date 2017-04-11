@@ -136,6 +136,7 @@ namespace SocialPetApp.UWP
                     Content = "¿Poner nuevamente en adopcion la mascota?",
                     PrimaryButtonText = "CONFIRMAR",
                     SecondaryButtonText = "CANCELAR"
+                    
                 };
                 ContentDialogResult result = await ventanita.ShowAsync();
                 if (result == ContentDialogResult.Primary)
