@@ -115,9 +115,9 @@
     <None Include="SocialPetApp.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Assets\icon.png" />
-    <AndroidResource Include="Assets\CameraIcon.png" />
-    <AndroidResource Include="Assets\PlusIcon.png" />
+    <Content Include="Assets\icon.png" />
+    <Content Include="Assets\PlusIcon.png" />
+    <Content Include="Assets\CameraIcon.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

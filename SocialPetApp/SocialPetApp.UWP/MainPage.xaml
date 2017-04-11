@@ -32,9 +32,10 @@
                                 <Image Source="{Binding foto}" Height="300" Width="1000" />
                                 <TextBlock Text="{Binding nombre}" TextAlignment="Center" />
                                 <TextBlock Text="{Binding edad}" TextAlignment="Center"/>
-                                <TextBlock Name="celularText" TextWrapping="Wrap" Text="{Binding celular}" TextAlignment="Center" Visibility="Visible"/>
-                                <TextBlock Name="mailText" TextWrapping="Wrap" Text="{Binding eMail}" TextAlignment="Center" Visibility="Visible"/>
                                 <TextBlock Text="{Binding descripcion}" TextAlignment="Center" />
+                                <TextBlock x:Name="celularText" TextWrapping="Wrap" Text="{Binding celular}" TextAlignment="Center" Visibility="Visible"/>
+                                <TextBlock x:Name="mailText" TextWrapping="Wrap" Text="{Binding eMail}" TextAlignment="Center" Visibility="Visible"/>
+                               
 
                             </StackPanel>
                         </DataTemplate>
