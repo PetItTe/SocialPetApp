@@ -23,9 +23,8 @@ namespace SocialPetApp.UWP
     public sealed partial class MainPage : Page
     {
 
-        SocialPetApp.Usuario usuario = new SocialPetApp.Usuario();
-        
-        ConectorMascota conMas = new ConectorMascota(user);
+        Usuario usuario = new Usuario();
+        ConectorMascota conMas;
 
         public MainPage()
         {
@@ -43,6 +42,8 @@ namespace SocialPetApp.UWP
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            usuario = (Usuario)e.Parameter;
+            conMas = new ConectorMascota(usuario);
             lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos());  
         }
 
@@ -54,7 +55,7 @@ namespace SocialPetApp.UWP
         private async void userBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             userBox.IsEnabled = false;
-            if (tipoBox.SelectedItem.Equals("ADOPTADOS"))
+            if (userBox.SelectedItem.Equals("ADOPTADOS"))
             {
                 //que hacer si el usuario selecciona la opcion ADOPTADOS del spinner
                 lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerAdoptados());
@@ -64,7 +65,7 @@ namespace SocialPetApp.UWP
                 //celularTxt.Visibility = ViewStates.Visible;
                 userBox.IsEnabled = true;
             }
-            else if (tipoBox.SelectedItem.Equals("SUBIDOS"))
+            else if (userBox.SelectedItem.Equals("SUBIDOS"))
             {
                 //que hacer si el usuario selecciona la opcion SUBIDOS del spinner
                 lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerSubidos());
