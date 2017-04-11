@@ -111,26 +111,18 @@ namespace SocialPetApp
 
         public async void publicarMascota(Mascota m, Stream file)
         {
-            try {
-                var result = await baseURL
-                    .AppendPathSegment(seccion)
-                    .AppendPathSegment("upload")
-                    .WithBasicAuth(user.access_token, "")
-                     .PostMultipartAsync(mp => mp
-                     .AddFile("UploadForm[imageFile]", file, "foto.jpg")                    // local file path       // file stream
-                     .AddString("nombre", m.nombre)
-                     .AddString("descripcion", m.descripcion)
-                     .AddJson("edad", m.edad)
-                     .AddJson("tipo", m.tipo)
-                     );       // json; // URL-encoded                      
-             //   .PostJsonAsync(m.ToJSonPost());
+            var result = await baseURL
+                .AppendPathSegment(seccion)
+                .AppendPathSegment("upload")
+                .WithBasicAuth(user.access_token, "")
+                    .PostMultipartAsync(mp => mp
+                    .AddFile("UploadForm[imageFile]", file, "foto.jpg")                    // local file path       // file stream
+                    .AddString("nombre", m.nombre)
+                    .AddString("descripcion", m.descripcion)
+                    .AddJson("edad", m.edad)
+                    .AddJson("tipo", m.tipo)
+                    );       // json; // URL-encoded                      
 
-            }
-            catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                System.Diagnostics.Debug.WriteLine(e.Message);
-            }
         }
 
         public async void editarMascota(Mascota m)
