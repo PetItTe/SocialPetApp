@@ -23,21 +23,88 @@ namespace SocialPetApp.UWP
     public sealed partial class MainPage : Page
     {
 
+        SocialPetApp.Usuario usuario = new SocialPetApp.Usuario();
+        
+        ConectorMascota conMas = new ConectorMascota(user);
+
         public MainPage()
         {
             this.InitializeComponent();
-            lista.Margin = new Thickness(20, 20, 20, 2000);
+            userBox.Items.Add("HOME");
+            userBox.Items.Add("ADOPTADOS");
+            userBox.Items.Add("SUBIDOS");
+            tipoBox.Items.Add("TIPO");
+            tipoBox.Items.Add("PERROS");
+            tipoBox.Items.Add("GATOS");
+
+
+
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SocialPetApp.Usuario user = new SocialPetApp.Usuario();
-            user.access_token = "Su4A90QnlbDwjmIhZU9_AYCBrNe5aPDb";
-            ConectorMascota conMas = new ConectorMascota(user);
-            lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos());
-            lista.Margin = new Thickness(20,20,20,2000);
+            lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos());  
+        }
+
+        private void btnNuevo_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PerritoNuevo));
+        }
+
+        private async void userBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            userBox.IsEnabled = false;
+            if (tipoBox.SelectedItem.Equals("ADOPTADOS"))
+            {
+                //que hacer si el usuario selecciona la opcion ADOPTADOS del spinner
+                lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerAdoptados());
+                tipoBox.SelectedIndex = 0;
+                tipoBox.Visibility = Visibility.Collapsed;
+                //emailTxt.Visibility = ViewStates.Visible;
+                //celularTxt.Visibility = ViewStates.Visible;
+                userBox.IsEnabled = true;
+            }
+            else if (tipoBox.SelectedItem.Equals("SUBIDOS"))
+            {
+                //que hacer si el usuario selecciona la opcion SUBIDOS del spinner
+                lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerSubidos());
+                tipoBox.SelectedIndex = 0;
+                tipoBox.Visibility = Visibility.Collapsed;
+                //emailTxt.Visibility = ViewStates.Invisible;
+                //celularTxt.Visibility = ViewStates.Invisible;
+                userBox.IsEnabled = true;
+            }
+            else
+            {
+                //que hacer si el usuario selecciona la opcion HOME del spinner
+                lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos());
+                //paginador = await conMas.ObtenerTodosHeader(paginaActual);
+                tipoBox.Visibility = Visibility.Collapsed;
+                //emailTxt.Visibility = ViewStates.Invisible;
+                //celularTxt.Visibility = ViewStates.Invisible;
+                userBox.IsEnabled = true;
+            }
+        }
+
+        private async void tipoBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             
-            
+            if (tipoBox.SelectedItem.Equals("PERROS"))
+            {
+                //que hacer si el usuario selecciona la opcion PERRO del spinner
+                lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos(1 , Mascota.TIPO_PERRO));
+                
+            }
+            else if (tipoBox.SelectedItem.Equals("GATOS"))
+            {
+                //que hacer si el usuario selecciona la opcion GATO del spinner
+                lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos(1, Mascota.TIPO_GATO));
+            }
+            else
+            {
+                //que hacer si el usuario selecciona la opcion TIPO del spinner
+                lista.ItemsSource = MascotaAdapter.obtenerTodos(await conMas.ObtenerTodos());
+            }
         }
     }
 }
