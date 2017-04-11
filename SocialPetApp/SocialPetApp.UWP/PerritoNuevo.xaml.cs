@@ -74,7 +74,7 @@ namespace SocialPetApp.UWP
                 byte[] bitmapData;
                 using (var stream = new MemoryStream())
                 {
-                    
+                    WriteableBitmap bitmap = new WriteableBitmap(camera.bmp);
                 }
                 MemoryStream ms = new MemoryStream(bitmapData);
                 conMas.publicarMascota(m, ms);
