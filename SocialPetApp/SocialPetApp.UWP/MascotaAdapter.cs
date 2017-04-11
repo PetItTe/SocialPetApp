@@ -23,9 +23,15 @@ namespace SocialPetApp.UWP
             {
                 Uri myUri = new Uri(m.getFotoURL(), UriKind.Absolute);
                 BitmapImage bmp = new BitmapImage(myUri);
-                
-                mascotaAdapter.Add(new MascotaAdapter { foto = new BitmapImage(myUri), nombre = "Nombre: "+m.nombre, edad = "Edad: "+m.edad.ToString(), celular = "Celular: "+"", eMail = "Email: "+"", descripcion = "Descripcion: "+m.descripcion });
-                
+                if (m.cel.Equals(""))
+                {
+                    mascotaAdapter.Add(new MascotaAdapter { foto = new BitmapImage(myUri), nombre = "Nombre: " + m.nombre, edad = "Edad: " + m.edad.ToString(), descripcion = "Descripcion: " + m.descripcion });
+                }
+                else
+                {
+                    mascotaAdapter.Add(new MascotaAdapter { foto = new BitmapImage(myUri), nombre = "Nombre: " + m.nombre, edad = "Edad: " + m.edad.ToString(), celular = "Celular: " + m.cel, eMail = "Email: " + m.email, descripcion = "Descripcion: " + m.descripcion });
+                }
+
             }
             return mascotaAdapter; 
         }
