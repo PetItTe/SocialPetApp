@@ -33,8 +33,8 @@ namespace SocialPetApp.UWP
         ConectorMascota conMas;
         EditorDePerritos editor;
         Usuario user;
-        CameraPicture camera = new CameraPicture();
         StorageFile photo = null;
+        IRandomAccessStream stream;
 
         public PerritoNuevo()
         {
@@ -67,7 +67,7 @@ namespace SocialPetApp.UWP
 
         }
 
-        private async void confirmBtn_Click(object sender, RoutedEventArgs e)
+        private void confirmBtn_Click(object sender, RoutedEventArgs e)
         {
             m.nombre = nombreBox.Text;
             m.descripcion = descripcionBox.Text;
@@ -79,19 +79,30 @@ namespace SocialPetApp.UWP
             }
             else
             {
-                
-                IRandomAccessStream stream = await photo.OpenAsync(FileAccessMode.Read);
                 conMas.publicarMascota(m, stream.AsStream());
             }
         }
 
         private async void image_Tapped(object sender, TappedRoutedEventArgs e)
         {
+
             CameraCaptureUI captureUI = new CameraCaptureUI();
             captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+
             captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
 
             photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+            stream = await photo.OpenAsync(FileAccessMode.Read);
+            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+            SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+            SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
+            BitmapPixelFormat.Bgra8,
+            BitmapAlphaMode.Premultiplied);
+
+            SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
+            await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
+
+            imgPhoto.Source = bitmapSource;
         }
 
         private async void confirmBtn2_Click(object sender, RoutedEventArgs e)

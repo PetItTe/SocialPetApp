@@ -60,6 +60,7 @@ namespace SocialPetApp.UWP
             userBox.IsEnabled = false;
             if (userBox.SelectedItem.Equals("ADOPTADOS"))
             {
+                
                 //que hacer si el usuario selecciona la opcion ADOPTADOS del spinner
                 MascotaAdapter.mascotaAdapter = MascotaAdapter.obtenerTodos(await conMas.ObtenerAdoptados());
                 lista.ItemsSource = MascotaAdapter.mascotaAdapter;
