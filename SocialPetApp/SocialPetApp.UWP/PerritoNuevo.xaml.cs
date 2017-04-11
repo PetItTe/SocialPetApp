@@ -81,37 +81,33 @@ namespace SocialPetApp.UWP
             {
                 conMas.publicarMascota(m, stream.AsStream());
             }
+            Frame.Navigate(typeof(MainPage));
         }
 
         private async void image_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            try
+            {
+                CameraCaptureUI captureUI = new CameraCaptureUI();
+                captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
 
-            CameraCaptureUI captureUI = new CameraCaptureUI();
-            captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+                captureUI.PhotoSettings.CroppedSizeInPixels = new Size(1280, 720);
 
-            captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
+                photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+                stream = await photo.OpenAsync(FileAccessMode.Read);
+                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+                SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
+                BitmapPixelFormat.Bgra8,
+                BitmapAlphaMode.Premultiplied);
 
-            photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
-            stream = await photo.OpenAsync(FileAccessMode.Read);
-            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-            SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-            SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
-            BitmapPixelFormat.Bgra8,
-            BitmapAlphaMode.Premultiplied);
+                SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
+                await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
 
-            SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
-            await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
+                imgPhoto.Visibility = Visibility.Visible;
+                imgPhoto.Source = bitmapSource;
 
-            imgPhoto.Source = bitmapSource;
-        }
-
-        private async void confirmBtn2_Click(object sender, RoutedEventArgs e)
-        {
-            CameraCaptureUI captureUI = new CameraCaptureUI();
-            captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
-            captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
-
-            photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+            }catch { }
         }
     }
 }
