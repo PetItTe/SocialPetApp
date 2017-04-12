@@ -29,10 +29,10 @@
                             <StackPanel Orientation="Vertical" Margin="10,0,10,0" BorderBrush="Black" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" IsTapEnabled="True" Tapped="listaTapped">
 
                                 <TextBlock Text="{Binding id}" Visibility="Collapsed"/>
-                                <Image Source="{Binding foto}" Height="300" Width="1000" />
+                                <Image Source="{Binding foto}" Height="300" Width="1000" HorizontalAlignment="Stretch"/>
                                 <TextBlock Text="{Binding nombre}" TextAlignment="Center" />
                                 <TextBlock Text="{Binding edad}" TextAlignment="Center"/>
-                                <TextBlock Text="{Binding descripcion}" TextAlignment="Center" />
+                                <TextBlock Text="{Binding descripcion}" TextAlignment="Center"  TextWrapping="Wrap"/>
                                 <TextBlock x:Name="celularText" TextWrapping="Wrap" Text="{Binding celular}" TextAlignment="Center" Visibility="Visible"/>
                                 <TextBlock x:Name="mailText" TextWrapping="Wrap" Text="{Binding eMail}" TextAlignment="Center" Visibility="Visible"/>
                                
