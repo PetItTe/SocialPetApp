@@ -118,7 +118,7 @@ namespace SocialPetApp.UWP
             }
         }
 
-        private async void listaRightTapped(object sender, RightTappedRoutedEventArgs e)
+        private async void listaTapped(object sender, TappedRoutedEventArgs e)
         {
 
             MascotaAdapter ma = new MascotaAdapter();

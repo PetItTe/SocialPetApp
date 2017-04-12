@@ -51,18 +51,17 @@ namespace SocialPetApp.UWP
                 editor = (EditorDePerritos)e.Parameter;
                 m = editor.mascota;
                 user = editor.user;
-                conMas = new ConectorMascota(user);
                 nombreBox.Text = m.nombre;
                 descripcionBox.Text = m.descripcion;
                 edadBox.Text = m.edad.ToString();
                 tipoBox.SelectedIndex = m.tipo-1;
+                btnPhoto.Visibility = Visibility.Collapsed;
                 edita = true;
             }
-            catch (Exception ex)
+            catch
             {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                user = (Usuario)e.Parameter;
             }
-            user = (Usuario)e.Parameter;
             conMas = new ConectorMascota(user);
 
         }
@@ -81,7 +80,12 @@ namespace SocialPetApp.UWP
             {
                 conMas.publicarMascota(m, stream.AsStream());
             }
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(MainPage),user);
+        }
+
+        private void cancelarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage), user);
         }
 
         private async void image_Tapped(object sender, TappedRoutedEventArgs e)

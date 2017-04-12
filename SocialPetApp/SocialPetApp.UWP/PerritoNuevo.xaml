@@ -11,14 +11,15 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-            <Image Source="Assets/CameraIcon.png" Visibility="Visible" Height="50" Width="50" IsTapEnabled="True" Tapped="image_Tapped"></Image>
+            <Image x:Name="btnPhoto" Source="Assets/CameraIcon.png" Visibility="Visible" Height="50" Width="50" IsTapEnabled="True" Tapped="image_Tapped"></Image>
             <Image x:Name="imgPhoto" Height="200" Width="200" Visibility="Collapsed" Margin="20,20,20,20" />
             <ComboBox x:Name="tipoBox" HorizontalAlignment="Stretch" Margin="20,10,20,0" VerticalAlignment="Top" />
             <TextBox x:Name="nombreBox" HorizontalAlignment="Stretch" Margin="20,10,20,0"  PlaceholderText="Nombre Mascota" VerticalAlignment="Top"/>
             <TextBox x:Name="edadBox" HorizontalAlignment="Stretch" Margin="20,10,20,0"  PlaceholderText="Edad" InputScope="Number" VerticalAlignment="Top" />
             <TextBox x:Name="descripcionBox" HorizontalAlignment="Stretch" Margin="20,10,20,0"  PlaceholderText="Descripcion" VerticalAlignment="Top" />
             <Button x:Name="confirmBtn" Content="CONFIRMAR" HorizontalAlignment="Stretch" Margin="20,10,20,0" VerticalAlignment="Top" Height="29" Click="confirmBtn_Click"/>
-
+            <Button x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Stretch" Margin="20,10,20,0" VerticalAlignment="Top" Height="29" Click="cancelarBtn_Click"/>
+            
         </StackPanel>
     </Grid>
 </Page>

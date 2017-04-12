@@ -26,7 +26,7 @@
 
 
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical" Margin="10,0,10,0" BorderBrush="Black" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" IsRightTapEnabled="True" RightTapped="listaRightTapped">
+                            <StackPanel Orientation="Vertical" Margin="10,0,10,0" BorderBrush="Black" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" IsTapEnabled="True" Tapped="listaTapped">
 
                                 <TextBlock Text="{Binding id}" Visibility="Collapsed"/>
                                 <Image Source="{Binding foto}" Height="300" Width="1000" />
