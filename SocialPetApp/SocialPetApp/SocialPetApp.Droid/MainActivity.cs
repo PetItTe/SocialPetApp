@@ -64,7 +64,7 @@ namespace SocialPetApp.Droid
             userSpin.ItemSelected += userClickItem;
             tipoSpin.ItemSelected += tipoClickItem;
 
-            mascotasList.ItemLongClick += mascotaLongClick;
+            mascotasList.ItemClick += mascotaClick;
 
 
             try
@@ -92,12 +92,14 @@ namespace SocialPetApp.Droid
 
         private async void tipoClickItem(object sender, AdapterView.ItemSelectedEventArgs e)
         {
+            tipoSpin.Enabled = false;
             if (tipoSpin.SelectedItemPosition == Mascota.TIPO_PERRO)
             {
                 //que hacer si el usuario selecciona la opcion PERRO del spinner
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerTodos(paginaActual, Mascota.TIPO_PERRO), conMas, userSpin.SelectedItemPosition);
                 mascotasList.Adapter = mascotaAdapter;
+                tipoSpin.Enabled = true;
             }
             else if (tipoSpin.SelectedItemPosition == Mascota.TIPO_GATO)
             {
@@ -105,6 +107,7 @@ namespace SocialPetApp.Droid
                 mascotaAdapter = new MascotaAdapter(
                  this, await conMas.ObtenerTodos(paginaActual, Mascota.TIPO_GATO), conMas, userSpin.SelectedItemPosition);
                 mascotasList.Adapter = mascotaAdapter;
+                tipoSpin.Enabled = true;
             }
             else
             {
@@ -114,6 +117,7 @@ namespace SocialPetApp.Droid
                  this, await conMas.ObtenerTodos(paginaActual), conMas, userSpin.SelectedItemPosition);
                // paginador = await conMas.ObtenerTodosHeader(paginaActual);
                 mascotasList.Adapter = mascotaAdapter;
+                tipoSpin.Enabled = true;
             }
         }
 
@@ -159,7 +163,7 @@ namespace SocialPetApp.Droid
             }
         }
 
-        private void mascotaLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        private void mascotaClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Mascota m = new Mascota();
             //m = (Mascota)e.Handled;

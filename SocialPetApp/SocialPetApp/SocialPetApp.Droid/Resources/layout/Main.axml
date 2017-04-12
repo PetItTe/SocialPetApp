@@ -6,18 +6,18 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="49.5dp"
-        android:background="@android:color/darker_gray">
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/userSpinner"
-            android:prompt="@string/userOpt_prompt"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp" />
+        android:layout_height="49.5dp">
         <FrameLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/bottom_bar">
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/userSpinner"
+                android:prompt="@string/userOpt_prompt"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp" />
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
