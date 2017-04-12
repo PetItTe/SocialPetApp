@@ -22,7 +22,6 @@ namespace SocialPetApp.Droid
     public class PerritoNuevo : Activity
     {
         EditText nombreText;
-        EditText fotoText;
         EditText edadText;
         EditText descripcionText;
         Spinner tipoSpin;
@@ -56,8 +55,6 @@ namespace SocialPetApp.Droid
             nombreText = FindViewById<EditText>(Resource.Id.nombreText);
             edadText = FindViewById<EditText>(Resource.Id.edadText);
             descripcionText = FindViewById<EditText>(Resource.Id.descText);
-            fotoText = FindViewById<EditText>(Resource.Id.imgText);
-            fotoText.Enabled = false;
             tipoSpin = FindViewById<Spinner>(Resource.Id.tipoSpinner);
             fotoView = FindViewById<ImageView>(Resource.Id.fotoImg);
             
@@ -85,11 +82,11 @@ namespace SocialPetApp.Droid
 
             if (id > 0)
             {
+                cameraButton.Visibility = ViewStates.Gone;
                 mascota = await conMas.ObtenerID(id);
                 nombreText.Text = mascota.nombre;
                 edadText.Text = mascota.edad.ToString();
                 descripcionText.Text = mascota.descripcion;
-                fotoText.Text = mascota.foto;
                 if(mascota.tipo == 1)
                 {
                     tipoSpin.SetSelection(0);
@@ -132,13 +129,11 @@ namespace SocialPetApp.Droid
             else
             {
                 mascota.nombre = nombreText.Text;
-                mascota.foto = fotoText.Text;
                 mascota.estado = 1;
                 mascota.descripcion = descripcionText.Text;
                 mascota.edad = int.Parse(edadText.Text);
                 mascota.tipo = tipoSpin.SelectedItemPosition+1;
                 mascota.user_alta = user.id_user;
-                mascota.foto = fotoText.Text;
                 if (id > -1)
                 {
                     conMas.editarMascota(mascota);
