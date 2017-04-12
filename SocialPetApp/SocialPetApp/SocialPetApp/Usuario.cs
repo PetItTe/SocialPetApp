@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Reflection;
+
 
 namespace SocialPetApp
 {
     public class Usuario
     {
-        public int id_user;
+        public int id_user { get; set; }
         public string nombre { get; set; }
         public string access_token { get; set; }
         public string username { get; set; }
@@ -12,9 +17,8 @@ namespace SocialPetApp
         public string localidad { get; set; }
         public string celular { get; set; }
         public string email { get; set; }
-        public int roles;
-        private int v1;
-        private string v2;
+        public int roles { get; set; }
+
 
         public Usuario()
         {
@@ -41,19 +45,39 @@ namespace SocialPetApp
 
         public Usuario(dynamic d)
         {
-            id_user = Convert.ToInt32(d.id_user); 
-            nombre = d.nombre;
-            access_token = d.access_token;
-            username = d.username;
-            roles = Convert.ToInt32(d.roles);
-            password = "";
+
+            IDictionary<string, object> dictionary_object = d;
+
+            foreach (var prop in this.GetType().GetRuntimeProperties())
+            {
+                try
+                {
+                    if(prop.PropertyType == typeof(Int32))
+                    {
+                        prop.SetValue(this, Convert.ToInt32(dictionary_object[prop.Name]));
+                    }
+                    else if(prop.PropertyType == typeof(String))
+                    {
+                        prop.SetValue(this, dictionary_object[prop.Name]);
+                    }                  
+                }
+                catch(Exception e)
+                {
+                    if (prop.PropertyType == typeof(Int32))
+                    {
+                        prop.SetValue(this, 0);
+                    }
+                    else if (prop.PropertyType == typeof(String))
+                    {
+                        prop.SetValue(this, "");
+                    }
+                }
+                
+
+            }
+
         }
 
-        public Usuario(int v1, string v2)
-        {
-            this.v1 = v1;
-            this.v2 = v2;
-        }
 
         public object ToJSonPost()
         {
