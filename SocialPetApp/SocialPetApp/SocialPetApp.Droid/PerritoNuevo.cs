@@ -33,7 +33,7 @@ namespace SocialPetApp.Droid
         Mascota mascota = new Mascota();
         Usuario user = new Usuario();
         ConectorMascota conMas;
-        
+
 
         public static class App
         {
@@ -60,7 +60,7 @@ namespace SocialPetApp.Droid
             fotoText.Enabled = false;
             tipoSpin = FindViewById<Spinner>(Resource.Id.tipoSpinner);
             fotoView = FindViewById<ImageView>(Resource.Id.fotoImg);
-            
+
             fotoView.Visibility = ViewStates.Invisible;
 
             var adapter = ArrayAdapter.CreateFromResource(
@@ -72,16 +72,12 @@ namespace SocialPetApp.Droid
 
             cameraButton.Click += ClickCamera;
 
-            nombreText.FocusChange += focusTextField;
-            descripcionText.FocusChange += focusTextField;
-            edadText.FocusChange += focusTextField;
-
             user = new Usuario(Intent.GetIntExtra("id_user", 0), Intent.GetStringExtra("nombre"), Intent.GetStringExtra("access_token"), Intent.GetStringExtra("username"), Intent.GetIntExtra("roles", 0));
 
             id = Intent.GetIntExtra("position", -1);
 
             conMas = new ConectorMascota(user);
-            
+
 
             if (id > 0)
             {
@@ -90,7 +86,7 @@ namespace SocialPetApp.Droid
                 edadText.Text = mascota.edad.ToString();
                 descripcionText.Text = mascota.descripcion;
                 fotoText.Text = mascota.foto;
-                if(mascota.tipo == 1)
+                if (mascota.tipo == 1)
                 {
                     tipoSpin.SetSelection(0);
                 }
@@ -100,50 +96,45 @@ namespace SocialPetApp.Droid
                 }
             }
 
-            
+
             // Create your application here
-        }
-
-        private void focusTextField(object sender, View.FocusChangeEventArgs e)
-        {
-            //al dar click al objeto
-            EditText textField = (EditText) sender;
-            if(e.HasFocus)
-            {
-                cleanTextField(textField);
-            }
-
-        }
-
-        private void cleanTextField(object sender)
-        {
-            //que hacer si se da click en un textfield
-            EditText textField = (EditText) sender;
-            textField.Text = "";
         }
 
         private void ClickAdd(object sender, EventArgs e)
         {
-            //que hacer cuando se da click al boton add
-            if(nombreText.Text.Equals("")||nombreText.Text.Equals("Name of the pet")||edadText.Text.Equals("pet age"))
+
+            mascota.nombre = nombreText.Text;
+            mascota.foto = fotoText.Text;
+            mascota.estado = 1;
+            mascota.descripcion = descripcionText.Text;
+            mascota.edad = int.Parse(edadText.Text);
+            mascota.tipo = tipoSpin.SelectedItemPosition + 1;
+            mascota.user_alta = user.id_user;
+            mascota.foto = fotoText.Text;
+            if (id > -1)
             {
-                edadText.Text = "";
+                try
+                {
+                    conMas.editarMascota(mascota);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.SetMessage("Su mascota se publico con exito!");
+                    alert.SetPositiveButton("Aceptar", (senderAlert, args) => {
+                        Finish();
+                    });
+                    Dialog dialog = alert.Create();
+                    dialog.Show();
+                    
+                }
+                catch (Exception e2)
+                {
+                    Toast missdata = Toast.MakeText(this, "Hubo un error al editar su mascota, intentelo nuevamente.", ToastLength.Short);
+                    missdata.Show();
+                }
+
             }
             else
             {
-                mascota.nombre = nombreText.Text;
-                mascota.foto = fotoText.Text;
-                mascota.estado = 1;
-                mascota.descripcion = descripcionText.Text;
-                mascota.edad = int.Parse(edadText.Text);
-                mascota.tipo = tipoSpin.SelectedItemPosition+1;
-                mascota.user_alta = user.id_user;
-                mascota.foto = fotoText.Text;
-                if (id > -1)
-                {
-                    conMas.editarMascota(mascota);
-                }
-                else
+                try
                 {
                     byte[] bitmapData;
                     using (var stream = new MemoryStream())
@@ -153,11 +144,25 @@ namespace SocialPetApp.Droid
                     }
                     MemoryStream ms = new MemoryStream(bitmapData);
                     conMas.publicarMascota(mascota, ms);
-
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.SetMessage("Su mascota se publico con exito!");
+                    alert.SetPositiveButton("Aceptar", (senderAlert, args) => {
+                        Finish();
+                    });
+                    Dialog dialog = alert.Create();
+                    dialog.Show();
                 }
-                Finish();
+                catch (Exception e2)
+                {
+                    Toast missdata = Toast.MakeText(this, "Hubo un error al crear su mascota, intentelo nuevamente.", ToastLength.Short);
+                    missdata.Show();
+                }
+
+
             }
-            
+
+
+
         }
 
         private void CreateDirectoryForPictures()
@@ -181,11 +186,11 @@ namespace SocialPetApp.Droid
             return availableActivities != null && availableActivities.Count > 0;
         }
 
-        private void ClickCamera (object sender, EventArgs eventArgs)
+        private void ClickCamera(object sender, EventArgs eventArgs)
         {
             //que hacer cuando se le da click a la imagen de la camara
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-            App._file = new Java.IO.File(App._dir, String.Format(user.nombre+"{0}.Jpeg", Guid.NewGuid()));
+            App._file = new Java.IO.File(App._dir, String.Format(user.nombre + "{0}.Jpeg", Guid.NewGuid()));
             intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(App._file));
             StartActivityForResult(intent, 0);
         }
@@ -206,15 +211,15 @@ namespace SocialPetApp.Droid
             // Loading the full sized image will consume to much memory
             // and cause the application to crash.
 
-          //  int height = Resources.DisplayMetrics.HeightPixels;
-           // int width = cameraButton.Height;
+            //  int height = Resources.DisplayMetrics.HeightPixels;
+            // int width = cameraButton.Height;
             App.bitmap = App._file.Path.LoadAndResizeBitmap(1280, 720);
             if (App.bitmap != null)
             {
                 fotoView.SetImageBitmap(App.bitmap);
                 fotoView.LayoutParameters = new LinearLayout.LayoutParams(300, 300);
                 fotoView.Visibility = ViewStates.Visible;
-              //  App.bitmap = null;
+                //  App.bitmap = null;
             }
 
             // Dispose of the Java side bitmap.
