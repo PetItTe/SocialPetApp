@@ -111,7 +111,7 @@ namespace SocialPetApp
 
         public async void publicarMascota(Mascota m, Stream file)
         {
-            var result = await baseURL
+            dynamic result = await baseURL
                 .AppendPathSegment(seccion)
                 .AppendPathSegment("upload")
                 .WithBasicAuth(user.access_token, "")

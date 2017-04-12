@@ -1,5 +1,7 @@
 ﻿using System;
 using Flurl;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace SocialPetApp
 {
@@ -43,40 +45,36 @@ namespace SocialPetApp
 
         public Mascota(dynamic d)
         {
-            id_mas = Convert.ToInt32(d.id_mas);
-            nombre = d.nombre;
-            descripcion = d.descripcion;
-            edad = Convert.ToInt32(d.edad);
-            tipo = Convert.ToInt32(d.tipo);
-            foto = d.foto;
-            try
-            {
-                localidad = d.localidad;
-                username = d.username;
-            }
-            catch
-            {
-                localidad = "";
-                username = "";
-            }
-            
-            user_alta = Convert.ToInt32(d.user_alta);
-            user_adopt = Convert.ToInt32(d.user_adopt);
-            estado = Convert.ToInt32(d.estado);
+            IDictionary<string, object> dictionary_object = d;
 
-            try
+            foreach (var prop in this.GetType().GetRuntimeProperties())
             {
-                persona = d.persona;
-                email = d.email;
-                cel = d.cel;
+                try
+                {
+                    if (prop.PropertyType == typeof(Int32))
+                    {
+                        prop.SetValue(this, Convert.ToInt32(dictionary_object[prop.Name]));
+                    }
+                    else if (prop.PropertyType == typeof(String))
+                    {
+                        prop.SetValue(this, dictionary_object[prop.Name]);
+                    }
+                }
+                catch (Exception e)
+                {
+                    if (prop.PropertyType == typeof(Int32))
+                    {
+                        prop.SetValue(this, 0);
+                    }
+                    else if (prop.PropertyType == typeof(String))
+                    {
+                        prop.SetValue(this, "");
+                    }
+                }
+
+
             }
-            catch
-            {
-                persona = "";
-                email = "";
-                cel = "";
-            }
-            
+
         }
 
         public Mascota(string nombre, string descripcion, int edad, int tipo, string foto, int user_alta)
