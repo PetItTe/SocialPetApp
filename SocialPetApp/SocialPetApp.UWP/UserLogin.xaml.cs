@@ -65,7 +65,7 @@ namespace SocialPetApp.UWP
             user.password = passBox.Password;
             user.username = userBox.Text;
             user.email = mailBox.Text;
-            user.celular = celBox.Text;
+            user.cel = celBox.Text;
             user.localidad = localidadBox.Text;
             try
             {

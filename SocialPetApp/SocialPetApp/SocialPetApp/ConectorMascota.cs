@@ -134,7 +134,7 @@ namespace SocialPetApp
                 .PutJsonAsync(m.ToJSonPut());
         }           
 
-        public async void adoptarMascota(Mascota m)
+        public async Task<Usuario> adoptarMascota(Mascota m)
         {
             var result = await baseURL
                 .AppendPathSegment(seccion)
@@ -142,6 +142,8 @@ namespace SocialPetApp
                 .SetQueryParams(new { id = m.id_mas })
                 .WithBasicAuth(user.access_token, "")
                 .GetJsonAsync();
+
+            return new Usuario(result);
         }
 
         public async void eliminarMascota(Mascota m)

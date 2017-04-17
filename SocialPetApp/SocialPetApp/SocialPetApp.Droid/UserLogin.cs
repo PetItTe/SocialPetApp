@@ -88,7 +88,7 @@ namespace SocialPetApp.Droid
                 user.password = passwordTxt.Text;
                 user.username = userTxt.Text;
                 user.email = mailTxt.Text;
-                user.celular = celTxt.Text;
+                user.cel = celTxt.Text;
                 user.localidad = locTxt.Text;
                 nameTxt.Enabled = false;
                 passwordTxt.Enabled = false;

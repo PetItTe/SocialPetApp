@@ -222,12 +222,14 @@ namespace SocialPetApp.Droid
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Confirmar adopcion");
                 alert.SetMessage("¿Queres adoptar a esta mascota?");
-                alert.SetPositiveButton("ADOPTAR", (senderAlert, args) =>
+                Usuario owner = null;
+                alert.SetPositiveButton("ADOPTAR", async (senderAlert, args) =>
                 {
                     m = mascotaAdapter.mascotas[e.Position];
-                    conMas.adoptarMascota(m);
+                    owner = await conMas.adoptarMascota(m);
                     mascotaAdapter.mascotas.Remove(m);
                     mascotasList.Adapter = mascotaAdapter;
+                    mostrarDueno(owner, m);
                 });
 
                 alert.SetNegativeButton("CANCELAR", (senderAlert, args) => {
@@ -236,6 +238,8 @@ namespace SocialPetApp.Droid
 
                 Dialog dialog = alert.Create();
                 dialog.Show();
+
+
             }
         }
 
@@ -254,7 +258,42 @@ namespace SocialPetApp.Droid
         }
 
         
+        private void mostrarDueno(Usuario owner, Mascota m)
+        {
 
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle(m.nombre + " fue adopado!");
+            string men = "Informacion de contacto\n";
+            men += "Nombre:\n" + owner.nombre + "\n";
+            men += "Telefono:\n" + owner.cel + "\n";
+            men += "Email:\n" + owner.email;
+
+            alert.SetMessage(men);
+
+            alert.SetPositiveButton("Aceptar", (senderAlert, args) =>
+            {
+                // do nothing
+            });
+            alert.SetNeutralButton("Copiar Telefono", delegate {
+                // Create intent to dial phone
+                ClipboardManager clipboard = (ClipboardManager)GetSystemService(Context.ClipboardService);
+                ClipData clip = ClipData.NewPlainText(owner.cel, owner.cel);
+                clipboard.PrimaryClip = clip;
+
+
+            });
+            alert.SetNegativeButton("Copiar Email", delegate {
+                // Create intent to dial phone
+                ClipboardManager clipboard = (ClipboardManager)GetSystemService(Context.ClipboardService);
+                ClipData clip = ClipData.NewPlainText(owner.cel, owner.email);
+                clipboard.PrimaryClip = clip;
+
+
+            });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
+        }
 
 
         public void OnScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)

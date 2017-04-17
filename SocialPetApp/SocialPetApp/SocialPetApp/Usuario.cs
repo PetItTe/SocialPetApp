@@ -15,7 +15,7 @@ namespace SocialPetApp
         public string username { get; set; }
         public string password { get; set; }
         public string localidad { get; set; }
-        public string celular { get; set; }
+        public string cel { get; set; }
         public string email { get; set; }
         public int roles { get; set; }
 
@@ -87,7 +87,7 @@ namespace SocialPetApp
                 username = this.username,
                 password = this.password,
                 email = this.email,
-                cel = this.celular,
+                cel = this.cel,
                 localidad = this.localidad
             };
         }
